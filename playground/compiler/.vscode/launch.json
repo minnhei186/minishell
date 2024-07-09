@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/dhosokaw/42/level03/myminishell/playground/compiler",
+      "program": "/Users/dhosokaw/42/level03/myminishell/playground/compiler/a.out"
+    }
+  ]
+}
