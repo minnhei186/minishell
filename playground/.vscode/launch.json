@@ -7,7 +7,7 @@
       "request": "launch",
       "args": [],
       "cwd": "/Users/dhosokaw/42/level03/myminishell/playground/readline",
-      "program": "/Users/dhosokaw/42/level03/myminishell/playground/readline/build/Debug/outDebug"
+      "program": "/Users/dhosokaw/42/level03/myminishell/playground/readline/a.out"
     }
   ]
 }
