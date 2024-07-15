@@ -6,13 +6,13 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:35:53 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/15 15:37:24 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/15 15:44:29 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 
-void						fatal_error(const char *msg) __attribute__((noreturn));
+void	fatal_error(const char *msg) __attribute__((noreturn));
 
 t_token	*new_token(char *word, t_token_kind kind, t_token *current)
 {
@@ -25,37 +25,6 @@ t_token	*new_token(char *word, t_token_kind kind, t_token *current)
 	tok->kind = kind;
 	current->next = tok;
 	return (tok);
-}
-
-bool	is_blank(char c)
-{
-	return (c == ' ' || c == '\t' || c == '\n');
-}
-
-bool	is_metacharacter(char c)
-{
-	return (c && strchr("|&;*() <>\t\n", c));
-}
-
-bool	operators_cmp(char *str, char *key_op)
-{
-	return (memcmp(str,key_op,strlen(key_op))==0);
-}
-
-bool	is_operator(char *input_p)
-{
-	size_t	i;
-
-	static char *const operators[] = {"||", "&", "&&", ";", ";;", "(", ")", "|",
-		"\n"};
-	i = 0;
-	while (i < sizeof(operators) / sizeof(*operators))
-	{
-		if (operators_cmp(input_p, operators[i]))
-			return (true);
-		i++;
-	}
-	return (false);
 }
 
 t_token	*operator(t_token *current, char **input_p)
@@ -81,11 +50,6 @@ t_token	*operator(t_token *current, char **input_p)
 	}
 	assert_error("Unexpected operator");
 	return (NULL);
-}
-
-bool	is_word(char *s)
-{
-	return (*s && !is_metacharacter(*s));
 }
 
 t_token	*word(t_token *current, char **input_p)
