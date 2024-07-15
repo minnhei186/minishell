@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:29:05 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/15 23:29:18 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:35:34 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ enum	e_token_kind
 typedef enum e_token_kind	t_token_kind;
 
 /* Struct for Tokenizer */
+typedef struct s_token		t_token;
 
 struct						s_token
 {
@@ -42,8 +43,6 @@ struct						s_token
 	char					*word;
 	t_token					*next;
 };
-
-typedef struct s_token		t_token;
 
 // Environment
 extern char					**environ;

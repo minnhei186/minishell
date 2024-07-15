@@ -2,8 +2,9 @@ NAME = minishell
 
 CC = cc
 
-CFLAGS = -Wall -Werror -Wextra
-
+INCLUDES = -I include
+CFLAGS = -Wall -Werror -Wextra $(INCLUDES)
+LIBRARY =	-lreadline
 SOURCES = 	./src/error.c \
 			./src/readline.c \
 			./src/tokenizer_utils.c \
@@ -16,7 +17,7 @@ OBJECTS = $(SOURCES:.c=.o)
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(NAME) -lreadline
+	$(CC) $(OBJECTS) $(LIBRARY) -o $(NAME)
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
