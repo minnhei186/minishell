@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:45:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/15 23:38:41 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:41:48 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,10 @@
 	dprintf(STDERR_FILENO, "Assert Error: %s\n", msg);
 */
 
-static void	perror_prefix(void)
-{
-	dprintf(STDDER_FILENO, "%s", ERROR_PREFIX);
-}
+// static void	perror_prefix(void)
+// {
+// 	dprintf(STDDER_FILENO, "%s", ERROR_PREFIX);
+// }
 
 void	assert_error(const char *message)
 {
@@ -47,7 +47,6 @@ void	assert_error(const char *message)
 /* Fatal Error */
 void	fatal_error(const char *msg)
 {
-	perror_prefix();
 	dprintf(STDERR_FILENO, "Fatal Error: %s\n", msg);
 	exit(1);
 }
