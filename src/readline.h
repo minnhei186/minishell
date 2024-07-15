@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:29:05 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/15 15:43:30 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/15 19:02:10 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@
 # include <signal.h>
 # include <stdbool.h>
 
+extern char	**environ;
+
 /* Tokenizer Utils */
 bool	is_blank(char c);
 bool	is_metacharacter(char c);
@@ -32,7 +34,6 @@ bool	is_word(char *s);
 
 /* Error */
 void	fatal_error(const char *msg) __attribute__((noreturn));
-
 void	assert_error(const char *message);
 void	fatal_error(const char *msg);
 
@@ -47,6 +48,7 @@ enum	e_token_kind
 
 typedef enum e_token_kind	t_token_kind;
 
+/* Struct for Tokenizer */
 typedef struct s_token		t_token;
 
 struct						s_token
@@ -56,7 +58,21 @@ struct						s_token
 	t_token					*next;
 };
 
+/* tokenizer.c */
+t_token	*new_token(char *word, t_token_kind kind, t_token *current);
+t_token	*operator(t_token *current, char **input_p);
+t_token	*word(t_token *current, char **input_p);
 t_token	*tokenizer(char *input_p);
+
+/* do_command.c */
+char	*abs_path_get(void);
+char	*check_path(char *abs_path, char *line);
+char	*find_path(char *line);
+char	**subsequent_argv_recursive(t_token *tok, int nargs, char **argv);
+char	**token_to_argv(t_token *tok);
+
+/* do_command_utils.c */
+void	ft_do_command(char *line);
 int		ft_mlt_process(char *line);
 
 #endif

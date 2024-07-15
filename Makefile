@@ -8,7 +8,8 @@ SOURCES = 	./src/error.c \
 			./src/readline.c \
 			./src/tokenizer_utils.c \
 			./src/tokenizer.c \
-			./src/do_command.c
+			./src/do_command.c \
+			./src/do_command_utils.c
 
 OBJECTS = $(SOURCES:.c=.o)
 

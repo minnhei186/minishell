@@ -6,13 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:00:18 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/15 16:18:40 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/15 19:02:04 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
-
-extern char	**environ;
 
 char	*abs_path_get(void)
 {
@@ -39,49 +37,87 @@ char	*abs_path_get(void)
 	return (path);
 }
 
+char	*check_path(char *abs_path, char *line)
+{
+	char	f_path[PATH_MAX];
+
+	bzero(f_path, PATH_MAX);
+	strlcat(strncpy(f_path, abs_path, PATH_MAX - 1), "/", PATH_MAX);
+	strlcat(f_path, line, PATH_MAX);
+	if (access(f_path, 0) == 0)
+		return (strdup(f_path));
+	return (NULL);
+}
+
 char	*find_path(char *line)
 {
 	char	*abs_path;
-	char	f_path[PATH_MAX];
 	char	*path_tail;
 	char	*tmp_free;
+	char	*found_path;
 
 	abs_path = abs_path_get();
 	tmp_free = abs_path;
 	path_tail = strchr(abs_path, ':');
 	while (path_tail)
 	{
-		bzero(f_path, PATH_MAX);
-		strncpy(f_path, abs_path, path_tail - abs_path);
-		strlcat(f_path, "/", sizeof(f_path));
-		strlcat(f_path, line, sizeof(f_path));
-		if (access(f_path, 0) == 0)
+		*path_tail = '\0';
+		found_path = check_path(abs_path, line);
+		if (found_path)
 		{
 			free(tmp_free);
-			abs_path = strdup(f_path);
-			return (abs_path);
+			return (found_path);
 		}
-		abs_path = path_tail;
-		abs_path++;
+		abs_path = path_tail + 1;
 		path_tail = strchr(abs_path, ':');
 	}
-	bzero(f_path, PATH_MAX);
-	strncpy(f_path, abs_path, sizeof(f_path) - 1);
-	strlcat(f_path, "/", sizeof(f_path));
-	strlcat(f_path, line, sizeof(f_path));
-	if (access(f_path, 0) == 0)
-	{
-		free(tmp_free);
-		abs_path = strdup(f_path);
-		return (abs_path);
-	}
-	else
-	{
-		free(tmp_free);
-		return (NULL);
-	}
+	found_path = check_path(abs_path, line);
+	free(tmp_free);
+	return (found_path);
 }
 
+// char	*find_path(char *line)
+// {
+// 	char	*abs_path;
+// 	char	f_path[PATH_MAX];
+// 	char	*path_tail;
+// 	char	*tmp_free;
+
+// 	abs_path = abs_path_get();
+// 	tmp_free = abs_path;
+// 	path_tail = strchr(abs_path, ':');
+// 	while (path_tail)
+// 	{
+// 		bzero(f_path, PATH_MAX);
+// 		strncpy(f_path, abs_path, path_tail - abs_path);
+// 		strlcat(f_path, "/", sizeof(f_path));
+// 		strlcat(f_path, line, sizeof(f_path));
+// 		if (access(f_path, 0) == 0)
+// 		{
+// 			free(tmp_free);
+// 			abs_path = strdup(f_path);
+// 			return (abs_path);
+// 		}
+// 		abs_path = path_tail;
+// 		abs_path++;
+// 		path_tail = strchr(abs_path, ':');
+// 	}
+// 	bzero(f_path, PATH_MAX);
+// 	strncpy(f_path, abs_path, sizeof(f_path) - 1);
+// 	strlcat(f_path, "/", sizeof(f_path));
+// 	strlcat(f_path, line, sizeof(f_path));
+// 	if (access(f_path, 0) == 0)
+// 	{
+// 		free(tmp_free);
+// 		abs_path = strdup(f_path);
+// 		return (abs_path);
+// 	}
+// 	else
+// 	{
+// 		free(tmp_free);
+// 		return (NULL);
+// 	}
+// }
 
 char	**subsequent_argv_recursive(t_token *tok, int nargs, char **argv)
 {
@@ -103,51 +139,4 @@ char	**token_to_argv(t_token *tok)
 	if (argv == NULL)
 		fatal_error("calloc");
 	return (subsequent_argv_recursive(tok, 0, argv));
-}
-
-
-void	ft_do_command(char *line)
-{
-	char	**argv;
-	char	*command_path;
-	t_token	*token;
-
-	token = tokenizer(line);
-	argv = token_to_argv(token);
-	command_path = find_path(argv[0]);
-	if (!command_path)
-	{
-		perror("commnad not found");
-		exit(1);
-	}
-	if (execve(command_path, argv, environ) < 0)
-	{
-		perror("execve");
-		exit(1);
-	}
-}
-
-int	ft_mlt_process(char *line)
-{
-	int	pid;
-	int	status;
-
-	status = -1;
-	pid = fork();
-	if (pid < 0)
-	{
-		perror("fork");
-		exit(1);
-	}
-	if (pid > 0)
-	{
-		if (wait(&status) < 0)
-		{
-			perror("wait");
-			exit(1);
-		}
-	}
-	else
-		ft_do_command(line);
-	return (status);
 }
