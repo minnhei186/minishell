@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:45:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/15 22:20:22 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:28:05 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 */
 void	assert_error(const char *message)
 {
-	perror_prefix();
+	fprintf(stderr, "Error: %s\n", message);
 	exit(EXIT_FAILURE);
 }
 
