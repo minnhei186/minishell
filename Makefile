@@ -8,13 +8,14 @@ SOURCES = 	./src/error.c \
 			./src/readline.c \
 			./src/tokenizer_utils.c \
 			./src/tokenizer.c \
+			./src/do_command.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
 all: $(NAME)
 
 $(NAME): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(NAME)
+	$(CC) $(OBJECTS) -o $(NAME) -lreadline
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@

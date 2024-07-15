@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:37:55 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/15 15:55:45 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/15 16:24:22 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,11 +29,10 @@ bool	operators_cmp(char *str, char *key_op)
 
 bool	is_operator(char *input_p)
 {
-	static char *const	operators;
+	static char *const	operators[] = {"||", "&", "&&", \
+						";", ";;", "(", ")", "|", "\n"};
 	size_t				i;
 
-	operators[] = {"||", "&", "&&", ";", ";;", "(", ")", "|",
-		"\n"};
 	i = 0;
 	while (i < sizeof(operators) / sizeof(*operators))
 	{
