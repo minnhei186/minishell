@@ -6,16 +6,21 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:45:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/15 15:49:08 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:20:22 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
 
-/* Assertion Error */
+/* 
+	Assertion Error
+	1. fprintf(stderr, "Error: %s\n", message);
+	-> fwriteと動き方が全く同じ、しかし、理論的に連結されているディバイスと
+	全ての文字列を
+*/
 void	assert_error(const char *message)
 {
-	fprintf(stderr, "Error: %s\n", message);
+	perror_prefix();
 	exit(EXIT_FAILURE);
 }
 

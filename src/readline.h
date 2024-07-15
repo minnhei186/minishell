@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:29:05 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/15 19:02:10 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:24:05 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,6 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdbool.h>
-
-extern char	**environ;
-
-/* Tokenizer Utils */
-bool	is_blank(char c);
-bool	is_metacharacter(char c);
-bool	operators_cmp(char *str, char *key_op);
-bool	is_operator(char *input_p);
-bool	is_word(char *s);
-
-/* Error */
-void	fatal_error(const char *msg) __attribute__((noreturn));
-void	assert_error(const char *message);
-void	fatal_error(const char *msg);
 
 /* Tokenizer Enumeration */
 enum	e_token_kind
@@ -57,6 +43,20 @@ struct						s_token
 	char					*word;
 	t_token					*next;
 };
+
+extern char					**environ;
+
+/* Tokenizer Utils */
+bool	is_blank(char c);
+bool	is_metacharacter(char c);
+bool	operators_cmp(char *str, char *key_op);
+bool	is_operator(char *input_p);
+bool	is_word(char *s);
+
+/* Error */
+void	fatal_error(const char *msg) __attribute__((noreturn));
+void	assert_error(const char *message);
+void	fatal_error(const char *msg);
 
 /* tokenizer.c */
 t_token	*new_token(char *word, t_token_kind kind, t_token *current);
