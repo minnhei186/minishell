@@ -1,0 +1,13 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": ["a ; g"],
+      "cwd": "/Users/hosokawa/42tokyo/level03/minishell/playground/toknizer",
+      "program": "/Users/hosokawa/42tokyo/level03/minishell/playground/toknizer/a.out"
+    }
+  ]
+}

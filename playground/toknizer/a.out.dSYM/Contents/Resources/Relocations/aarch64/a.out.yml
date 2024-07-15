@@ -1,0 +1,20 @@
+---
+triple:          'arm64-apple-darwin'
+binary-path:     a.out
+relocations:
+  - { offsetInCU: 0x26, offset: 0x26, size: 0x8, addend: 0x0, symName: _assert_error, symObjAddr: 0x0, symBinAddr: 0x100003860, symSize: 0x3C }
+  - { offsetInCU: 0x41, offset: 0x41, size: 0x8, addend: 0x0, symName: _is_operator, symObjAddr: 0x204, symBinAddr: 0x100003A64, symSize: 0x98 }
+  - { offsetInCU: 0x66, offset: 0x66, size: 0x8, addend: 0x0, symName: _is_operator.operators, symObjAddr: 0x6C8, symBinAddr: 0x100004058, symSize: 0x0 }
+  - { offsetInCU: 0xA2, offset: 0xA2, size: 0x8, addend: 0x0, symName: _operator, symObjAddr: 0x29C, symBinAddr: 0x100003AFC, symSize: 0xFC }
+  - { offsetInCU: 0xC7, offset: 0xC7, size: 0x8, addend: 0x0, symName: _operator.operators, symObjAddr: 0x710, symBinAddr: 0x1000040A0, symSize: 0x0 }
+  - { offsetInCU: 0x17D, offset: 0x17D, size: 0x8, addend: 0x0, symName: _assert_error, symObjAddr: 0x0, symBinAddr: 0x100003860, symSize: 0x3C }
+  - { offsetInCU: 0x1A1, offset: 0x1A1, size: 0x8, addend: 0x0, symName: _fatal_error, symObjAddr: 0x3C, symBinAddr: 0x10000389C, symSize: 0x34 }
+  - { offsetInCU: 0x1C5, offset: 0x1C5, size: 0x8, addend: 0x0, symName: _new_token, symObjAddr: 0x70, symBinAddr: 0x1000038D0, symSize: 0x7C }
+  - { offsetInCU: 0x217, offset: 0x217, size: 0x8, addend: 0x0, symName: _is_blank, symObjAddr: 0xEC, symBinAddr: 0x10000394C, symSize: 0x64 }
+  - { offsetInCU: 0x23F, offset: 0x23F, size: 0x8, addend: 0x0, symName: _is_metacharacter, symObjAddr: 0x150, symBinAddr: 0x1000039B0, symSize: 0x60 }
+  - { offsetInCU: 0x267, offset: 0x267, size: 0x8, addend: 0x0, symName: _operators_cmp, symObjAddr: 0x1B0, symBinAddr: 0x100003A10, symSize: 0x54 }
+  - { offsetInCU: 0x29D, offset: 0x29D, size: 0x8, addend: 0x0, symName: _is_word, symObjAddr: 0x398, symBinAddr: 0x100003BF8, symSize: 0x5C }
+  - { offsetInCU: 0x2C5, offset: 0x2C5, size: 0x8, addend: 0x0, symName: _word, symObjAddr: 0x3F4, symBinAddr: 0x100003C54, symSize: 0xDC }
+  - { offsetInCU: 0x317, offset: 0x317, size: 0x8, addend: 0x0, symName: _tokenizer, symObjAddr: 0x4D0, symBinAddr: 0x100003D30, symSize: 0xDC }
+  - { offsetInCU: 0x35B, offset: 0x35B, size: 0x8, addend: 0x0, symName: _main, symObjAddr: 0x5AC, symBinAddr: 0x100003E0C, symSize: 0xA8 }
+...
