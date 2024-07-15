@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:45:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/15 23:22:27 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/15 23:38:41 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,10 @@
 	3. fprintf()
 	fprintf()はsprintfとfwriteの組み合わせの利便性と考えることもできるが、
 	持つ価値があるほど頻繁に使用される利便性である。
+
+	<assert_error code by Hosokaw>
+	perror_prefix();
+	dprintf(STDERR_FILENO, "Assert Error: %s\n", msg);
 */
 
 static void	perror_prefix(void)
@@ -36,8 +40,7 @@ static void	perror_prefix(void)
 
 void	assert_error(const char *message)
 {
-	perror_prefix();
-	dprintf(STDERR_FILENO, "Assert Error: %s\n", msg);
+	fprintf(stderr, "Error: %s\n", message);
 	exit(EXIT_FAILURE);
 }
 
