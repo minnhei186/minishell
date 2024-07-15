@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:29:05 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/15 22:24:05 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/15 22:26:03 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ struct						s_token
 	t_token					*next;
 };
 
+// Environment
 extern char					**environ;
 
 /* Tokenizer Utils */
