@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:37:55 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/17 21:04:16 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/17 21:51:25 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	is_blank(char c)
 
 bool	is_metacharacter(char c)
 {
-	return (c && strchr("|&;*() <>\t\n", c));
+	return (c && strchr("|&;()<> \t\n", c));
 }
 
 bool	operators_cmp(char *str, char *key_op)

@@ -6,13 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:35:53 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/17 21:04:16 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/17 21:19:56 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
-
-void	fatal_error(const char *msg) __attribute__((noreturn));
 
 t_token	*new_token(char *word, t_token_kind kind, t_token *current)
 {

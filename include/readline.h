@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/17 21:04:26 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/17 21:41:28 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,5 +107,12 @@ void	expand(t_node *node);
 /* expand_quote.c */
 void	remove_single_quote(char **dst, char **rest, char *p);
 void	remove_double_quote(char **dst, char **rest, char *p);
+
+/* parse.c */
+t_node	*parse(t_token *token);
+bool	at_eof(t_token *token);
+t_node	*new_node(t_node_kind kind);
+t_token	*token_dup(t_token *token);
+void	append_token(t_token **tokens, t_token *token);
 
 #endif
