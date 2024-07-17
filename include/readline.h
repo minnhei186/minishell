@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/15 15:29:05 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/17 20:55:26 by geonwkim         ###   ########.fr       */
+/*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
+/*   Updated: 2024/07/17 21:04:26 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,13 @@ enum	e_token_kind
 
 typedef enum e_token_kind	t_token_kind;
 
+enum	e_node_kind
+{
+	ND_SIMPLE_CMD,
+};
+
+typedef enum e_node_kind	t_node_kind;
+
 /* Struct for Tokenizer */
 typedef struct s_token		t_token;
 
@@ -45,8 +52,22 @@ struct						s_token
 	t_token					*next;
 };
 
+/* Struct for Node */
+typedef struct s_node		t_node;
+
+struct						s_node
+{
+	t_token					*args;
+	t_node_kind				kind;
+	t_node					*next;
+};
+
 // Environment
 extern char					**environ;
+
+/* Quotes */
+# define SINGLE_QUOTE_CHAR '\''
+# define DOUBLE_QUOTE_CHAR '"'
 
 /* Tokenizer Utils */
 bool	is_blank(char c);

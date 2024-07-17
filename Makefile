@@ -5,7 +5,8 @@ CC = cc
 INCLUDES = -I include
 CFLAGS = -Wall -Werror -Wextra $(INCLUDES)
 LIBRARY =	-lreadline
-SOURCES = 	./src/error.c \
+SOURCES = 	./src/error_utils.c \
+			./src/error.c \
 			./src/readline.c \
 			./src/tokenizer_utils.c \
 			./src/tokenizer.c \
