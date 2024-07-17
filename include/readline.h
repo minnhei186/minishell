@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:29:05 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/15 23:38:51 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/17 20:55:26 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,9 +56,9 @@ bool	is_operator(char *input_p);
 bool	is_word(char *s);
 
 /* Error */
-void	fatal_error(const char *msg) __attribute__((noreturn));
-void	assert_error(const char *message);
-void	fatal_error(const char *msg);
+// void	fatal_error(const char *msg) __attribute__((noreturn));
+// void	assert_error(const char *message);
+// void	fatal_error(const char *msg);
 
 /* tokenizer.c */
 t_token	*new_token(char *word, t_token_kind kind, t_token *current);
@@ -76,5 +76,15 @@ char	**token_to_argv(t_token *tok);
 /* do_command_utils.c */
 void	ft_do_command(char *line);
 int		ft_mlt_process(char *line);
+
+/* expand.c */
+void	append_char(char **s, char c);
+void	remove_quote(t_token *token);
+void	expand_quote_removal(t_node *node);
+void	expand(t_node *node);
+
+/* expand_quote.c */
+void	remove_single_quote(char **dst, char **rest, char *p);
+void	remove_double_quote(char **dst, char **rest, char *p);
 
 #endif
