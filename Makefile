@@ -11,7 +11,10 @@ SOURCES = 	./src/error_utils.c \
 			./src/tokenizer_utils.c \
 			./src/tokenizer.c \
 			./src/do_command.c \
-			./src/do_command_utils.c
+			./src/do_command_utils.c \
+			./src/expand_quote.c \
+			./src/expand.c \
+			./src/parse.c \
 
 OBJECTS = $(SOURCES:.c=.o)
 

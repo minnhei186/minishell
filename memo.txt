@@ -1,0 +1,41 @@
+line = readline()
+
+context.str = line
+context.pos = 0
+context.head = 0
+context.token = NONE_TOKEN
+int lexer(&context)
+ skip_blank(context)
+ context->head = context->pos
+ take_token(context)
+ cmp token -> and pipe
+	context.token 
+		return 0
+  else
+    -> word token
+	¥
+	' or " 
+	quote eror return -1
+
+  retutn 0'
+
+int parser()
+   t_context context;
+	int err;
+
+	err = lexer(&context)
+	if (err)
+		return err;
+	context.token == word 
+	strndup(&context.str[context.head] , context.pos - context.head)
+
+
+echo "Ass feg few"grr gfewgr | cat -e
+                  
+[echo, "Ass f$HOME eg few"grr, gfewgr] [cat, -e]
+
+echo, "Ass, feg, few"grr, gfewgr
+
+| || && ; ( ) < > << >> or word
+<Not in tokenizer>
+$ ~
