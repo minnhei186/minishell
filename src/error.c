@@ -6,11 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:45:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/15 23:41:48 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/17 16:16:49 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "readline.h"
+#include "error.h"
 
 /* 
 	Assertion Error
@@ -33,11 +33,6 @@
 	dprintf(STDERR_FILENO, "Assert Error: %s\n", msg);
 */
 
-// static void	perror_prefix(void)
-// {
-// 	dprintf(STDDER_FILENO, "%s", ERROR_PREFIX);
-// }
-
 void	assert_error(const char *message)
 {
 	fprintf(stderr, "Error: %s\n", message);
@@ -49,4 +44,42 @@ void	fatal_error(const char *msg)
 {
 	dprintf(STDERR_FILENO, "Fatal Error: %s\n", msg);
 	exit(1);
+}
+
+/* Leave from the error */
+void	error_exit(const char *l, const char *msg, int status)
+{
+	perror_prefix();
+	dprintf(STDERR_FILENO, "%s: %s\n", l, msg);
+	exit(status);
+}
+
+void	tokenize_error(const char *l, char **rest, char *line)
+{
+	bool	syntax_error;
+
+	syntax_error = true;
+	perror_prefix();
+	dprintf(STDERR_FILENO, \
+		"syntax error (unexpected character) %c in %s\n", *line, l);
+	if (*l == NULL || **rest == NULL || *line == NULL)
+		return ;
+	while (*line)
+		line++;
+	*rest = line;
+}
+
+void	parse_error(const char *l, t_token **rest, t_token **token)
+{
+	bool	syntax_error;
+
+	syntax_error = true;
+	perror_prefix();
+	dprintf(STDERR_FILENO, \
+		"syntax error (unexpected token) %s in %s\n", token->word, l);
+	if (*l == NULL || **rest == NULL || *line == NULL)
+		return ;
+	while (token && !at_eof(token))
+		token = token->next;
+	*rest = token;
 }
