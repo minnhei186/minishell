@@ -101,6 +101,7 @@ void	ft_do_command(char *line)
 
 	token=tokenizer(line);
 	expand(token);
+//	printf("%s\n",token->word);
 	argv=token_to_argv(token);
 	command_path=find_path(argv[0]);
 	if (!command_path)
@@ -119,6 +120,7 @@ int	ft_mlt_process(char *line)
 {
 	int	pid;
 	int	status;
+
 
 	status = -1;
 	pid = fork();
