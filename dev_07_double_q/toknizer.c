@@ -1,6 +1,6 @@
 #include "readline.h"
 
-void						fatal_error(const char *msg) __attribute__((noreturn));
+void	fatal_error(const char *msg) __attribute__((noreturn));
 
 t_token	*new_token(char *word, t_token_kind kind, t_token *current)
 {
@@ -27,7 +27,7 @@ bool	is_metacharacter(char c)
 
 bool	operators_cmp(char *str, char *key_op)
 {
-	return (memcmp(str,key_op,strlen(key_op))==0);
+	return (memcmp(str, key_op, strlen(key_op)) == 0);
 }
 
 bool	is_operator(char *input_p)
@@ -67,7 +67,7 @@ t_token	*operator(t_token *current, char **input_p)
 		i++;
 	}
 	assert_error("Unexpected operator");
-	return NULL;
+	return (NULL);
 }
 
 //終端文字ではない
@@ -76,29 +76,33 @@ bool	is_word(char *s)
 	return (*s && !is_metacharacter(*s));
 }
 
-#define SINGLE_QUOTE_CHAR '\''
-
-//tailだけ決めてあげる。
-//その後にシングルクォートの処理を行う　ただあくまでも、一つの文字列として定義
-//空白だけがそれを決めれる
-
 t_token	*word(t_token *current, char **input_p)
 {
 	char	*word;
 	char	*input_head;
 
 	input_head = *input_p;
-	
-	//tail_get
+	// tail_get
 	while ((**input_p) && !is_metacharacter(**input_p))
 	{
-		//quote_while
-		if(**input_p==SINGLE_QUOTE_CHAR)
+		// quote_while
+		if (**input_p == SINGLE_QUOTE_CHAR)
 		{
 			(*input_p)++;
-			while(**input_p!=SINGLE_QUOTE_CHAR)
+			while (**input_p != SINGLE_QUOTE_CHAR)
 			{
-				if(**input_p=='\0')
+				if (**input_p == '\0')
+					printf("UNclosed single quote");
+				(*input_p)++;
+			}
+			(*input_p)++;
+		}
+		else if (**input_p == DOUBLE_QUOTE_CHAR)
+		{
+			(*input_p)++;
+			while (**input_p != DOUBLE_QUOTE_CHAR)
+			{
+				if (**input_p == '\0')
 					printf("UNclosed single quote");
 				(*input_p)++;
 			}
@@ -107,11 +111,20 @@ t_token	*word(t_token *current, char **input_p)
 		else
 			(*input_p)++;
 	}
-	
 	word = strndup(input_head, (*input_p) - input_head);
 	if (!word)
 		fatal_error("strdup");
 	return (new_token(word, TK_WORD, current));
+}
+
+bool	syntax_error = false;
+
+void	tokenize_error(char *location, char **input)
+{
+	syntax_error = true;
+	dprintf(STDERR_FILENO, "minishell:syntax error near %s\n", location);
+	while (**input)
+		(*input)++;
 }
 
 t_token	*tokenizer(char *input_p)
@@ -119,6 +132,7 @@ t_token	*tokenizer(char *input_p)
 	t_token	*current;
 	t_token	head;
 
+	syntax_error = false;
 	current = &head;
 	while (*input_p)
 	{
@@ -126,17 +140,17 @@ t_token	*tokenizer(char *input_p)
 			input_p++;
 		if (is_operator(input_p))
 			current = operator(current, &input_p);
-		else if(is_word(input_p))
+		else if (is_word(input_p))
 			current = word(current, &input_p);
 		else
-			assert_error("Unexpected Token");
+			tokenize_error("Unexpected Token", &input_p);
 	}
 	new_token(NULL, TK_EOF, current);
 	return (head.next);
 }
 
 ////文字列（終端あり）の比較ではなく
-//int	main(int argc, char **argv)
+// int	main(int argc, char **argv)
 //{
 //	t_token	*tok;
 //

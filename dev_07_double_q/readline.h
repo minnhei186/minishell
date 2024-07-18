@@ -9,6 +9,7 @@
 #include <unistd.h>
 
 #define SINGLE_QUOTE_CHAR '\''
+#define DOUBLE_QUOTE_CHAR '\"'
 
 void						fatal_error(const char *msg) __attribute__((noreturn));
 

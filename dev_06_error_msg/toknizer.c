@@ -76,11 +76,6 @@ bool	is_word(char *s)
 	return (*s && !is_metacharacter(*s));
 }
 
-#define SINGLE_QUOTE_CHAR '\''
-
-//tailだけ決めてあげる。
-//その後にシングルクォートの処理を行う　ただあくまでも、一つの文字列として定義
-//空白だけがそれを決めれる
 
 t_token	*word(t_token *current, char **input_p)
 {
@@ -114,11 +109,22 @@ t_token	*word(t_token *current, char **input_p)
 	return (new_token(word, TK_WORD, current));
 }
 
+bool syntax_error=false;
+
+void tokenize_error(char *location,char **input)
+{
+	syntax_error=true;
+	dprintf(STDERR_FILENO,"minishell:syntax error near %s\n",location);
+	while(**input)
+		(*input)++;
+}
+
 t_token	*tokenizer(char *input_p)
 {
 	t_token	*current;
 	t_token	head;
 
+	syntax_error=false;
 	current = &head;
 	while (*input_p)
 	{
@@ -129,7 +135,7 @@ t_token	*tokenizer(char *input_p)
 		else if(is_word(input_p))
 			current = word(current, &input_p);
 		else
-			assert_error("Unexpected Token");
+			tokenize_error("Unexpected Token",&input_p);
 	}
 	new_token(NULL, TK_EOF, current);
 	return (head.next);

@@ -76,11 +76,6 @@ bool	is_word(char *s)
 	return (*s && !is_metacharacter(*s));
 }
 
-#define SINGLE_QUOTE_CHAR '\''
-
-//tailだけ決めてあげる。
-//その後にシングルクォートの処理を行う　ただあくまでも、一つの文字列として定義
-//空白だけがそれを決めれる
 
 t_token	*word(t_token *current, char **input_p)
 {
