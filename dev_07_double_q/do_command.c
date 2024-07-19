@@ -105,7 +105,7 @@ void	ft_do_command(char *line)
 	command_path=find_path(argv[0]);
 	if (!command_path)
 	{
-		perror("commnad not found");
+		perror("command not found");
 		exit(1);
 	}
 	if (execve(command_path, argv, environ) < 0)
