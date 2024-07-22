@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/17 21:41:28 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/19 18:30:53 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int		ft_mlt_process(char *line);
 void	append_char(char **s, char c);
 void	remove_quote(t_token *token);
 void	expand_quote_removal(t_node *node);
-void	expand(t_node *node);
+void	expand(t_token *token);
 
 /* expand_quote.c */
 void	remove_single_quote(char **dst, char **rest, char *p);
