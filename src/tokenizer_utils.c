@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:37:55 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/22 23:34:14 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/23 00:52:51 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ bool	is_metacharacter(char c)
 // startswith
 bool	operators_cmp(char *str, char *key_op)
 {
-	return (memcmp(str, key_op, ft_strlen(key_op)) == 0);
+	return (ft_memcmp(str, key_op, ft_strlen(key_op)) == 0);
 }
 
 bool	is_operator(char *input_p)
