@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 23:15:48 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/17 21:53:52 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/22 20:28:43 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@
 # include <stdio.h>
 
 /* error_utils.c */
-void	perror_prefix(void);
-void	todo(const char *msg) __attribute__((noreturn));
+void		perror_prefix(void);
+void		todo(const char *msg) __attribute__((noreturn));
 
 /* error.c */
-void	assert_error(const char *msg) __attribute__((noreturn));
-void	fatal_error(const char *msg) __attribute__((noreturn));
-void	error_exit(const char *l, const char *msg, int status) \
-		__attribute__((noreturn));
-void	tokenize_error(const char *l, char **rest, char *line);
+void		assert_error(const char *msg) __attribute__((noreturn));
+void		fatal_error(const char *msg) __attribute__((noreturn));
+void		error_exit(const char *l, \
+			const char *msg, int status) __attribute__((noreturn));
+void		tokenize_error(const char *l, char **rest, char *line);
 // void	parse_error(const char *l, t_token **rest, t_token **token);
 
 #endif

@@ -6,56 +6,57 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/22 19:44:08 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/22 22:07:46 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"readline.h"
 #include	"error.h"
+#include	"../libft/libft.h"
 
 // __attribute__((destructor))
 // static void destructor() {
 //     system("leaks -q a.out");
 // }
 
-char	*search_path(const char *file_name)
-{
-	char	path[PATH_MAX];
-	char	*value;
-	char	*end;
-	char	*dup;
+// char	*search_path(const char *file_name)
+// {
+// 	char	path[PATH_MAX];
+// 	char	*value;
+// 	char	*end;
+// 	char	*dup;
 
-	value = getenv("PATH");
-	while (*value)
-	{
-		bzero(path, PATH_MAX);
-		end = strchr(value, ":");
-		if (end)
-			strncpy(path, value, end - value);
-		else
-			strlcpy(path, value, PATH_MAX);
-		strlcat(path, "/", PATH_MAX);
-		strlcat(path, file_name, PATH_MAX);
-		if (access(path, X_OK) == 0)
-		{
-			dup = strdup(path);
-			if (dup == NULL)
-				fatal_error("strdup");
-			return (dup);
-		}
-		if (end == NULL)
-			return (NULL);
-		value = end + 1;
-	}
-	return (NULL);
-}
+// 	value = getenv("PATH");
+// 	while (*value)
+// 	{
+// 		bzero(path, PATH_MAX);
+// 		end = ft_strchr(value, ':');
+// 		if (end)
+// 			strncpy(path, value, end - value);
+// 		else
+// 			strlcpy(path, value, PATH_MAX);
+// 		strlcat(path, "/", PATH_MAX);
+// 		strlcat(path, file_name, PATH_MAX);
+// 		if (access(path, X_OK) == 0)
+// 		{
+// 			dup = strdup(path);
+// 			if (dup == NULL)
+// 				fatal_error("strdup");
+// 			return (dup);
+// 		}
+// 		if (end == NULL)
+// 			return (NULL);
+// 		value = end + 1;
+// 	}
+// 	return (NULL);
+// }
 
 void	validate_access(const char *path, const char *file_name)
 {
 	if (path == NULL)
-		err_exit(file_name, "command not found", 127);
+		error_exit(file_name, "command not found", 127);
 	if (access(path, F_OK) < 0)
-		err_exit(file_name, "command not found", 127);
+		error_exit(file_name, "command not found", 127);
 }
 
 int	exec(char *argv[])
@@ -70,8 +71,8 @@ int	exec(char *argv[])
 		fatal_error("fork");
 	else if (pid == 0)
 	{
-		if (strchr(path, '/') == NULL)
-			path = search_path(path);
+		if (ft_strchr(path, '/') == NULL)
+			path = find_path(path);
 		validate_access(path, argv[0]);
 		execve(path, argv, environ);
 		fatal_error("execve");
@@ -93,8 +94,10 @@ void	interpreter(char *line, int *state_loca)
 	t_token	*token;
 	char	**argv;
 	t_node	*node;
+	bool	syntax_error;
 
-	token = tokenize(line);
+	syntax_error = true;
+	token = tokenizer(line);
 	if (token->kind == TK_EOF)
 		;
 	else if (syntax_error)
@@ -103,7 +106,7 @@ void	interpreter(char *line, int *state_loca)
 	{
 		node = parse(token);
 		expand(node);
-		argv = token_list_to_argv(node->args);
+		argv = token_to_argv(node->args);
 		*state_loca = exec(argv);
 		free_argv(argv);
 		free_node(node);
@@ -125,7 +128,7 @@ int	main(void)
 			break ;
 		if (*line)
 			add_history(line);
-		status = ft_mlt_process(line);
+		interpreter(line, &status);
 		free(line);
 	}
 	exit(0);
