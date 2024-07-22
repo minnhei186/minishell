@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:29:02 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/19 18:28:49 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/22 19:18:25 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,12 @@ void	ft_do_command(char *line)
 	t_token	*token;
 
 	token = tokenizer(line);
-	token = expand(token);
+	expand(token);
 	argv = token_to_argv(token);
 	command_path = find_path(argv[0]);
 	if (!command_path)
 	{
-		perror("commnad not found");
+		perror("command not found");
 		exit(1);
 	}
 	if (execve(command_path, argv, environ) < 0)
