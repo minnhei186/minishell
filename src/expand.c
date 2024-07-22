@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:28:03 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/19 18:30:27 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/22 19:26:45 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,12 @@ void	expand_quote_removal(t_node *node)
 	expand_quote_removal(node->next);
 }
 
-void	expand(t_token *token)
+// Expand from expand_quote_removal
+/*
+  @Param: t_node *node
+  
+*/
+void	expand(t_node *node)
 {
 	expand_quote_removal(node);
 }
