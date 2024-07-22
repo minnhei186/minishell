@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:05:42 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/17 23:25:20 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:52:14 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,8 @@ t_node	*new_node(t_node_kind kind)
 	node = calloc(1, sizeof(*node));
 	if (node == NULL)
 		fatal_error("calloc");
+	node->kind = kind;
+	return (node);
 }
 
 t_token	*token_dup(t_token *token)
@@ -49,7 +51,7 @@ t_token	*token_dup(t_token *token)
 	word = strdup(token->word);
 	if (word == NULL)
 		fatal_error("strdup");
-	return (new_token(word, token->kind));
+	return (new_token(word, token->kind, NULL));
 }
 
 void	append_token(t_token **tokens, t_token *token)
