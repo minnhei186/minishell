@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:00:18 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/17 21:04:16 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/22 20:55:30 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*abs_path_get(void)
 	return (path);
 }
 
-char	*check_path(char *abs_path, char *line)
+char	*check_path(char *abs_path, const char *line)
 {
 	char	f_path[PATH_MAX];
 
@@ -49,7 +49,7 @@ char	*check_path(char *abs_path, char *line)
 	return (NULL);
 }
 
-char	*find_path(char *line)
+char	*find_path(const char *line)
 {
 	char	*abs_path;
 	char	*path_tail;

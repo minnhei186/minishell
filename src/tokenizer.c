@@ -6,13 +6,14 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:35:53 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/17 23:43:32 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:33:50 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "readline.h"
+#include "../libft/libft.h"
 
-t_token	*new_token(char *word, t_token_kind kind, t_token *current)
+t_token	*new_token(char *word, t_token_kind kind)
 {
 	t_token	*tok;
 
@@ -21,11 +22,11 @@ t_token	*new_token(char *word, t_token_kind kind, t_token *current)
 		fatal_error("calloc");
 	tok->word = word;
 	tok->kind = kind;
-	current->next = tok;
 	return (tok);
 }
 
-t_token	*operator(t_token *current, char **input_p)
+// t_token	*operator(t_token *current, char **input_p)
+t_token	*operator(char **rest, char *line)
 {
 	static char *const	operators[] = {"||", "&", "&&", \
 						";", ";;", "(", ")", "|", "\n"};
@@ -35,13 +36,13 @@ t_token	*operator(t_token *current, char **input_p)
 	i = 0;
 	while (i < sizeof(operators) / sizeof(*operators))
 	{
-		if (operators_cmp(*input_p, operators[i]))
+		if (operators_cmp(line, operators[i]))
 		{
-			op = strdup(operators[i]);
+			op = ft_strdup(operators[i]);
 			if (op == NULL)
 				fatal_error("strdup");
-			*input_p = *input_p + strlen(op);
-			return (new_token(op, TK_OP, current));
+			*rest = line + ft_strlen(op);
+			return (new_token(op, TK_OP));
 		}
 		i++;
 	}
@@ -49,38 +50,58 @@ t_token	*operator(t_token *current, char **input_p)
 	return (NULL);
 }
 
-t_token	*word(t_token *current, char **input_p)
+// t_token	*word(t_token *current, char **input_p)
+/* 	
+	while ((**input_p) && !is_metacharacter(**input_p))
+	(*input_p)++;
+*/
+t_token	*word(char **rest, char *line)
 {
 	char	*word;
 	char	*input_head;
 
-	input_head = *input_p;
-	while ((**input_p) && !is_metacharacter(**input_p))
-		(*input_p)++;
-	word = strndup(input_head, (*input_p) - input_head);
-	if (!word)
-		fatal_error("strdup");
-	return (new_token(word, TK_WORD, current));
+	input_head = line;
+	while (*line && !is_metacharacter(*line))
+	{
+		if (*line == SINGLE_QUOTE_CHAR)
+			skip_single_quote(&line);
+		else if (*line == DOUBLE_QUOTE_CHAR)
+			skip_double_quote(&line);
+		else
+			line++;
+	}
+	word = strndup(input_head, line - input_head);
+	if (word == NULL)
+		fatal_error("strndup");
+	*rest = line;
+	return (new_token(word, TK_WORD));
 }
 
 t_token	*tokenizer(char *input_p)
 {
 	t_token	*current;
+	t_token	*new_current;
 	t_token	head;
+	bool	syntax_error;
 
+	syntax_error = false;
+	head.next = NULL;
 	current = &head;
 	while (*input_p)
 	{
-		while (is_blank(*input_p))
-			input_p++;
-		if (is_operator(input_p))
-			current = operator(current, &input_p);
+		new_current = NULL;
+		if (consume_blank(&input_p, input_p))
+			continue ;
+		else if (is_operator(input_p))
+			new_current = operator(&input_p, input_p);
 		else if (is_word(input_p))
-			current = word(current, &input_p);
+			new_current = word(&input_p, input_p);
 		else
-			assert_error("Unexpected Token");
+			tokenize_error("Unexpected Token", &input_p, input_p);
+		current->next = new_current;
+		current = new_current;
 	}
-	new_token(NULL, TK_EOF, current);
+	current->next = new_token(NULL, TK_EOF);
 	return (head.next);
 }
 

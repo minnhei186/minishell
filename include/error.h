@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 23:15:48 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/22 20:28:43 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:16:32 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ERROR_H
 
 # include	"readline.h"
+# include	"../libft/libft.h"
 # define ERROR_TOKENIZE 258
 # define ERROR_PREFIX "minishell: "
 # include <unistd.h>

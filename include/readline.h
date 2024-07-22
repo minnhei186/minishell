@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/22 19:05:06 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/22 23:24:06 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define READLINE_H
 
 # include "error.h"
+# include "../libft/libft.h"
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
@@ -69,12 +70,17 @@ extern char					**environ;
 # define SINGLE_QUOTE_CHAR '\''
 # define DOUBLE_QUOTE_CHAR '"'
 
+/* Tokenizer Quotes */
+void	skip_single_quote(char **line);
+void	skip_double_quote(char **line);
+
 /* Tokenizer Utils */
 bool	is_blank(char c);
 bool	is_metacharacter(char c);
 bool	operators_cmp(char *str, char *key_op);
 bool	is_operator(char *input_p);
 bool	is_word(char *s);
+bool	consume_blank(char **rest, char *line);
 
 /* Error */
 // void	fatal_error(const char *msg) __attribute__((noreturn));
@@ -82,21 +88,29 @@ bool	is_word(char *s);
 // void	fatal_error(const char *msg);
 
 /* tokenizer.c */
-t_token	*new_token(char *word, t_token_kind kind, t_token *current);
-t_token	*operator(t_token *current, char **input_p);
-t_token	*word(t_token *current, char **input_p);
+// t_token	*new_token(char *word, t_token_kind kind, t_token *current);
+t_token	*new_token(char *word, t_token_kind kind);
+// t_token	*operator(t_token *current, char **input_p);
+t_token	*operator(char **rest, char *line);
+// t_token	*word(t_token *current, char **input_p);
+t_token	*word(char **rest, char *line);
 t_token	*tokenizer(char *input_p);
+
+/* destructor.c */
+void	free_node(t_node *node);
+void	free_token(t_token *token);
+void	free_argv(char **argv);
 
 /* do_command.c */
 char	*abs_path_get(void);
-char	*check_path(char *abs_path, char *line);
-char	*find_path(char *line);
+char	*check_path(char *abs_path, const char *line);
+char	*find_path(const char *line);
 char	**subsequent_argv_recursive(t_token *tok, int nargs, char **argv);
 char	**token_to_argv(t_token *tok);
 
 /* do_command_utils.c */
-void	ft_do_command(char *line);
-int		ft_mlt_process(char *line);
+// void	ft_do_command(char *line);
+// int		ft_mlt_process(char *line);
 
 /* expand.c */
 void	append_char(char **s, char c);
