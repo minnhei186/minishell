@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/22 23:44:58 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/23 00:06:19 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,9 @@ void	interpreter(char *line, int *state_loca)
 	t_token	*token;
 	char	**argv;
 	t_node	*node;
+	bool	syntax_error;
 
+	syntax_error = false;
 	token = tokenizer(line);
 	if (token->kind == TK_EOF)
 		;
