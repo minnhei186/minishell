@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:45:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/22 22:09:17 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:10:46 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,19 @@
 */
 
 void	perror_prefix(void);
+bool	*get_syntax_error_ptr(void);
 
 void	assert_error(const char *msg)
 {
 	perror_prefix();
 	dprintf(STDERR_FILENO, "Assert Error: %s\n", msg);
-	exit(EXIT_FAILURE);
+	exit(255);
 }
 
 /* Fatal Error */
 void	fatal_error(const char *msg)
 {
+	perror_prefix();
 	dprintf(STDERR_FILENO, "Fatal Error: %s\n", msg);
 	exit(1);
 }
@@ -63,22 +65,22 @@ void	tokenize_error(const char *l, char **rest, char *line)
 
 	syntax_error = true;
 	perror_prefix();
-	dprintf(STDERR_FILENO, \
-		"syntax error (unexpected character) %c in %s\n", *line, l);
+	dprintf(STDERR_FILENO,
+		"syntax error near unexpected character `%c in %s\n", *line, l);
 	while (*line)
 		line++;
 	*rest = line;
 }
 
-// void	parse_error(const char *l, t_token **rest, t_token **token)
-// {
-// 	bool	syntax_error;
+void	parse_error(const char *l, t_token **rest, t_token *token)
+{
+	bool	syntax_error;
 
-// 	syntax_error = true;
-// 	perror_prefix();
-// 	dprintf(STDERR_FILENO,
-// 		"syntax error (unexpected token) %s in %s\n", token->word, l);
-// 	while (token && !at_eof(token))
-// 		token = token->next;
-// 	*rest = token;
-// }
+	syntax_error = true;
+	perror_prefix();
+	dprintf(STDERR_FILENO,
+		"syntax error near unexpected token `%s in %s\n", token->word, l);
+	while (token && !at_eof(token))
+		token = token->next;
+	*rest = token;
+}

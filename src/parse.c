@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:05:42 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/22 20:12:52 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:55:43 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,12 @@ t_node	*parse(t_token *token)
 	while (token && !at_eof(token))
 	{
 		if (token->kind == TK_WORD)
+		{
 			append_token(&node->args, token_dup(token));
+			token = token->next;
+		}
 		else
-			todo("Implement parser");
-		token = token->next;
+			parse_error("Unexpected Token", &token, token);
 	}
 	return (node);
 }
@@ -48,7 +50,7 @@ t_token	*token_dup(t_token *token)
 {
 	char	*word;
 
-	word = strdup(token->word);
+	word = ft_strdup(token->word);
 	if (word == NULL)
 		fatal_error("strdup");
 	return (new_token(word, token->kind));
