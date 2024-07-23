@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 19:35:11 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/23 16:12:59 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:52:36 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int		ft_atoi(const char *str);
 
 // malloc
 void	*ft_calloc(size_t n_items, size_t size);
+char	*ft_strndup(const char *s, size_t n);
 char	*ft_strdup(const char *s);
 
 // part 2

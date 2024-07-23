@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:35:53 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/23 22:38:26 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/23 22:47:55 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_token	*word(char **rest, char *line)
 		else
 			line++;
 	}
-	word = strndup(input_head, line - input_head);
+	word = ft_strndup(input_head, line - input_head);
 	if (word == NULL)
 		fatal_error("strndup");
 	*rest = line;
