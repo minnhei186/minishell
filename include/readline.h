@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/22 23:24:06 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/23 21:53:40 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include <stdbool.h>
 
 /* Tokenizer Enumeration */
+typedef struct s_token		t_token;
 enum	e_token_kind
 {
 	TK_WORD,
@@ -33,19 +34,9 @@ enum	e_token_kind
 	TK_OP,
 	TK_EOF,
 };
-
 typedef enum e_token_kind	t_token_kind;
 
-enum	e_node_kind
-{
-	ND_SIMPLE_CMD,
-};
-
-typedef enum e_node_kind	t_node_kind;
-
 /* Struct for Tokenizer */
-typedef struct s_token		t_token;
-
 struct						s_token
 {
 	t_token_kind			kind;
@@ -53,9 +44,14 @@ struct						s_token
 	t_token					*next;
 };
 
+enum	e_node_kind
+{
+	ND_SIMPLE_CMD,
+};
+typedef enum e_node_kind	t_node_kind;
+
 /* Struct for Node */
 typedef struct s_node		t_node;
-
 struct						s_node
 {
 	t_token					*args;

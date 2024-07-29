@@ -82,6 +82,12 @@ t_token	*word(char **rest, char *line)
 	return (new_token(word, TK_WORD));
 }
 
+/*
+	These codes should be in next to the `else` statement
+
+	current->next = new_current;
+	current = new_current;
+*/
 t_token	*tokenizer(char *input_p)
 {
 	t_token	*current;
@@ -103,8 +109,6 @@ t_token	*tokenizer(char *input_p)
 			new_current = word(&input_p, input_p);
 		else
 			tokenize_error("Unexpected Token", &input_p, input_p);
-		current->next = new_current;
-		current = new_current;
 	}
 	current->next = new_token(NULL, TK_EOF);
 	return (head.next);

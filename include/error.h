@@ -25,6 +25,8 @@ typedef struct s_token		t_token;
 /* error_utils.c */
 void	perror_prefix(void);
 void	todo(const char *msg) __attribute__((noreturn));
+// bool	*get_syntax_error_ptr(void);
+// void	reset_syntax_error(void);
 
 /* error.c */
 void	assert_error(const char *msg) __attribute__((noreturn));

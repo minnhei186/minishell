@@ -34,6 +34,7 @@
 */
 
 void	perror_prefix(void);
+bool	*get_syntax_error_ptr(void);
 
 
 //	exit(EXIT_FAILURE);
@@ -47,6 +48,7 @@ void	assert_error(const char *msg)
 /* Fatal Error */
 void	fatal_error(const char *msg)
 {
+	perror_prefix();
 	dprintf(STDERR_FILENO, "Fatal Error: %s\n", msg);
 	exit(1);
 }
