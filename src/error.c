@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:45:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 01:32:34 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:59:05 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@
 
 void	perror_prefix(void);
 bool	*get_syntax_error_ptr(void);
-
 
 //	exit(EXIT_FAILURE);
 void	assert_error(const char *msg)
