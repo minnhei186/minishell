@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 23:15:48 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/23 22:11:25 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:31:55 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@ typedef struct s_token		t_token;
 /* error_utils.c */
 void	perror_prefix(void);
 void	todo(const char *msg) __attribute__((noreturn));
-// bool	*get_syntax_error_ptr(void);
-// void	reset_syntax_error(void);
 
 /* error.c */
 void	assert_error(const char *msg) __attribute__((noreturn));
