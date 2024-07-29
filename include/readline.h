@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/23 21:53:40 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/29 23:05:41 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,9 @@
 # include <unistd.h>
 # include <signal.h>
 # include <stdbool.h>
+
+/* For Linux */
+# include <sys/wait.h>
 
 /* Tokenizer Enumeration */
 typedef struct s_token		t_token;

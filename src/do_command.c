@@ -6,11 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:00:18 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/23 21:48:35 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/29 23:08:59 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "readline.h"
+#include "../include/readline.h"
 
 char	*abs_path_get(void)
 {
@@ -21,7 +21,7 @@ char	*abs_path_get(void)
 	temp = getenv("PATH");
 	if (temp)
 	{
-		path = (char *)malloc(strlen(temp) + 1);
+		path = (char *)malloc(ft_strlen(temp) + 1);
 		if (!path)
 		{
 			perror("malloc error");
@@ -41,11 +41,11 @@ char	*check_path(char *abs_path, const char *line)
 {
 	char	f_path[PATH_MAX];
 
-	bzero(f_path, PATH_MAX);
-	strlcat(strncpy(f_path, abs_path, PATH_MAX - 1), "/", PATH_MAX);
-	strlcat(f_path, line, PATH_MAX);
+	ft_bzero(f_path, PATH_MAX);
+	ft_strlcat(strncpy(f_path, abs_path, PATH_MAX - 1), "/", PATH_MAX);
+	ft_strlcat(f_path, line, PATH_MAX);
 	if (access(f_path, 0) == 0)
-		return (strdup(f_path));
+		return (ft_strdup(f_path));
 	return (NULL);
 }
 
@@ -58,7 +58,7 @@ char	*find_path(const char *line)
 
 	abs_path = abs_path_get();
 	tmp_free = abs_path;
-	path_tail = strchr(abs_path, ':');
+	path_tail = ft_strchr(abs_path, ':');
 	while (path_tail)
 	{
 		*path_tail = '\0';
@@ -69,7 +69,7 @@ char	*find_path(const char *line)
 			return (found_path);
 		}
 		abs_path = path_tail + 1;
-		path_tail = strchr(abs_path, ':');
+		path_tail = ft_strchr(abs_path, ':');
 	}
 	found_path = check_path(abs_path, line);
 	free(tmp_free);
@@ -124,7 +124,7 @@ char	**subsequent_argv_recursive(t_token *tok, int nargs, char **argv)
 	if (tok == NULL || tok->kind == TK_EOF)
 		return (argv);
 	argv = realloc(argv, (nargs + 2) * sizeof(char *));
-	argv[nargs] = strdup(tok->word);
+	argv[nargs] = ft_strdup(tok->word);
 	if (argv[nargs] == NULL)
 		fatal_error("strdup");
 	argv[nargs + 1] = NULL;
