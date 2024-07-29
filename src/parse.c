@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:05:42 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/22 20:12:52 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 00:55:54 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_token	*token_dup(t_token *token)
 {
 	char	*word;
 
-	word = strdup(token->word);
+	word = ft_strdup(token->word);
 	if (word == NULL)
 		fatal_error("strdup");
 	return (new_token(word, token->kind));
