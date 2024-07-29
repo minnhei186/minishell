@@ -6,11 +6,13 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:00:18 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/23 21:48:35 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/29 22:49:43 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "readline.h"
+#include	<limits.h>
+#include	<string.h>
+#include "../include/readline.h"
 
 char	*abs_path_get(void)
 {
@@ -41,11 +43,12 @@ char	*check_path(char *abs_path, const char *line)
 {
 	char	f_path[PATH_MAX];
 
-	bzero(f_path, PATH_MAX);
-	strlcat(strncpy(f_path, abs_path, PATH_MAX - 1), "/", PATH_MAX);
-	strlcat(f_path, line, PATH_MAX);
+	ft_bzero(f_path, PATH_MAX);
+	ft_strlcat(strncpy(f_path, abs_path, PATH_MAX - 1), "/", PATH_MAX);
+	ft_strlcat(f_path, line, PATH_MAX);
+	printf("Line!!!! %s\n", line);
 	if (access(f_path, 0) == 0)
-		return (strdup(f_path));
+		return (ft_strdup(f_path));
 	return (NULL);
 }
 
@@ -56,6 +59,7 @@ char	*find_path(const char *line)
 	char	*tmp_free;
 	char	*found_path;
 
+	printf("find path\n");
 	abs_path = abs_path_get();
 	tmp_free = abs_path;
 	path_tail = strchr(abs_path, ':');

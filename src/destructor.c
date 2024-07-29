@@ -6,11 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 21:22:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/23 21:48:35 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:57:46 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"readline.h"
+#include	"../include/readline.h"
 
 void	free_node(t_node *node)
 {

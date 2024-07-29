@@ -6,11 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:35:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/23 21:48:35 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/29 22:22:43 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"readline.h"
+#include	"../include/readline.h"
 
 void	remove_single_quote(char **dst, char **rest, char *p)
 {

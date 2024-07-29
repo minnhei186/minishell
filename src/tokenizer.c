@@ -6,11 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:35:53 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/23 22:47:55 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/29 22:22:04 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "readline.h"
+#include "../include/readline.h"
 #include "../libft/libft.h"
 
 t_token	*new_token(char *word, t_token_kind kind)

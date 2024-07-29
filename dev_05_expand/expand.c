@@ -1,5 +1,5 @@
 #include "readline.h"
-
+#include <string.h>
 
 void append_char(char **str_pp,char c)
 {

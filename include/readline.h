@@ -6,14 +6,14 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/23 21:53:40 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/29 21:43:27 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef READLINE_H
 # define READLINE_H
 
-# include "error.h"
+# include "../include/error.h"
 # include "../libft/libft.h"
 # include <limits.h>
 # include <readline/history.h>

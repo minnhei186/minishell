@@ -6,12 +6,12 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 23:04:01 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/23 21:48:35 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/29 22:22:34 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"readline.h"
-#include	"error.h"
+#include	"../include/readline.h"
+#include	"../include/error.h"
 #include	"../libft/libft.h"
 
 void	skip_single_quote(char **line)
