@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:29:05 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/15 23:38:51 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/29 22:54:55 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <limits.h>
 # include <readline/history.h>
 # include <readline/readline.h>
+# include <sys/wait.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <string.h>
