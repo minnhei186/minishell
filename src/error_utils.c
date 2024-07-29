@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:10:32 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/23 22:11:16 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:01:01 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,10 @@ void	todo(const char *msg)
 /* 
 	To avoid using Global variable, 
 	I generated the function that stores syntax_error state as false
- */
+*/
 // bool	*get_syntax_error_ptr(void)
 // {
 // 	bool	syntax_error;
-
 // 	syntax_error = false;
 // 	return (&syntax_error);
 // }
@@ -42,7 +41,6 @@ void	todo(const char *msg)
 // void	reset_syntax_error(void)
 // {
 // 	bool	*syntax_error;
-
 // 	syntax_error = get_syntax_error_ptr();
 // 	*syntax_error = false;
 // }

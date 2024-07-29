@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/20 00:11:12 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/04/25 20:21:40 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:16:49 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ char	*ft_strtrim(char const *s1, char const *set)
 //         printf("Failed to trim the string.\n");
 // 	return (0);
 // }
-
-
 
 // //ft_strtrim("hello world","world") == "hello "
 // //ft_strtrim("hello world","world") == "he "
