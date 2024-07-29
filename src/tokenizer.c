@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:35:53 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 01:32:54 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:40:57 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,8 @@ t_token	*tokenizer(char *input_p)
 			new_current = word(&input_p, input_p);
 		else
 			tokenize_error("Unexpected Token", &input_p, input_p);
+		current->next = new_current;
+		current = new_current;
 	}
 	current->next = new_token(NULL, TK_EOF);
 	return (head.next);
