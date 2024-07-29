@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:35:53 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 01:40:57 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:57:34 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,32 @@ t_token	*word(char **rest, char *line)
 }
 
 /*
+	(Additional part in Linux)
+	If removes this part, the current pointer will not be updated
+	to point to the new Token.
+
+	The current pointer will keep pointing to the same token.
+	Each new token created (new_current) will not be linked into the list.
+
+	The linked list will not be built correctly, leading to an incomplete
+	or empty token list.
+	
+	(Linuxでの追加部分）
+	この部分を削除すると、現在のポインタは新しいトークンを指すように更新されません。
+
+	現在のポインタは同じトークンを指し続けます。
+	新しく作成された各トークン（new_current）は
+	リストにリンクされません。
+
+	リンクリストは正しく構築されず、トークン・リストが不完全または空になります。
+*/
+static void	add_token(t_token **current, t_token *new_token)
+{
+	(*current)->next = new_token;
+	*current = new_token;
+}
+
+/*
 	These codes should be in next to the `else` statement
 
 	current->next = new_current;
@@ -109,10 +135,10 @@ t_token	*tokenizer(char *input_p)
 			new_current = word(&input_p, input_p);
 		else
 			tokenize_error("Unexpected Token", &input_p, input_p);
-		current->next = new_current;
-		current = new_current;
+		if (new_current)
+			add_token(&current, new_current);
 	}
-	current->next = new_token(NULL, TK_EOF);
+	add_token(&current, new_token(NULL, TK_EOF));
 	return (head.next);
 }
 
