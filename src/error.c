@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:45:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 01:09:55 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 01:13:15 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	tokenize_error(const char *l, char **rest, char *line)
 	syntax_error = true;
 	perror_prefix();
 	dprintf(STDERR_FILENO, \
-		"syntax error near unexpected character `%c in %s\n", *line, l);
+		"syntax error near unexpected character `%c' in %s\n", *line, l);
 	while (*line)
 		line++;
 	*rest = line;
@@ -79,7 +79,7 @@ void	parse_error(const char *l, t_token **rest, t_token *token)
 	syntax_error = true;
 	perror_prefix();
 	dprintf(STDERR_FILENO,
-		"syntax error near unexpected token `%s in %s\n", token->word, l);
+		"syntax error near unexpected token `%s' in %s\n", token->word, l);
 	while (token && !at_eof(token))
 		token = token->next;
 	*rest = token;
