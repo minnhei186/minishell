@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:00:18 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/22 20:55:30 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 00:11:58 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,10 @@ char	*check_path(char *abs_path, const char *line)
 	char	f_path[PATH_MAX];
 
 	bzero(f_path, PATH_MAX);
-	strlcat(strncpy(f_path, abs_path, PATH_MAX - 1), "/", PATH_MAX);
-	strlcat(f_path, line, PATH_MAX);
+	ft_strlcat(strncpy(f_path, abs_path, PATH_MAX - 1), "/", PATH_MAX);
+	ft_strlcat(f_path, line, PATH_MAX);
 	if (access(f_path, 0) == 0)
-		return (strdup(f_path));
+		return (ft_strdup(f_path));
 	return (NULL);
 }
 
