@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/23 21:53:40 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:58:24 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,17 +47,33 @@ struct						s_token
 enum	e_node_kind
 {
 	ND_SIMPLE_CMD,
+	ND_REDIR_OUT
 };
 typedef enum e_node_kind	t_node_kind;
 
-/* Struct for Node */
+/* 
+	Struct for Node
+	Redirecting output example
+	- comamnd: "echo hello 1 > out"
+	- target_fd: 1
+	- file_name: "out"
+	- file_fd: open("out")
+	- stashed_target_fd: dup(target_fd)
+*/
 typedef struct s_node		t_node;
 struct						s_node
 {
 	t_token					*args;
+	t_token					*redirects;
+	t_token					*file_name;
 	t_node_kind				kind;
 	t_node					*next;
+	int						target_fd;
+	int						file_id;
+	int						stashed_target_fd;
 };
+
+# define ERROR_PARSE 258
 
 // Environment
 extern char					**environ;
