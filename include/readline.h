@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 21:16:32 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 23:15:40 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ enum	e_node_kind
 {
 	ND_SIMPLE_CMD,
 	ND_REDIR_OUT,
-	ND_REDIR_IN
+	ND_REDIR_IN,
+	ND_REDIR_APPEND
 };
 typedef enum e_node_kind	t_node_kind;
 
@@ -149,6 +150,8 @@ void	append_token(t_token **token, t_token *element);
 bool	equal_op(t_token *tok, char *op);
 t_node	*redirect_out(t_token **rest, t_token *token);
 t_node	*redirect_in(t_token **rest, t_token *token);
+
+/* parse_append.c */
 void	append_commend_element(t_node *command, t_token **rest, t_token *token);
 void	append_node(t_node **node, t_node *element);
 
