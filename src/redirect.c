@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:54:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 15:54:40 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 16:58:36 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ void	open_redir_file(t_node *redir)
 	if (redir == NULL)
 		return ;
 	if (redir->kind == ND_REDIR_OUT)
-		redir->filefd = open(redir->filename->word, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+		redir->filefd = open(redir->filename->word, \
+		O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else
 		todo("open_redir_file");
 	redir->filefd = stashfd(redir->filefd);
