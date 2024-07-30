@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:28:03 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 02:03:29 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 15:59:24 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ void	expand_quote_removal(t_node *node)
 	if (node == NULL)
 		return ;
 	remove_quote(node->args);
+	remove_quote(node->file_name);
+	expand_quote_removal(node->redirects);
 	expand_quote_removal(node->next);
 }
 
