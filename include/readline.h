@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 23:15:40 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 23:24:01 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ void	append_token(t_token **token, t_token *element);
 bool	equal_op(t_token *tok, char *op);
 t_node	*redirect_out(t_token **rest, t_token *token);
 t_node	*redirect_in(t_token **rest, t_token *token);
+t_node	*redirect_append(t_token **rest, t_token *token);
 
 /* parse_append.c */
 void	append_commend_element(t_node *command, t_token **rest, t_token *token);
