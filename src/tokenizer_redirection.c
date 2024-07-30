@@ -1,49 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   destructor.c                                       :+:      :+:    :+:   */
+/*   tokenizer_redirection.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/07/15 21:22:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 18:38:43 by geonwkim         ###   ########.fr       */
+/*   Created: 2024/07/30 17:43:43 by geonwkim          #+#    #+#             */
+/*   Updated: 2024/07/30 18:04:18 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../include/readline.h"
+#include	"../include/error.h"
+#include	"../libft/libft.h"
 
-void	free_node(t_node *node)
+bool	is_redirection_operator(const char *s)
 {
-	if (node == NULL)
-		return ;
-	free_token(node->args);
-	free_token(node->file_name);
-	free_node(node->redirects);
-	free_node(node->next);
-	free(node);
-}
+	static char	*const operators[] = {">", "<", ">>", "<<"};
+	size_t				i = 0;				
 
-void	free_token(t_token *token)
-{
-	if (token == NULL)
-		return ;
-	if (token->word)
-		free(token->word);
-	free_token(token->next);
-	free(token);
-}
-
-void	free_argv(char **argv)
-{
-	int	i;
-
-	i = 0;
-	if (argv == NULL)
-		return ;
-	while (argv[i])
+	while (i < sizeof(operators) / sizeof(*operators))
 	{
-		free(argv[i]);
+		if (startswith(s, operators[i]))
+			return (true);
 		i++;
 	}
-	free(argv);
+	return (false);
+
 }

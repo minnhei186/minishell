@@ -6,11 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:37:55 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 01:32:50 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:09:49 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"readline.h"
+#include	"../include/readline.h"
 
 bool	is_blank(char c)
 {
@@ -28,7 +28,8 @@ bool	operators_cmp(char *str, char *key_op)
 	return (ft_memcmp(str, key_op, ft_strlen(key_op)) == 0);
 }
 
-bool	is_operator(char *input_p)
+// control operator
+bool	is_control_operator(char *input_p)
 {
 	static char *const	operators[] = {"||", "&", "&&", \
 						";", ";;", "(", ")", "|", "\n"};

@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 15:58:24 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:35:32 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ struct						s_node
 	t_node_kind				kind;
 	t_node					*next;
 	int						target_fd;
-	int						file_id;
+	int						file_fd;
 	int						stashed_target_fd;
 };
 
@@ -90,9 +90,12 @@ void	skip_double_quote(char **line);
 bool	is_blank(char c);
 bool	is_metacharacter(char c);
 bool	operators_cmp(char *str, char *key_op);
-bool	is_operator(char *input_p);
+bool	is_control_operator(char *input_p);
 bool	is_word(char *s);
 bool	consume_blank(char **rest, char *line);
+
+/* Tokenizer Redirection */
+bool	is_redirection_operator(const char *s);
 
 /* Error */
 // void	fatal_error(const char *msg) __attribute__((noreturn));
@@ -139,6 +142,18 @@ t_node	*parse(t_token *token);
 bool	at_eof(t_token *token);
 t_node	*new_node(t_node_kind kind);
 t_token	*token_dup(t_token *token);
-void	append_token(t_token **tokens, t_token *token);
+void	append_token(t_token **token, t_token *element);
+
+/* parse_command.c */
+bool	equal_op(t_token *tok, char *op);
+t_node	*redirect_out(t_token **rest, t_token *tok);
+void	append_commend_element(t_node *command, t_token **rest, t_token *token);
+void	append_node(t_node **node, t_node *element);
+
+/* redirect.c */
+int		stashfd(int fd);
+void	open_redir_file(t_node *redir);
+void	do_redirect(t_node *redir);
+void	reset_redirect(t_node *redir);
 
 #endif

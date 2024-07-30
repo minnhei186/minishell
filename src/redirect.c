@@ -6,13 +6,13 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:54:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 16:58:36 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:36:50 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
-#include "readline.h"
+#include "../include/readline.h"
 
 int	stashfd(int fd)
 {
@@ -31,11 +31,11 @@ void	open_redir_file(t_node *redir)
 	if (redir == NULL)
 		return ;
 	if (redir->kind == ND_REDIR_OUT)
-		redir->filefd = open(redir->filename->word, \
+		redir->file_fd = open(redir->file_name->word, \
 		O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else
 		todo("open_redir_file");
-	redir->filefd = stashfd(redir->filefd);
+	redir->file_fd = stashfd(redir->file_fd);
 	open_redir_file(redir->next);
 }
 
@@ -45,8 +45,8 @@ void	do_redirect(t_node *redir)
 		return ;
 	if (redir->kind == ND_REDIR_OUT)
 	{
-		redir->stashed_targetfd = stashfd(redir->targetfd);
-		dup2(redir->filefd, redir->targetfd);
+		redir->stashed_target_fd = stashfd(redir->target_fd);
+		dup2(redir->file_fd, redir->target_fd);
 	}
 	do_redirect(redir->next);
 }
@@ -59,8 +59,8 @@ void	reset_redirect(t_node *redir)
 	reset_redirect(redir->next);
 	if (redir->kind == ND_REDIR_OUT)
 	{
-		close(redir->filefd);
-		close(redir->targetfd);
-		dup2(redir->stashed_targetfd, redir->targetfd);
+		close(redir->file_fd);
+		close(redir->target_fd);
+		dup2(redir->stashed_target_fd, redir->target_fd);
 	}
 }

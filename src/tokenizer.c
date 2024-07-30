@@ -6,11 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:35:53 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 01:57:34 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:09:58 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "readline.h"
+#include	"../include/readline.h"
 #include "../libft/libft.h"
 
 t_token	*new_token(char *word, t_token_kind kind)
@@ -129,7 +129,7 @@ t_token	*tokenizer(char *input_p)
 		new_current = NULL;
 		if (consume_blank(&input_p, input_p))
 			continue ;
-		else if (is_operator(input_p))
+		else if (is_control_operator(input_p))
 			new_current = operator(&input_p, input_p);
 		else if (is_word(input_p))
 			new_current = word(&input_p, input_p);

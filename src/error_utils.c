@@ -6,11 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:10:32 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 01:32:26 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:06:47 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"error.h"
+#include	"../include/error.h"
 
 void	perror_prefix(void)
 {

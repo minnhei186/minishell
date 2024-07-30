@@ -6,11 +6,14 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:05:42 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 01:32:43 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:37:38 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"readline.h"
+#include	"../include/readline.h"
+
+bool	equal_op(t_token *tok, char *op);
+void	append_node(t_node **node, t_node *elm);
 
 t_node	*parse(t_token *token)
 {
@@ -56,12 +59,12 @@ t_token	*token_dup(t_token *token)
 	return (new_token(word, token->kind));
 }
 
-void	append_token(t_token **tokens, t_token *token)
+void	append_token(t_token **token, t_token *element)
 {
-	if (*tokens == NULL)
+	if (*token == NULL)
 	{
-		*tokens = token;
+		*token = element;
 		return ;
 	}
-	append_token(&(*tokens)->next, token);
+	append_token(&(*token)->next, element);
 }
