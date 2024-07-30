@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 18:35:32 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 18:51:01 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct s_node		t_node;
 struct						s_node
 {
 	t_token					*args;
-	t_token					*redirects;
+	t_node					*redirects;
 	t_token					*file_name;
 	t_node_kind				kind;
 	t_node					*next;
