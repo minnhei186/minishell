@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:25:12 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 20:11:10 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 21:17:26 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,25 @@ bool	equal_op(t_token *tok, char *op)
 	return (strcmp(tok->word, op) == 0);
 }
 
-t_node	*redirect_out(t_token **rest, t_token *tok)
+t_node	*redirect_out(t_token **rest, t_token *token)
 {
 	t_node	*node;
 
 	node = new_node(ND_REDIR_OUT);
-	node->file_name = token_dup(tok->next);
+	node->file_name = token_dup(token->next);
 	node->target_fd = STDOUT_FILENO;
-	*rest = tok->next->next;
+	*rest = token->next->next;
+	return (node);
+}
+
+t_node	*redirect_in(t_token **rest, t_token *token)
+{
+	t_node	*node;
+
+	node = new_node(ND_REDIR_IN);
+	node->file_name = token_dup(token->next);
+	node->target_fd = STDIN_FILENO;
+	*rest = token->next->next;
 	return (node);
 }
 
@@ -41,6 +52,8 @@ void	append_command_element(t_node *command, t_token **rest, t_token *token)
 	}
 	else if (equal_op(token, ">") && token->next->kind == TK_WORD)
 		append_node(&command->redirects, redirect_out(&token, token));
+	else if (equal_op(token, "<") && token->next->kind == TK_WORD)
+		append_node(&command->redirects, redirect_in(&token, token));
 	else
 		todo("append_command_element");
 	*rest = token;

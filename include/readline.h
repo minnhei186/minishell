@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 19:27:25 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 21:16:32 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ struct						s_token
 enum	e_node_kind
 {
 	ND_SIMPLE_CMD,
-	ND_REDIR_OUT
+	ND_REDIR_OUT,
+	ND_REDIR_IN
 };
 typedef enum e_node_kind	t_node_kind;
 
@@ -81,8 +82,6 @@ extern char					**environ;
 /* Quotes */
 # define SINGLE_QUOTE_CHAR '\''
 # define DOUBLE_QUOTE_CHAR '"'
-# define TK_WORD 1
-# define TK_GREATER 2
 
 /* Tokenizer Quotes */
 void	skip_single_quote(char **line);
@@ -146,15 +145,16 @@ t_node	*new_node(t_node_kind kind);
 t_token	*token_dup(t_token *token);
 void	append_token(t_token **token, t_token *element);
 
-/* parse_command.c */
+/* parse_redirection.c */
 bool	equal_op(t_token *tok, char *op);
-t_node	*redirect_out(t_token **rest, t_token *tok);
+t_node	*redirect_out(t_token **rest, t_token *token);
+t_node	*redirect_in(t_token **rest, t_token *token);
 void	append_commend_element(t_node *command, t_token **rest, t_token *token);
 void	append_node(t_node **node, t_node *element);
 
 /* redirect.c */
 int		stashfd(int fd);
-void	open_redir_file(t_node *redir);
+int		open_redir_file(t_node *redir);
 void	do_redirect(t_node *redir);
 void	reset_redirect(t_node *redir);
 

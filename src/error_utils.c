@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:10:32 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 18:06:47 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 21:11:45 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,12 @@ void	todo(const char *msg)
 	perror_prefix();
 	dprintf(STDERR_FILENO, "TODO: %s\n", msg);
 	exit(255);
+}
+
+void	xperror(const char *l)
+{
+	perror_prefix();
+	perror(l);
 }
 
 /* 

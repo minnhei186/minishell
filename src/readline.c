@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 18:40:01 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 21:02:56 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ int	exec(t_node *node)
 {
 	int	status;
 
+	if (open_redir_file(node->redirects) < 0)
+		return (ERROR_OPEN_REDIR);
 	open_redir_file(node->redirects);
 	do_redirect(node->redirects);
 	status = exec_cmd(node);
