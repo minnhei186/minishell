@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:05:42 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 20:15:47 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:58:33 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,12 @@ void	append_node(t_node **node, t_node *elm);
 void	append_command_element(t_node *command, \
 		t_token **rest, t_token *token);
 
+// <simple_command> = <command_element>+
+// <command_element> = <word> | <redirection>
+// <redirection> = '>' <word>
+//               | '<' <word>
+//               | '>>' <word>
+//               | '<<' <word>
 t_node	*parse(t_token *token)
 {
 	t_node	*node;
