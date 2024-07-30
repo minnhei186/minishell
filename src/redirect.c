@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:54:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 23:28:37 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/31 00:05:18 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,30 @@ int	stashfd(int fd)
 	return (stashfd);
 }
 
+int	read_heredoc(const char *delimiter)
+{
+	char	*line;
+	int		pfd[2];
+
+	if (pipe(pfd) < 0)
+		fatal_error("pipe");
+	while (1)
+	{
+		line = readline("> ");
+		if (line == NULL)
+			break ;
+		if (ft_strcmp(line, delimiter) == 0)
+		{
+			free(line);
+			break ;
+		}
+		dprintf(pfd[1], "%s\n", line);
+		free(line);
+	}
+	close(pfd[1]);
+	return (pfd[0]);
+}
+
 int	open_redir_file(t_node *redir)
 {
 	if (redir == NULL)
@@ -57,8 +81,10 @@ int	open_redir_file(t_node *redir)
 	else if (redir->kind == ND_REDIR_APPEND)
 		redir->file_fd = open(redir->file_name->word, \
 		O_CREAT | O_WRONLY | O_APPEND, 0644);
+	else if (redir->kind == ND_REDIR_HEREDOC)
+		redir->file_fd = read_heredoc(redir->delimiter->word);
 	else
-		todo("open_redir_file");
+		assert_error("open_redir_file");
 	if (redir->file_fd < 0)
 	{
 		xperror(redir->file_name->word);
@@ -72,14 +98,13 @@ void	do_redirect(t_node *redir)
 {
 	if (redir == NULL)
 		return ;
-	if (redir->kind == ND_REDIR_OUT || redir->kind == ND_REDIR_IN \
-		|| redir->kind == ND_REDIR_APPEND)
+	if (is_redirect(redir))
 	{
 		redir->stashed_target_fd = stashfd(redir->target_fd);
 		dup2(redir->file_fd, redir->target_fd);
 	}
 	else
-		todo("do_redirect");
+		assert_error("do_redirect");
 	do_redirect(redir->next);
 }
 
@@ -89,13 +114,12 @@ void	reset_redirect(t_node *redir)
 	if (redir == NULL)
 		return ;
 	reset_redirect(redir->next);
-	if (redir->kind == ND_REDIR_OUT || redir->kind == ND_REDIR_IN \
-		|| redir->kind == ND_REDIR_APPEND)
+	if (is_redirect(redir))
 	{
 		close(redir->file_fd);
 		close(redir->target_fd);
 		dup2(redir->stashed_target_fd, redir->target_fd);
 	}
 	else
-		todo("reset_redirect");
+		assert_error("reset_redirect");
 }

@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 23:24:01 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 23:47:07 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ enum	e_node_kind
 	ND_SIMPLE_CMD,
 	ND_REDIR_OUT,
 	ND_REDIR_IN,
-	ND_REDIR_APPEND
+	ND_REDIR_APPEND,
+	ND_REDIR_HEREDOC
 };
 typedef enum e_node_kind	t_node_kind;
 
@@ -58,6 +59,8 @@ typedef enum e_node_kind	t_node_kind;
 	Redirecting output example
 	- comamnd: "echo hello 1 > out"
 	- target_fd: 1
+	- redirect: redirection
+	- delimiter: recognize and delimite the character
 	- file_name: "out"
 	- file_fd: open("out")
 	- stashed_target_fd: dup(target_fd)
@@ -68,6 +71,7 @@ struct						s_node
 	t_token					*args;
 	t_node					*redirects;
 	t_token					*file_name;
+	t_token					*delimiter;
 	t_node_kind				kind;
 	t_node					*next;
 	int						target_fd;
@@ -151,6 +155,7 @@ bool	equal_op(t_token *tok, char *op);
 t_node	*redirect_out(t_token **rest, t_token *token);
 t_node	*redirect_in(t_token **rest, t_token *token);
 t_node	*redirect_append(t_token **rest, t_token *token);
+t_node	*redirect_heredoc(t_token **rest, t_token *token);
 
 /* parse_append.c */
 void	append_commend_element(t_node *command, t_token **rest, t_token *token);
@@ -158,8 +163,12 @@ void	append_node(t_node **node, t_node *element);
 
 /* redirect.c */
 int		stashfd(int fd);
+int		read_heredoc(const char *delimiter);
 int		open_redir_file(t_node *redir);
 void	do_redirect(t_node *redir);
 void	reset_redirect(t_node *redir);
+
+/* redirect_utils.c */
+bool	is_redirect(t_node *node);
 
 #endif

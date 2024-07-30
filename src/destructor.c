@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 21:22:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 18:38:43 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 23:40:05 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	free_node(t_node *node)
 		return ;
 	free_token(node->args);
 	free_token(node->file_name);
+	free_token(node->delimiter);
 	free_node(node->redirects);
 	free_node(node->next);
 	free(node);

@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:25:12 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 23:22:58 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 23:42:19 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,17 @@ t_node	*redirect_append(t_token **rest, t_token *token)
 	node = new_node(ND_REDIR_APPEND);
 	node->file_name = token_dup(token->next);
 	node->target_fd = STDOUT_FILENO;
+	*rest = token->next->next;
+	return (node);
+}
+
+t_node	*redirect_heredoc(t_token **rest, t_token *token)
+{
+	t_node	*node;
+
+	node = new_node(ND_REDIR_HEREDOC);
+	node->delimiter = token_dup(token->next);
+	node->target_fd = STDIN_FILENO;
 	*rest = token->next->next;
 	return (node);
 }
