@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:35:53 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 18:09:58 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:06:41 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ t_token	*new_token(char *word, t_token_kind kind)
 {
 	t_token	*tok;
 
-	tok = (t_token *)calloc(1, sizeof(t_token));
+	tok = calloc(1, sizeof(*tok));
 	if (!tok)
 		fatal_error("calloc");
 	tok->word = word;
@@ -33,8 +33,8 @@ t_token	*new_token(char *word, t_token_kind kind)
 */
 t_token	*operator(char **rest, char *line)
 {
-	static char *const	operators[] = {"||", "&", "&&", \
-						";", ";;", "(", ")", "|", "\n"};
+	static char *const	operators[] = {\
+		">>", "<<", "||", "&&", ";;", "<", ">", "&", ";", "(", ")", "|", "\n"};
 	size_t				i;
 	char				*op;
 
@@ -52,7 +52,6 @@ t_token	*operator(char **rest, char *line)
 		i++;
 	}
 	assert_error("Unexpected operator");
-	return (NULL);
 }
 
 // t_token	*word(t_token *current, char **input_p)
@@ -119,9 +118,7 @@ t_token	*tokenizer(char *input_p)
 	t_token	*current;
 	t_token	*new_current;
 	t_token	head;
-	bool	syntax_error;
 
-	syntax_error = false;
 	head.next = NULL;
 	current = &head;
 	while (*input_p)
@@ -129,7 +126,7 @@ t_token	*tokenizer(char *input_p)
 		new_current = NULL;
 		if (consume_blank(&input_p, input_p))
 			continue ;
-		else if (is_control_operator(input_p))
+		else if (is_metacharacter(*input_p))
 			new_current = operator(&input_p, input_p);
 		else if (is_word(input_p))
 			new_current = word(&input_p, input_p);

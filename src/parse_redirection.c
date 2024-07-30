@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:25:12 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 18:29:14 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:11:10 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ t_node	*redirect_out(t_token **rest, t_token *tok)
 	t_node	*node;
 
 	node = new_node(ND_REDIR_OUT);
-	node->file_name = tokdup(tok->next);
+	node->file_name = token_dup(tok->next);
 	node->target_fd = STDOUT_FILENO;
 	*rest = tok->next->next;
 	return (node);
@@ -36,7 +36,7 @@ void	append_command_element(t_node *command, t_token **rest, t_token *token)
 {
 	if (token->kind == TK_WORD)
 	{
-		append_tok(&command->args, tokdup(token));
+		append_token(&command->args, token_dup(token));
 		token = token->next;
 	}
 	else if (equal_op(token, ">") && token->next->kind == TK_WORD)

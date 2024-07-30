@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:05:42 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 18:37:38 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 20:15:47 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,17 @@
 
 bool	equal_op(t_token *tok, char *op);
 void	append_node(t_node **node, t_node *elm);
+void	append_command_element(t_node *command, \
+		t_token **rest, t_token *token);
 
 t_node	*parse(t_token *token)
 {
 	t_node	*node;
 
 	node = new_node(ND_SIMPLE_CMD);
+	append_command_element(node, &token, token);
 	while (token && !at_eof(token))
-	{
-		if (token->kind == TK_WORD)
-		{
-			append_token(&node->args, token_dup(token));
-			token = token->next;
-		}
-		else
-			parse_error("Unexpected Parse", &token, token);
-	}
+		append_command_element(node, &token, token);
 	return (node);
 }
 

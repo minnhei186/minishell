@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 18:51:01 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 19:27:25 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ extern char					**environ;
 /* Quotes */
 # define SINGLE_QUOTE_CHAR '\''
 # define DOUBLE_QUOTE_CHAR '"'
+# define TK_WORD 1
+# define TK_GREATER 2
 
 /* Tokenizer Quotes */
 void	skip_single_quote(char **line);

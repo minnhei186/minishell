@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 17:43:43 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 18:04:18 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 19:50:30 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,10 @@
 
 bool	is_redirection_operator(const char *s)
 {
-	static char	*const operators[] = {">", "<", ">>", "<<"};
-	size_t				i = 0;				
+	static char *const	operators[] = {">", "<", ">>", "<<"};
+	size_t				i;
 
+	i = 0;
 	while (i < sizeof(operators) / sizeof(*operators))
 	{
 		if (startswith(s, operators[i]))
@@ -26,5 +27,4 @@ bool	is_redirection_operator(const char *s)
 		i++;
 	}
 	return (false);
-
 }

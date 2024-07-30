@@ -6,13 +6,32 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:54:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 18:36:50 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/30 19:49:05 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
 #include "../include/readline.h"
+
+// void	redirect(int targetfd, char *filename)
+// {
+// 	int filefd;
+// 	int	stashed_targetfd;
+
+// 	filefd = open(filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+// 	filefd = stashfd(filefd);
+
+// 	stashed_targetfd = stashfd(targetfd);
+// 	if (filefd != targetfd)
+// 	{
+// 		dup2(filefd, targetfd);
+// 		close(filefd);
+// 	}
+
+// 	exec_command();
+// 	dup2(stashed_targetfd, targetfd);
+// }
 
 int	stashfd(int fd)
 {
