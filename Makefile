@@ -16,7 +16,8 @@ SOURCES = 	./src/error_utils.c \
 			./src/expand_quote.c \
 			./src/expand.c \
 			./src/parse.c \
-			./src/destructor.c
+			./src/destructor.c \
+			./src/redirect.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
