@@ -174,6 +174,7 @@ assert 'pwd >>pwd.txt' 'pwd.txt'
 
 # Pipe
 assert 'cat Makefile | grep minishell'
+assert 'cat | cat | ls\n\n'
 
 # Expand Variable
 assert 'echo $USER'
