@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:59:51 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 17:02:09 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:24:31 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_node	*simple_command(t_token **rest, t_token *token)
 
 	node = new_node(ND_SIMPLE_CMD);
 	append_command_element(node, &token, token);
-	while (token && !at_eof(token))
+	while (token && !at_eof(token) && !is_control_operator(token))
 		append_command_element(node, &token, token);
 	*rest = token;
 	return (node);
