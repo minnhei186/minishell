@@ -7,6 +7,7 @@ CFLAGS = -Wall -Werror -Wextra $(INCLUDES)
 LIBRARY =	-lreadline -L libft -lft
 SOURCES = 	./src/error_utils.c \
 			./src/error.c \
+			./src/read_pipe.c \
 			./src/readline.c \
 			./src/tokenizer_quotes.c \
 			./src/tokenizer_utils.c \
