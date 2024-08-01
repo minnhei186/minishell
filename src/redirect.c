@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:54:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 17:16:41 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:44:30 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,17 @@ int	open_redir_file(t_node *node)
 {
 	if (node == NULL)
 		return (0);
-	if (node->kind == ND_REDIR_OUT)
+	if (node->kind == ND_PIPE_LINE)
+	{
+		if (open_redir_file(node->cmd) < 0)
+			return (-1);
+		if (open_redir_file(node->next) < 0)
+			return (-1);
+		return (0);
+	}
+	else if (node->kind == ND_SIMPLE_CMD)
+		return (open_redir_file(node->redirects));
+	else if (node->kind == ND_REDIR_OUT)
 		node->file_fd = open(node->file_name->word, \
 		O_CREAT | O_WRONLY | O_TRUNC, 0644);
 	else if (node->kind == ND_REDIR_IN)

@@ -15,6 +15,7 @@ SOURCES = 	./src/error_utils.c \
 			./src/do_command_utils.c \
 			./src/expand_quote.c \
 			./src/expand.c \
+			./src/parse_pipe.c \
 			./src/parse_redirection.c \
 			./src/parse_append.c \
 			./src/parse.c \

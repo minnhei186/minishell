@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 17:33:39 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 18:45:08 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include	"../include/error.h"
 #include	"../libft/libft.h"
 #include	<sys/wait.h>
+#include	<errno.h>
 
 // __attribute__((destructor))
 // static void destructor() {
@@ -60,12 +61,40 @@ void	validate_access(const char *path, const char *file_name)
 		error_exit(file_name, "command not found", 127);
 }
 
-int	exec_cmd(t_node *node)
+// int	exec_cmd(t_node *node)
+// {
+// 	extern char		**environ;
+// 	char			*path;
+// 	pid_t			pid;
+// 	int				wstatus;
+// 	char			**argv;
+
+// 	if (node == NULL)
+// 		return (-1);
+// 	pid = fork();
+// 	if (pid < 0)
+// 		fatal_error("fork");
+// 	else if (pid == 0)
+// 	{
+// 		argv = token_to_argv(node->args);
+// 		path = argv[0];
+// 		if (ft_strchr(path, '/') == NULL)
+// 			path = find_path(path);
+// 		validate_access(path, argv[0]);
+// 		execve(path, argv, environ);
+// 		fatal_error("execve");
+// 	}
+// 	else
+// 	{
+// 		wait(&wstatus);
+// 		return (WEXITSTATUS(wstatus));
+// 	}
+// }
+pid_t	exec_pipeline(t_node *node)
 {
 	extern char		**environ;
 	char			*path;
 	pid_t			pid;
-	int				wstatus;
 	char			**argv;
 
 	if (node == NULL)
@@ -76,33 +105,68 @@ int	exec_cmd(t_node *node)
 		fatal_error("fork");
 	else if (pid == 0)
 	{
-		argv = token_to_argv(node->args);
+		prepare_pipe_child(node);
+		do_redirect(node->cmd->redirects);
+		argv = token_to_argv(node->cmd->args);
 		path = argv[0];
 		if (ft_strchr(path, '/') == NULL)
 			path = find_path(path);
 		validate_access(path, argv[0]);
 		execve(path, argv, environ);
+		reset_redirect(node->cmd->redirects);
 		fatal_error("execve");
 	}
-	else
+	prepare_pipe_parent(node);
+	if (node->next)
+		return (exec_pipeline(node->next));
+	return (pid);
+}
+
+int	wait_pipeline(pid_t last_pid)
+{
+	pid_t	wait_result;
+	int		status;
+	int		wstatus;
+
+	while (1)
 	{
-		wait(&wstatus);
-		return (WEXITSTATUS(wstatus));
+		wait_result = wait(&wstatus);
+		if (wait_result == last_pid)
+			status = WEXITSTATUS(wstatus);
+		else if (wait_result < 0)
+		{
+			if (errno == ECHILD)
+				break ;
+		}
 	}
+	return (status);
 }
 
 int	exec(t_node *node)
 {
-	int	status;
+	pid_t	last_pid;
+	int		status;
 
-	if (open_redir_file(node->redirects) < 0)
+	if (open_redir_file(node) < 0)
 		return (ERROR_OPEN_REDIR);
-	open_redir_file(node->redirects);
-	do_redirect(node->redirects);
-	status = exec_cmd(node);
-	reset_redirect(node->redirects);
+	printf("Exec !! \n");
+	last_pid = exec_pipeline(node);
+	status = wait_pipeline(last_pid);
 	return (status);
 }
+
+// int	exec(t_node *node)
+// {
+// 	int	status;
+
+// 	if (open_redir_file(node->redirects) < 0)
+// 		return (ERROR_OPEN_REDIR);
+// 	open_redir_file(node->redirects);
+// 	do_redirect(node->redirects);
+// 	status = exec_cmd(node);
+// 	reset_redirect(node->redirects);
+// 	return (status);
+// }
 
 // int	exec(char *argv[])
 // {
