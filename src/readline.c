@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 19:05:52 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:51:32 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,11 @@
 #include	"../libft/libft.h"
 #include	<sys/wait.h>
 #include	<errno.h>
+
+pid_t	exec_pipeline(t_node *node);
+int		wait_pipeline(pid_t last_pid);
+int		exec(t_node *node);
+void	interpreter(char *line, int *state_loca);
 
 // __attribute__((destructor))
 // static void destructor() {
@@ -90,69 +95,6 @@ void	validate_access(const char *path, const char *file_name)
 // 		return (WEXITSTATUS(wstatus));
 // 	}
 // }
-pid_t	exec_pipeline(t_node *node)
-{
-	extern char		**environ;
-	char			*path;
-	pid_t			pid;
-	char			**argv;
-
-	if (node == NULL)
-		return (-1);
-	prepare_pipe(node);
-	pid = fork();
-	if (pid < 0)
-		fatal_error("fork");
-	else if (pid == 0)
-	{
-		prepare_pipe_child(node);
-		do_redirect(node->cmd->redirects);
-		argv = token_to_argv(node->cmd->args);
-		path = argv[0];
-		if (ft_strchr(path, '/') == NULL)
-			path = find_path(path);
-		validate_access(path, argv[0]);
-		execve(path, argv, environ);
-		reset_redirect(node->cmd->redirects);
-		fatal_error("execve");
-	}
-	prepare_pipe_parent(node);
-	if (node->next)
-		return (exec_pipeline(node->next));
-	return (pid);
-}
-
-int	wait_pipeline(pid_t last_pid)
-{
-	pid_t	wait_result;
-	int		status;
-	int		wstatus;
-
-	while (1)
-	{
-		wait_result = wait(&wstatus);
-		if (wait_result == last_pid)
-			status = WEXITSTATUS(wstatus);
-		else if (wait_result < 0)
-		{
-			if (errno == ECHILD)
-				break ;
-		}
-	}
-	return (status);
-}
-
-int	exec(t_node *node)
-{
-	pid_t	last_pid;
-	int		status;
-
-	if (open_redir_file(node) < 0)
-		return (ERROR_OPEN_REDIR);
-	last_pid = exec_pipeline(node);
-	status = wait_pipeline(last_pid);
-	return (status);
-}
 
 // int	exec(t_node *node)
 // {
@@ -221,32 +163,6 @@ int	exec(t_node *node)
 // 	}
 // 	free_token(token);
 // }
-void	interpreter(char *line, int *state_loca)
-{
-	t_token	*token;
-	t_node	*node;
-	bool	syntax_error;
-
-	syntax_error = false;
-	token = tokenizer(line);
-	if (at_eof(token))
-		;
-	else if (syntax_error)
-		*state_loca = ERROR_TOKENIZE;
-	else
-	{
-		node = parse(token);
-		if (syntax_error)
-			*state_loca = ERROR_PARSE;
-		else
-		{
-			expand(node);
-			*state_loca = exec(node);
-		}
-		free_node(node);
-	}
-	free_token(token);
-}
 
 int	main(void)
 {

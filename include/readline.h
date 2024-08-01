@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 18:50:55 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:51:21 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,12 @@ struct						s_node
 
 // Environment
 extern char					**environ;
+
+/* Read Pipe */
+int		exec(t_node *node);
+int		wait_pipeline(pid_t last_pid);
+pid_t	exec_pipeline(t_node *node);
+void	interpreter(char *line, int *state_loca);
 
 /* Quotes */
 # define SINGLE_QUOTE_CHAR '\''
