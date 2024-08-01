@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 18:45:08 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 19:05:52 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,6 @@ int	exec(t_node *node)
 
 	if (open_redir_file(node) < 0)
 		return (ERROR_OPEN_REDIR);
-	printf("Exec !! \n");
 	last_pid = exec_pipeline(node);
 	status = wait_pipeline(last_pid);
 	return (status);
