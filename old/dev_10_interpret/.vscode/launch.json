@@ -1,0 +1,17 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "C/C++ Runner: Debug Session",
+      "type": "lldb",
+      "request": "launch",
+      "args": [],
+      "cwd": "/Users/hosokawa/42tokyo/level03/minishell/dev_05_expand",
+      "program": "/Users/hosokawa/42tokyo/level03/minishell/dev_05_expand/a.out",
+      "stopOnEntry": false,
+      "env": {
+        "LLDB_CHILD_PROCESSES": "1" // Add this line to set the environment variable
+      }
+    }
+  ]
+}
