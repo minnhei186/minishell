@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 17:01:49 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:05:12 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,7 +168,7 @@ t_node	*redirect_heredoc(t_token **rest, t_token *token);
 
 /* parse_append.c */
 void	append_token(t_token **token, t_token *element);
-void	append_commend_element(t_node *command, t_token **rest, t_token *token);
+void	append_command_element(t_node *command, t_token **rest, t_token *token);
 void	append_node(t_node **node, t_node *element);
 
 /* parse_pipe.c */
