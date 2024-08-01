@@ -1,0 +1,8 @@
+{
+	"files.associations": {
+		"libft.h": "c",
+		"error.h": "c",
+		"readline.h": "c",
+		"unistd.h": "c"
+	}
+}

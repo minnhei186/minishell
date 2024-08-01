@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 21:02:56 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 01:29:28 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,24 +60,25 @@ void	validate_access(const char *path, const char *file_name)
 		error_exit(file_name, "command not found", 127);
 }
 
-int	exec_cmd(t_node *node)
-{
-	extern char		**environ;
-	char			*path;
-	pid_t			pid;
-	int				wstatus;
-	char			**argv;
-
+/*
 	pid = fork();
 	if (pid < 0)
 		fatal_error("fork");
 	else if (pid == 0)
 	{
+		if (argv[0] == "exit")
+			execute_exit();
+		else if (argv[0] == "pwd")
+			exec_pwd();
 		argv = token_to_argv(node->args);
 		path = argv[0];
-		if (ft_strchr(path, '/') == NULL)
+		if (ft_strchr(path, 'd/') == NULL)
 			path = find_path(path);
 		validate_access(path, argv[0]);
+		// write(2, path, ft_strlen(path));
+		// write(2, "a\n", 2);
+		// write(2, argv[0], ft_strlen(argv[0]));
+		// write(2, "a\n", 2);
 		execve(path, argv, environ);
 		fatal_error("execve");
 	}
@@ -86,6 +87,37 @@ int	exec_cmd(t_node *node)
 		wait(&wstatus);
 		return (WEXITSTATUS(wstatus));
 	}
+*/
+int	exec_pipeline(t_node *node)
+{
+	extern char		**environ;
+	char			*path;
+	pid_t			pid;
+	char			**argv;
+
+	if (node == NULL)
+		return (-1);
+	prepare_pipe(node);
+	pid = fork();
+	if (pid < 0)
+		fatal_error("fork");
+	else if (pid == 0)
+	{
+		prepare_pipe_child(node);
+		do_redirect(node->cmd->redirects);
+		argv = token_to_argv(node->cmd->args);
+		path = argv[0];
+		if (ft_strchr(path, '/') == NULL)
+			path = find_path(path);
+		validate_access(path, argv[0]);
+		execve(path, argv, environ);
+		reset_redirect(node->cmd->redirects);
+		fatal_error("execve");
+	}
+	prepare_pipe_parent(node);
+	if (node->next)
+		return (exec_pipeline(node->next));
+	return (pid);
 }
 
 int	exec(t_node *node)
@@ -96,7 +128,7 @@ int	exec(t_node *node)
 		return (ERROR_OPEN_REDIR);
 	open_redir_file(node->redirects);
 	do_redirect(node->redirects);
-	status = exec_cmd(node);
+	status = exec_pipeline(node);
 	reset_redirect(node->redirects);
 	return (status);
 }

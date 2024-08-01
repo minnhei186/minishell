@@ -17,10 +17,12 @@ SOURCES = 	./src/error_utils.c \
 			./src/expand.c \
 			./src/parse_redirection.c \
 			./src/parse_append.c \
+			./src/parse_pipe.c \
 			./src/parse.c \
 			./src/destructor.c \
 			./src/redirect_utils.c \
-			./src/redirect.c
+			./src/redirect.c \
+			./src/pipe.c
 
 OBJECTS = $(SOURCES:.c=.o)
 

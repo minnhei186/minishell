@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:54:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/31 00:05:18 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/07/31 22:03:48 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,29 +69,29 @@ int	read_heredoc(const char *delimiter)
 	return (pfd[0]);
 }
 
-int	open_redir_file(t_node *redir)
+int	open_redir_file(t_node *node)
 {
-	if (redir == NULL)
+	if (node == NULL)
 		return (0);
-	if (redir->kind == ND_REDIR_OUT)
-		redir->file_fd = open(redir->file_name->word, \
+	if (node->kind == ND_REDIR_OUT)
+		node->file_fd = open(node->file_name->word, \
 		O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	else if (redir->kind == ND_REDIR_IN)
-		redir->file_fd = open(redir->file_name->word, O_RDONLY);
-	else if (redir->kind == ND_REDIR_APPEND)
-		redir->file_fd = open(redir->file_name->word, \
+	else if (node->kind == ND_REDIR_IN)
+		node->file_fd = open(node->file_name->word, O_RDONLY);
+	else if (node->kind == ND_REDIR_APPEND)
+		node->file_fd = open(node->file_name->word, \
 		O_CREAT | O_WRONLY | O_APPEND, 0644);
-	else if (redir->kind == ND_REDIR_HEREDOC)
-		redir->file_fd = read_heredoc(redir->delimiter->word);
+	else if (node->kind == ND_REDIR_HEREDOC)
+		node->file_fd = read_heredoc(node->delimiter->word);
 	else
 		assert_error("open_redir_file");
-	if (redir->file_fd < 0)
+	if (node->file_fd < 0)
 	{
-		xperror(redir->file_name->word);
+		xperror(node->file_name->word);
 		return (-1);
 	}
-	redir->file_fd = stashfd(redir->file_fd);
-	return (open_redir_file(redir->next));
+	node->file_fd = stashfd(node->file_fd);
+	return (open_redir_file(node->next));
 }
 
 void	do_redirect(t_node *redir)

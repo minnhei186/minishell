@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:37:55 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 19:55:33 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 00:45:15 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,23 +28,6 @@ bool	is_metacharacter(char c)
 bool	operators_cmp(char *str, char *key_op)
 {
 	return (ft_memcmp(str, key_op, ft_strlen(key_op)) == 0);
-}
-
-// control operator
-bool	is_control_operator(char *input_p)
-{
-	static char *const	operators[] = {\
-		"||", "&", "&&", ";", ";;", "(", ")", "|", "\n"};
-	size_t				i;
-
-	i = 0;
-	while (i < sizeof(operators) / sizeof(*operators))
-	{
-		if (operators_cmp(input_p, operators[i]))
-			return (true);
-		i++;
-	}
-	return (false);
 }
 
 bool	is_word(char *s)
