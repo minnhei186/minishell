@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 21:02:56 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:27:15 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ int	exec_cmd(t_node *node)
 	int				wstatus;
 	char			**argv;
 
+	if (node == NULL)
+		return (-1);
+	prepare_pipe(node);
 	pid = fork();
 	if (pid < 0)
 		fatal_error("fork");
