@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 23:47:07 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:01:49 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ struct						s_token
 
 enum	e_node_kind
 {
+	ND_PIPE_LINE,
 	ND_SIMPLE_CMD,
 	ND_REDIR_OUT,
 	ND_REDIR_IN,
@@ -56,14 +57,21 @@ typedef enum e_node_kind	t_node_kind;
 
 /* 
 	Struct for Node
+	CMD
+	- args (command): "echo hello 1 > out"
+	- redirects: redirection
+
 	Redirecting output example
-	- comamnd: "echo hello 1 > out"
 	- target_fd: 1
-	- redirect: redirection
 	- delimiter: recognize and delimite the character
 	- file_name: "out"
 	- file_fd: open("out")
 	- stashed_target_fd: dup(target_fd)
+
+	Pipe-Line
+	- in_pipe[2]
+	- out_pipe[2]
+	- cmd
 */
 typedef struct s_node		t_node;
 struct						s_node
@@ -77,6 +85,9 @@ struct						s_node
 	int						target_fd;
 	int						file_fd;
 	int						stashed_target_fd;
+	int						in_pipe[2];
+	int						out_pipe[2];
+	t_node					*cmd;
 };
 
 # define ERROR_PARSE 258
@@ -96,7 +107,6 @@ void	skip_double_quote(char **line);
 bool	is_blank(char c);
 bool	is_metacharacter(char c);
 bool	operators_cmp(char *str, char *key_op);
-bool	is_control_operator(char *input_p);
 bool	is_word(char *s);
 bool	consume_blank(char **rest, char *line);
 
@@ -148,7 +158,6 @@ t_node	*parse(t_token *token);
 bool	at_eof(t_token *token);
 t_node	*new_node(t_node_kind kind);
 t_token	*token_dup(t_token *token);
-void	append_token(t_token **token, t_token *element);
 
 /* parse_redirection.c */
 bool	equal_op(t_token *tok, char *op);
@@ -158,8 +167,14 @@ t_node	*redirect_append(t_token **rest, t_token *token);
 t_node	*redirect_heredoc(t_token **rest, t_token *token);
 
 /* parse_append.c */
+void	append_token(t_token **token, t_token *element);
 void	append_commend_element(t_node *command, t_token **rest, t_token *token);
 void	append_node(t_node **node, t_node *element);
+
+/* parse_pipe.c */
+t_node	*pipe_line(t_token **rest, t_token *token);
+bool	is_control_operator(t_token *token);
+t_node	*simple_command(t_token **rest, t_token *token);
 
 /* redirect.c */
 int		stashfd(int fd);
@@ -170,5 +185,10 @@ void	reset_redirect(t_node *redir);
 
 /* redirect_utils.c */
 bool	is_redirect(t_node *node);
+
+/* pipe.c */
+void	prepare_pipe(t_node *node);
+void	prepare_pipe_child(t_node *node);
+void	prepare_pipe_parent(t_node *node);
 
 #endif

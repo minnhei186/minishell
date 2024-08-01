@@ -6,13 +6,14 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:05:42 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 23:20:50 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 16:56:41 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../include/readline.h"
 
 bool	equal_op(t_token *tok, char *op);
+void	append_token(t_token **token, t_token *element);
 void	append_node(t_node **node, t_node *elm);
 void	append_command_element(t_node *command, \
 		t_token **rest, t_token *token);
@@ -58,14 +59,4 @@ t_token	*token_dup(t_token *token)
 	if (word == NULL)
 		fatal_error("strdup");
 	return (new_token(word, token->kind));
-}
-
-void	append_token(t_token **token, t_token *element)
-{
-	if (*token == NULL)
-	{
-		*token = element;
-		return ;
-	}
-	append_token(&(*token)->next, element);
 }

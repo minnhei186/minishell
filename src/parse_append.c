@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 23:15:49 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 23:43:15 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 16:56:06 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,14 @@ void	append_node(t_node **node, t_node *elm)
 		return ;
 	}
 	append_node(&(*node)->next, elm);
+}
+
+void	append_token(t_token **token, t_token *element)
+{
+	if (*token == NULL)
+	{
+		*token = element;
+		return ;
+	}
+	append_token(&(*token)->next, element);
 }
