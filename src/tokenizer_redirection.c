@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 17:43:43 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 19:50:30 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:18:48 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 #include	"../include/error.h"
 #include	"../libft/libft.h"
 
-bool	is_redirection_operator(const char *s)
-{
-	static char *const	operators[] = {">", "<", ">>", "<<"};
-	size_t				i;
-
-	i = 0;
-	while (i < sizeof(operators) / sizeof(*operators))
-	{
-		if (startswith(s, operators[i]))
-			return (true);
-		i++;
-	}
-	return (false);
-}
+// bool	is_redirection_operator(const char *s)
+// {
+// 	static char *const	operators[] = {">", "<", ">>", "<<"};
+// 	size_t				i;
+// 	i = 0;
+// 	while (i < sizeof(operators) / sizeof(*operators))
+// 	{
+// 		if (startswith(s, operators[i]))
+// 			return (true);
+// 		i++;
+// 	}
+// 	return (false);
+// }

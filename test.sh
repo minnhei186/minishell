@@ -171,6 +171,8 @@ assert 'pwd >>pwd.txt' 'pwd.txt'
 	print_desc 'export EOF="eof"'
 	export EOF="eof"
 )
+assert 'cat <<EOF\nhello\nworld'
+assert 'cat <<E"O"F\nhello\nworld\nEOF\nNOPRINT'
 
 # Pipe
 assert 'cat Makefile | grep minishell'

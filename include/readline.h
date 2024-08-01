@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 17:06:24 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:19:10 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ bool	is_word(char *s);
 bool	consume_blank(char **rest, char *line);
 
 /* Tokenizer Redirection */
-bool	is_redirection_operator(const char *s);
+// bool	is_redirection_operator(const char *s);
 
 /* Error */
 // void	fatal_error(const char *msg) __attribute__((noreturn));
