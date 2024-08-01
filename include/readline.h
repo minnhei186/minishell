@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 17:05:12 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/01 17:06:24 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,7 +179,7 @@ t_node	*simple_command(t_token **rest, t_token *token);
 /* redirect.c */
 int		stashfd(int fd);
 int		read_heredoc(const char *delimiter);
-int		open_redir_file(t_node *redir);
+int		open_redir_file(t_node *node);
 void	do_redirect(t_node *redir);
 void	reset_redirect(t_node *redir);
 
