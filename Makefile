@@ -5,7 +5,8 @@ CC = cc
 INCLUDES = -I include -I libft
 CFLAGS = -Wall -Werror -Wextra $(INCLUDES)
 LIBRARY =	-lreadline -L libft -lft
-SOURCES = 	./src/error_utils.c \
+SOURCES = 	./src/last_status.c \
+			./src/error_utils.c \
 			./src/error.c \
 			./src/read_pipe.c \
 			./src/readline.c \
@@ -14,6 +15,7 @@ SOURCES = 	./src/error_utils.c \
 			./src/tokenizer.c \
 			./src/do_command.c \
 			./src/do_command_utils.c \
+			./src/expand_special_parameter.c \
 			./src/expand_utils.c \
 			./src/expand_quote.c \
 			./src/expand.c \

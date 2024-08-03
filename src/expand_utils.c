@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:40:26 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/03 16:28:40 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/03 23:24:20 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,8 @@ void	expand_variable_token(t_token *token)
 			append_double_quote(&new_word, &p, p);
 		else if (is_variable(p))
 			expand_variable_str(&new_word, &p, p);
+		else if (is_special_parameter(p))
+			expand_special_parameter_str(&new_word, &p, p, get_last_status);
 		else
 			append_char(&new_word, *p++);
 	}

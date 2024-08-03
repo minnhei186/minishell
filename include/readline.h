@@ -6,13 +6,14 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/03 18:35:22 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/03 23:22:42 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef READLINE_H
 # define READLINE_H
 
+# include "last_status.h"
 # include "error.h"
 # include "../libft/libft.h"
 # include <limits.h>
@@ -162,11 +163,17 @@ bool	is_variable(char *s);
 void	expand_variable_str(char **dest, char **rest, char *p);
 void	expand_variable_token(t_token *token);
 
-/* expand_string_quote.c */
+/* expand_quote.c */
 void	remove_single_quote(char **dest, char **rest, char *p);
 void	remove_double_quote(char **dest, char **rest, char *p);
 void	append_single_quote(char **dest, char **rest, char *p);
 void	append_double_quote(char **dest, char **rest, char *p);
+
+/* expand_special_parameter.c */
+bool	is_special_parameter(char *s);
+void	append_num(char **dest, unsigned int num);
+void	expand_special_parameter_str(
+	char **dest, char **rest, char *p, unsigned int *last_status);
 
 /* parse.c */
 t_node	*parse(t_token *token);

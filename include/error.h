@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 23:15:48 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 21:11:25 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:17:57 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define ERROR_H
 
 # include	"readline.h"
+# include	"last_status.h"
 # include	"../libft/libft.h"
 # define ERROR_TOKENIZE 258
 # define ERROR_PARSE 258
