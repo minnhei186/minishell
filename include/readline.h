@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/03 23:22:42 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/03 23:52:07 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ struct						s_node
 # define ERROR_PARSE 258
 
 // Environment
+extern int					last_status;
 extern char					**environ;
 
 /* Read Pipe */
@@ -172,8 +173,9 @@ void	append_double_quote(char **dest, char **rest, char *p);
 /* expand_special_parameter.c */
 bool	is_special_parameter(char *s);
 void	append_num(char **dest, unsigned int num);
-void	expand_special_parameter_str(
-	char **dest, char **rest, char *p, unsigned int *last_status);
+// void	expand_special_parameter_str(
+// 	char **dest, char **rest, char *p, unsigned int *last_status);
+void	expand_special_parameter_str(char **dest, char **rest, char *p);
 
 /* parse.c */
 t_node	*parse(t_token *token);

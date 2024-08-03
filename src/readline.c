@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 19:51:32 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/03 23:52:42 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ pid_t	exec_pipeline(t_node *node);
 int		wait_pipeline(pid_t last_pid);
 int		exec(t_node *node);
 void	interpreter(char *line, int *state_loca);
-
+int		last_status;
 // __attribute__((destructor))
 // static void destructor() {
 //     system("leaks -q a.out");
@@ -164,12 +164,12 @@ void	validate_access(const char *path, const char *file_name)
 // 	free_token(token);
 // }
 
+// int		status;
 int	main(void)
 {
 	char	*line;
-	int		status;
 
-	status = 0;
+	last_status = 0;
 	rl_outstream = stderr;
 	while (1)
 	{
@@ -178,8 +178,8 @@ int	main(void)
 			break ;
 		if (*line)
 			add_history(line);
-		interpreter(line, &status);
+		interpreter(line, &last_status);
 		free(line);
 	}
-	exit(status);
+	exit(last_status);
 }
