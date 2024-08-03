@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:35:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/03 18:34:18 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/03 19:02:45 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,11 @@ void	remove_double_quote(char **dest, char **rest, char *p)
 		assert_error("Expected double quote");
 }
 
+// append_char -> skip_quote
 void	append_single_quote(char **dest, char **rest, char *p)
 {
 	if (*p == SINGLE_QUOTE_CHAR)
 	{
-		// skip quote
 		append_char(dest, *p++);
 		while (*p != SINGLE_QUOTE_CHAR)
 		{
@@ -63,7 +63,6 @@ void	append_single_quote(char **dest, char **rest, char *p)
 				assert_error("Unclosed single quote");
 			append_char(dest, *p++);
 		}
-		// skip quote
 		append_char(dest, *p++);
 		*rest = p;
 	}
@@ -71,11 +70,11 @@ void	append_single_quote(char **dest, char **rest, char *p)
 		assert_error("Expected single quote");
 }
 
+// append_char -> skip_quote
 void	append_double_quote(char **dest, char **rest, char *p)
 {
 	if (*p == DOUBLE_QUOTE_CHAR)
 	{
-		// skip quote
 		append_char(dest, *p++);
 		while (*p != DOUBLE_QUOTE_CHAR)
 		{
@@ -86,7 +85,6 @@ void	append_double_quote(char **dest, char **rest, char *p)
 			else
 				append_char(dest, *p++);
 		}
-		// skip quote
 		append_char(dest, *p++);
 		*rest = p;
 	}
