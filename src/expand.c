@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:28:03 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 17:16:04 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/03 18:48:08 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ void	remove_quote(t_token *token)
 	if (token == NULL || token->kind != TK_WORD || token->word == NULL)
 		return ;
 	p = token->word;
-	new_word = NULL;
+	new_word = calloc(1, sizeof(char));
+	if (new_word == NULL)
+		fatal_error("calloc");
 	while (*p && !is_metacharacter(*p))
 	{
 		if (*p == SINGLE_QUOTE_CHAR)
@@ -67,6 +69,40 @@ void	expand_quote_removal(t_node *node)
 	expand_quote_removal(node->next);
 }
 
+/*
+	Here Documents
+	- 1. The format of here-document is
+		= <<[-]word
+				here-document
+		delimiter
+
+	- 2. No parameter expansion, command subsitution, arithmetric expansion,
+		or pathname expansion is performed on word
+	
+		= remove_quote(node->delimiter);
+
+	- 3. 
+		= `delimiter` として指定される `word`に対しては 
+			`parameter expansion` が行われない
+		= `word` の `quote removal`は行われる
+		= `word` が引用符で囲まれていない場合は、here-document自体に 
+			`parameter expansion` が行われる（逆にいえば`word` 
+			が引用符で囲まれている場合には行われない）
+	
+	- 4. The delimiter should not be expanded for several important reasons:
+	
+*/
+void	expand_variable(t_node *node)
+{
+	if (node == NULL)
+		return ;
+	expand_variable_token(node->args);
+	expand_variable_token(node->file_name);
+	expand_variable(node->redirects);
+	expand_variable(node->cmd);
+	expand_variable(node->next);
+}
+
 // Expand from expand_quote_removal
 /*
   @Param: t_node *node
@@ -74,5 +110,6 @@ void	expand_quote_removal(t_node *node)
 */
 void	expand(t_node *node)
 {
+	expand_variable(node);
 	expand_quote_removal(node);
 }

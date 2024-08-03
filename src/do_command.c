@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:00:18 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 23:59:31 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:34:39 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,16 +119,16 @@ char	*find_path(const char *line)
 // 	}
 // }
 
-char	**subsequent_argv_recursive(t_token *tok, int nargs, char **argv)
+char	**subsequent_argv_recursive(t_token *token, int nargs, char **argv)
 {
-	if (tok == NULL || tok->kind == TK_EOF)
+	if (token == NULL || token->kind == TK_EOF)
 		return (argv);
 	argv = realloc(argv, (nargs + 2) * sizeof(char *));
-	argv[nargs] = ft_strdup(tok->word);
+	argv[nargs] = ft_strdup(token->word);
 	if (argv[nargs] == NULL)
 		fatal_error("strdup");
 	argv[nargs + 1] = NULL;
-	return (subsequent_argv_recursive(tok->next, nargs + 1, argv));
+	return (subsequent_argv_recursive(token->next, nargs + 1, argv));
 }
 
 char	**token_to_argv(t_token *tok)

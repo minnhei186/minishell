@@ -14,7 +14,8 @@ SOURCES = 	./src/error_utils.c \
 			./src/tokenizer.c \
 			./src/do_command.c \
 			./src/do_command_utils.c \
-			./src/expand_quote.c \
+			./src/expand_utils.c \
+			./src/expand_string_quote.c \
 			./src/expand.c \
 			./src/parse_pipe.c \
 			./src/parse_redirection.c \

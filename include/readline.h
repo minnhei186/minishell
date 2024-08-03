@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 19:51:21 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/03 18:35:22 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void	free_argv(char **argv);
 char	*abs_path_get(void);
 char	*check_path(char *abs_path, const char *line);
 char	*find_path(const char *line);
-char	**subsequent_argv_recursive(t_token *tok, int nargs, char **argv);
+char	**subsequent_argv_recursive(t_token *token, int nargs, char **argv);
 char	**token_to_argv(t_token *tok);
 
 /* do_command_utils.c */
@@ -155,9 +155,18 @@ void	remove_quote(t_token *token);
 void	expand_quote_removal(t_node *node);
 void	expand(t_node *token);
 
-/* expand_quote.c */
-void	remove_single_quote(char **dst, char **rest, char *p);
-void	remove_double_quote(char **dst, char **rest, char *p);
+/* expand_utils.c */
+bool	is_alpha_under(char c);
+bool	is_alpha_num_under(char c);
+bool	is_variable(char *s);
+void	expand_variable_str(char **dest, char **rest, char *p);
+void	expand_variable_token(t_token *token);
+
+/* expand_string_quote.c */
+void	remove_single_quote(char **dest, char **rest, char *p);
+void	remove_double_quote(char **dest, char **rest, char *p);
+void	append_single_quote(char **dest, char **rest, char *p);
+void	append_double_quote(char **dest, char **rest, char *p);
 
 /* parse.c */
 t_node	*parse(t_token *token);

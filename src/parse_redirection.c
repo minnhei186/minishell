@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:25:12 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 23:42:19 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/02 12:32:22 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ bool	equal_op(t_token *tok, char *op)
 {
 	if (tok->kind != TK_OP)
 		return (false);
-	return (strcmp(tok->word, op) == 0);
+	return (ft_strcmp(tok->word, op) == 0);
 }
 
 t_node	*redirect_out(t_token **rest, t_token *token)
