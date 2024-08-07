@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:37:55 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 17:01:54 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/07 23:56:34 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ bool	is_metacharacter(char c)
 {
 	if (is_blank(c))
 		return (true);
-	return (c && ft_strchr("|&;()<>\n", c));
+	return (c && ft_strchr("|&;()<> \t\n", c));
 }
 
 // startswith

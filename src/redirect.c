@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:54:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 19:26:22 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/07 23:43:05 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	stashfd(int fd)
 	return (stashfd);
 }
 
-int	read_heredoc(const char *delimiter)
+int	read_heredoc(const char *delimiter, bool is_deli_unquoted)
 {
 	char	*line;
 	int		pfd[2];
@@ -62,6 +62,8 @@ int	read_heredoc(const char *delimiter)
 			free(line);
 			break ;
 		}
+		if (is_deli_unquoted)
+			line = expand_heredoc_line(line);
 		dprintf(pfd[1], "%s\n", line);
 		free(line);
 	}

@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/03 23:52:07 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/07 23:38:41 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ struct						s_node
 	t_node					*redirects;
 	t_token					*file_name;
 	t_token					*delimiter;
+	bool					is_deli_unquoted;
 	t_node_kind				kind;
 	t_node					*next;
 	int						target_fd;
@@ -176,6 +177,7 @@ void	append_num(char **dest, unsigned int num);
 // void	expand_special_parameter_str(
 // 	char **dest, char **rest, char *p, unsigned int *last_status);
 void	expand_special_parameter_str(char **dest, char **rest, char *p);
+char	*expand_heredoc_line(char *line);
 
 /* parse.c */
 t_node	*parse(t_token *token);
@@ -202,7 +204,7 @@ t_node	*simple_command(t_token **rest, t_token *token);
 
 /* redirect.c */
 int		stashfd(int fd);
-int		read_heredoc(const char *delimiter);
+int		read_heredoc(const char *delimiter, bool is_deli_unquoted);
 void	do_redirect(t_node *redir);
 void	reset_redirect(t_node *redir);
 

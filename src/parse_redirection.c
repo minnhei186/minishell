@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:25:12 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/02 12:32:22 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/08 03:16:22 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ t_node	*redirect_heredoc(t_token **rest, t_token *token)
 
 	node = new_node(ND_REDIR_HEREDOC);
 	node->delimiter = token_dup(token->next);
+	if (ft_strchr(node->delimiter->word, SINGLE_QUOTE_CHAR) == NULL
+		&& ft_strchr(node->delimiter->word, DOUBLE_QUOTE_CHAR) == NULL)
+		node->is_deli_unquoted = true;
 	node->target_fd = STDIN_FILENO;
 	*rest = token->next->next;
 	return (node);
