@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/07 23:38:41 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/09 22:18:05 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,10 @@ struct						s_node
 # define ERROR_PARSE 258
 
 // Environment
-extern int					last_status;
-extern char					**environ;
+extern int						last_status;
+extern char						**environ;
+extern bool						readline_interrupted;
+extern volatile sig_atomic_t	sig;
 
 /* Read Pipe */
 int		exec(t_node *node);
@@ -216,5 +218,9 @@ int		open_redir_file(t_node *node);
 void	prepare_pipe(t_node *node);
 void	prepare_pipe_child(t_node *node);
 void	prepare_pipe_parent(t_node *node);
+
+/* signal.c */
+void	setup_signal(void);
+void	reset_signal(void);
 
 #endif
