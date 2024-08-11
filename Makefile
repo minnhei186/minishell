@@ -48,7 +48,9 @@ SOURCES = 	./src/error_utils.c \
 			./src/destructor.c \
 			./src/redirect_utils.c \
 			./src/redirect.c \
-			./src/pipe.c
+			./src/pipe.c \
+			./src/signal.c \
+			./src/signal_utils.c
 
 OBJECTS = $(SOURCES:.c=.o)
 

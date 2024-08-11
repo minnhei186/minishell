@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 22:35:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/09 22:39:56 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/10 21:24:16 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,9 @@
 #include <signal.h>
 #include "readline.h"
 
-volatile sig_atomic_t	g_sig = 0;
+volatile sig_atomic_t	g_sig;
 
-void	handler(int signum)
-{
-	g_sig = signum;
-}
+g_sig = 0;
 
 void	reset_sig(int signum)
 {

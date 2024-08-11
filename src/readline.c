@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/08 03:24:10 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:42:55 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ pid_t	exec_pipeline(t_node *node);
 int		wait_pipeline(pid_t last_pid);
 int		exec(t_node *node);
 void	interpreter(char *line, int *state_loca);
-int		last_status;
+int		g_last_status;
 // __attribute__((destructor))
 // static void destructor() {
 //     system("leaks -q a.out");
@@ -169,8 +169,9 @@ int	main(void)
 {
 	char	*line;
 
-	last_status = 0;
+	g_last_status = 0;
 	rl_outstream = stderr;
+	setup_signal();
 	while (1)
 	{
 		line = readline("minishell$ ");
@@ -178,8 +179,8 @@ int	main(void)
 			break ;
 		if (*line)
 			add_history(line);
-		interpreter(line, &last_status);
+		interpreter(line, &g_last_status);
 		free(line);
 	}
-	exit(last_status);
+	exit(g_last_status);
 }

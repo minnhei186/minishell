@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/09 22:39:33 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:43:14 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ struct						s_node
 # define ERROR_PARSE 258
 
 // Environment
-extern int						last_status;
+extern int						g_last_status;
 extern char						**environ;
 extern bool						g_readline_interrupted;
 extern volatile sig_atomic_t	g_sig;

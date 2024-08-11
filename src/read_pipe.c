@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 20:00:13 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/10 17:39:49 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	setup_child_process(t_node *node)
 	char		*path;
 	char		**argv;
 
+	reset_signal();
 	prepare_pipe_child(node);
 	do_redirect(node->cmd->redirects);
 	argv = token_to_argv(node->cmd->args);
@@ -96,11 +97,20 @@ int	wait_pipeline(pid_t last_pid)
 	{
 		wait_result = wait(&wstatus);
 		if (wait_result == last_pid)
-			status = WEXITSTATUS(wstatus);
+		{
+			if (WIFSIGNALED(wstatus))
+				status = 128 + WTERMSIG(wstatus);
+			else
+				status = WEXITSTATUS(wstatus);
+		}
 		else if (wait_result < 0)
 		{
 			if (errno == ECHILD)
 				break ;
+			else if (errno == EINTR)
+				continue ;
+			else
+				fatal_error("wait");
 		}
 	}
 	return (status);
