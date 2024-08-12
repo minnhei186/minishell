@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/10 17:43:14 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/12 15:51:34 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,15 @@ void	prepare_pipe(t_node *node);
 void	prepare_pipe_child(t_node *node);
 void	prepare_pipe_parent(t_node *node);
 
+/* signal_utils.c */
+# define SIG 0
+void	handler(int signum);
+
 /* signal.c */
+void	reset_sig(int signum);
+void	ignore_sig(int signum);
+void	setup_sigint(void);
+int		check_state(void);
 void	setup_signal(void);
 void	reset_signal(void);
 

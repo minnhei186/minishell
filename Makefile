@@ -2,10 +2,13 @@ NAME = minishell
 
 CC = cc
 
-RLDIR	= $(shell brew --prefix readline)
+# RLDIR	= $(shell --prefix readline)
+# INCLUDES = -I include -I libft
+# CFLAGS = -Wall -Werror -Wextra $(INCLUDES)
+# LIBRARY =	-lreadline -L $(RLDIR)/lib libft -lft
 INCLUDES = -I include -I libft
 CFLAGS = -Wall -Werror -Wextra $(INCLUDES)
-LIBRARY =	-lreadline -L$(RLDIR)/lib libft -lft
+LIBRARY =	-lreadline -L libft -lft
 # SOURCES = 	./src/last_status.c \
 # 			./src/error_utils.c \
 # 			./src/error.c \

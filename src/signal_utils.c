@@ -6,17 +6,31 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 22:36:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/10 21:24:33 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:47:07 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"readline.h"
 
-volatile sig_atomic_t	g_sig;
+int	check_state(void);
+void	reset_signal(void);
+void	reset_sig(int signum);
+void	setup_signal(void);
 
-g_sig = 0;
-
-void	handler(int signum)
+void	setup_signal(void)
 {
-	g_sig = signum;
+	extern int	_rl_echo_control_chars;
+
+	_rl_echo_control_chars = 0;
+	rl_outstream = stderr;
+	if (isatty(STDIN_FILENO))
+		rl_event_hook = check_state;
+	ignore_sig(SIGQUIT);
+	setup_sigint();
+}
+
+void	reset_signal(void)
+{
+	reset_sig(SIGQUIT);
+	reset_sig(SIGINT);
 }

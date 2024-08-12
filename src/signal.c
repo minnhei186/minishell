@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 22:35:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/10 21:24:16 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/12 18:47:29 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 #include <signal.h>
 #include "readline.h"
 
-volatile sig_atomic_t	g_sig;
+volatile sig_atomic_t	g_sig = 0;
 
-g_sig = 0;
+void	handler(int signum)
+{
+	g_sig = signum;
+}
 
 void	reset_sig(int signum)
 {
@@ -64,22 +67,4 @@ int	check_state(void)
 		return (0);
 	}
 	return (0);
-}
-
-void	setup_signal(void)
-{
-	extern int	_rl_echo_control_chars;
-
-	_rl_echo_control_chars = 0;
-	rl_outstream = stderr;
-	if (isatty(STDIN_FILENO))
-		rl_event_hook = check_state;
-	ignore_sig(SIGQUIT);
-	setup_sigint();
-}
-
-void	reset_signal(void)
-{
-	reset_sig(SIGQUIT);
-	reset_sig(SIGINT);
 }
