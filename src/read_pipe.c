@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/18 01:17:55 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/18 02:54:30 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,7 @@ int	exec(t_node *node)
 	return (status);
 }
 
+// (!node) -> Error handling for failed parsing
 void	interpreter(char *line, int *state_loca)
 {
 	t_token	*token;
@@ -165,7 +166,7 @@ void	interpreter(char *line, int *state_loca)
 	if (!at_eof(token))
 	{
 		node = parse(token);
-		if (!node)  // Error handling for failed parsing
+		if (!node)
 			*state_loca = ERROR_PARSE;
 		else
 		{

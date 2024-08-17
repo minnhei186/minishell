@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 23:15:49 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/18 02:40:37 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/18 02:54:04 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	append_command_element(t_node *command, t_token **rest, t_token *token)
 		fprintf(stderr, "minishell: syntax error \
 		near unexpected token '%s'\n", token->word);
 		*rest = token->next;
-		return;
+		return ;
 	}
 	*rest = token;
 }
