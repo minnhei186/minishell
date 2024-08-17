@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 23:15:49 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/18 01:21:34 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/18 02:40:37 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,17 @@
 #include	"../include/error.h"
 #include	"../libft/libft.h"
 
+/*
+	print_desc "SIGTERM to SHELL"
+	(sleep 0.01; pkill -SIGTERM bash;
+	sleep 0.01; pkill -SIGTERM minishell) &
+	assert './infinite_loop' 2>/dev/null
+
+	-> ここSignalで使っている()と;はBonus課題、またMandatoryとBonusどっちでも入ってないため
+	やらなくても大丈夫
+
+	-> ただ、sleep 0.01、またはpkill -SIGTERM bashコマンドが動かないと行けない
+*/
 void	append_command_element(t_node *command, t_token **rest, t_token *token)
 {
 	if (token->kind == TK_WORD)
