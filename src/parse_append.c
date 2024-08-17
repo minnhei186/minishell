@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 23:15:49 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 16:56:06 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/18 01:21:34 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,12 @@ void	append_command_element(t_node *command, t_token **rest, t_token *token)
 	else if (equal_op(token, "<<") && token->next->kind == TK_WORD)
 		append_node(&command->redirects, redirect_heredoc(&token, token));
 	else
-		todo("append_command_element");
+	{
+		fprintf(stderr, "minishell: syntax error \
+		near unexpected token '%s'\n", token->word);
+		*rest = token->next;
+		return;
+	}
 	*rest = token;
 }
 
