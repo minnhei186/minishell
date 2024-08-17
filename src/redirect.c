@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:54:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/12 15:46:20 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/18 00:32:08 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <unistd.h>
 #include "../include/readline.h"
 
-bool	g_readline_interrupted = false;
+bool	g_readline_interrupted;
 // void	redirect(int targetfd, char *filename)
 // {
 // 	int filefd;
@@ -53,12 +53,15 @@ int	read_heredoc(const char *delimiter, bool is_deli_unquoted)
 
 	if (pipe(pfd) < 0)
 		fatal_error("pipe");
+	g_readline_interrupted = false;
+	line = readline("> ");
 	while (1)
 	{
 		line = readline("> ");
 		if (line == NULL)
 			break ;
-		if (ft_strcmp(line, delimiter) == 0)
+		if (g_readline_interrupted || \
+			ft_strcmp(line, delimiter) == 0)
 		{
 			free(line);
 			break ;
@@ -71,6 +74,62 @@ int	read_heredoc(const char *delimiter, bool is_deli_unquoted)
 	close(pfd[1]);
 	return (pfd[0]);
 }
+
+// int	read_heredoc(const char *delimiter, bool is_deli_unquoted)
+// {
+// 	char	*line;
+// 	int		pfd[2];
+
+// 	if (pipe(pfd) < 0)
+// 		fatal_error("pipe");
+// 	g_readline_interrupted = false;
+// 	line = readline("> ");
+// 	while (line && !g_readline_interrupted)
+// 	{
+// 		if (ft_strcmp(line, delimiter) == 0)
+// 			break ;
+// 		if (is_deli_unquoted)
+// 			line = expand_heredoc_line(line);
+// 		dprintf(pfd[1], "%s\n", line);
+// 		free(line);
+// 		line = readline("> ");
+// 	}
+// 	free(line);
+// 	close(pfd[1]);
+// 	return (pfd[0]);
+// }
+
+// int	read_heredoc(const char *delimiter, bool is_deli_unquoted)
+// {
+// 	char	*line;
+// 	int		pfd[2];
+
+// 	if (pipe(pfd) < 0)
+// 		fatal_error("pipe");
+// 	g_readline_interrupted = false;
+// 	while (1)
+// 	{
+// 		line = readline("> ");
+// 		if (line == NULL)
+// 			break ;
+// 		if (g_readline_interrupted)
+// 		{
+// 			free(line);
+// 			break ;
+// 		}
+// 		if (ft_strcmp(line, delimiter) == 0)
+// 		{
+// 			free(line);
+// 			break ;
+// 		}
+// 		if (is_deli_unquoted)
+// 			line = expand_heredoc_line(line);
+// 		dprintf(pfd[1], "%s\n", line);
+// 		free(line);
+// 	}
+// 	close(pfd[1]);
+// 	return (pfd[0]);
+// }
 
 void	do_redirect(t_node *redir)
 {

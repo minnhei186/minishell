@@ -6,13 +6,13 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 22:36:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/12 18:47:07 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/17 23:53:10 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"readline.h"
 
-int	check_state(void);
+int		check_state(void);
 void	reset_signal(void);
 void	reset_sig(int signum);
 void	setup_signal(void);

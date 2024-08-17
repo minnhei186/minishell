@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/10 17:39:49 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/17 23:56:02 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,32 @@ pid_t	exec_pipeline(t_node *node)
 	return (pid);
 }
 
+/*
+	1. Wait for a Child Process
+		status = WEXITSTATUS(wstatus);
+
+	2. Check if the Process was Terminated by a Signal
+		if (WIFSIGNALED(wstatus))
+			status = 128 + WTERMSIG(wstatus);
+		else
+			status = WEXITSTATUS(wstatus);
+	
+	3. Handle Errors from `wait()`
+		else if (wait_result < 0)
+		{
+			if (errno == ECHILD)
+				break;
+			else if (errno == EINTR)
+				continue;
+			else
+				fatal_error("wait");
+		}
+
+	このコードは、子プロセスの終了を待つプロセス管理ルーチンの一部である。
+	
+	子プロセスが正常に終了したか、シグナルによって強制終了されたかをチェックし、
+	wait()でさまざまなエラー・ケースを処理する。
+*/
 int	wait_pipeline(pid_t last_pid)
 {
 	pid_t	wait_result;
