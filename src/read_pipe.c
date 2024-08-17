@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/17 23:56:02 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/18 01:17:55 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,21 +162,17 @@ void	interpreter(char *line, int *state_loca)
 
 	syntax_error = false;
 	token = tokenizer(line);
-	if (at_eof(token))
-		;
-	else if (syntax_error)
-		*state_loca = ERROR_TOKENIZE;
-	else
+	if (!at_eof(token))
 	{
 		node = parse(token);
-		if (syntax_error)
+		if (!node)  // Error handling for failed parsing
 			*state_loca = ERROR_PARSE;
 		else
 		{
 			expand(node);
 			*state_loca = exec(node);
+			free_node(node);
 		}
-		free_node(node);
 	}
 	free_token(token);
 }

@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:59:51 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 18:45:00 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/18 01:23:13 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,12 @@ t_node	*pipe_line(t_token **rest, t_token *token)
 	node->out_pipe[0] = -1;
 	node->out_pipe[1] = STDOUT_FILENO;
 	node->cmd = simple_command(&token, token);
+	if (node->cmd == NULL)
+	{
+		free_node(node);
+		*rest = NULL;
+		return (NULL);
+	}
 	if (equal_op(token, "|"))
 		node->next = pipe_line(&token, token->next);
 	*rest = token;
@@ -98,7 +104,16 @@ t_node	*simple_command(t_token **rest, t_token *token)
 	node = new_node(ND_SIMPLE_CMD);
 	append_command_element(node, &token, token);
 	while (token && !at_eof(token) && !is_control_operator(token))
+	{
 		append_command_element(node, &token, token);
+		if (token == NULL)
+		{
+			fprintf(stderr, "minishell: syntax error\n");
+			free_node(node);
+			*rest = NULL;
+			return (NULL);
+		}
+	}
 	*rest = token;
 	return (node);
 }
