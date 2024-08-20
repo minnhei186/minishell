@@ -1,23 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   last_status.h                                      :+:      :+:    :+:   */
+/*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 19:17:16 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/18 19:43:53 by geonwkim         ###   ########.fr       */
+/*   Created: 2024/08/18 20:04:04 by geonwkim          #+#    #+#             */
+/*   Updated: 2024/08/18 20:04:05 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LAST_STATUS_H
-# define LAST_STATUS_H
-
-# include	"readline.h"
-# include	"error.h"
-# include	"../libft/libft.h"
-
-void			set_last_status(unsigned int *status, unsigned int value);
-unsigned int	get_last_status(const unsigned int *status);
-
-#endif

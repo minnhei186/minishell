@@ -1,23 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   last_status.h                                      :+:      :+:    :+:   */
+/*   builtin.h                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/03 19:17:16 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/18 19:43:53 by geonwkim         ###   ########.fr       */
+/*   Created: 2024/08/18 19:31:14 by geonwkim          #+#    #+#             */
+/*   Updated: 2024/08/18 20:06:20 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LAST_STATUS_H
-# define LAST_STATUS_H
+#ifndef BUILTIN_H
+# define BUILTIN_H
 
 # include	"readline.h"
 # include	"error.h"
-# include	"../libft/libft.h"
+# include	"last_status.h"
 
-void			set_last_status(unsigned int *status, unsigned int value);
-unsigned int	get_last_status(const unsigned int *status);
+# include	<unistd.h>
+# include	<error.h>
+// To recognize bool type when it use C99 In VSCode
+# include	<stdbool.h>
+
+typedef struct s_node		t_node;
+
+/* builtin.c */
+int		exec_builtin(t_node *node);
+bool	is_builtin(t_node *node);
+
+/* builtin_exit.c */
+bool	is_numeric(char *s);
+int		builtin_exit(char **argv);
 
 #endif

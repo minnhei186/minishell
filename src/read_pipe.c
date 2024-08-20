@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/18 02:54:30 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:28:44 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	setup_child_process(t_node *node)
 	if (ft_strchr(path, '/') == NULL)
 		path = find_path(path);
 	validate_access(path, argv[0]);
+	free_argv(argv);
 	execve(path, argv, environ);
 	reset_redirect(node->cmd->redirects);
 	fatal_error("execve");
@@ -149,8 +150,13 @@ int	exec(t_node *node)
 
 	if (open_redir_file(node) < 0)
 		return (ERROR_OPEN_REDIR);
-	last_pid = exec_pipeline(node);
-	status = wait_pipeline(last_pid);
+	if (node->next == NULL && is_builtin(node))
+		status = exec_builtin(node);
+	else
+	{
+		last_pid = exec_pipeline(node);
+		status = wait_pipeline(last_pid);
+	}
 	return (status);
 }
 
@@ -163,7 +169,11 @@ void	interpreter(char *line, int *state_loca)
 
 	syntax_error = false;
 	token = tokenizer(line);
-	if (!at_eof(token))
+	if (at_eof(token))
+		;
+	else if (syntax_error)
+		*state_loca = ERROR_TOKENIZE;
+	else
 	{
 		node = parse(token);
 		if (!node)
@@ -172,8 +182,8 @@ void	interpreter(char *line, int *state_loca)
 		{
 			expand(node);
 			*state_loca = exec(node);
-			free_node(node);
 		}
+		free_node(node);
 	}
 	free_token(token);
 }

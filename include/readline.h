@@ -6,13 +6,14 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/12 15:51:34 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/19 15:27:52 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef READLINE_H
 # define READLINE_H
 
+# include "builtin.h"
 # include "last_status.h"
 # include "error.h"
 # include "../libft/libft.h"
@@ -92,13 +93,33 @@ struct						s_node
 	t_node					*cmd;
 };
 
+/*
+	Struct for Environment & Hashmap
+*/
+typedef struct s_map		t_map;
+typedef struct s_item		t_item;
+
+struct						s_item
+{
+	char					*name;
+	char					*value;
+	t_item					*next;	
+};
+
+struct						s_map
+{
+	t_item					item_head;
+};
+
 # define ERROR_PARSE 258
 
 // Environment
 extern int						g_last_status;
 extern char						**environ;
+extern bool						g_syntax_error;
 extern bool						g_readline_interrupted;
 extern volatile sig_atomic_t	g_sig;
+extern t_map					*envmap;
 
 
 /* Read Pipe */
@@ -231,5 +252,7 @@ void	setup_sigint(void);
 int		check_state(void);
 void	setup_signal(void);
 void	reset_signal(void);
+
+/* Hashmap.c */
 
 #endif
