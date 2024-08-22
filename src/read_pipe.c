@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/19 15:28:44 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/22 16:01:33 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ void	setup_child_process(t_node *node)
 	if (ft_strchr(path, '/') == NULL)
 		path = find_path(path);
 	validate_access(path, argv[0]);
-	free_argv(argv);
 	execve(path, argv, environ);
+	free_argv(argv);
 	reset_redirect(node->cmd->redirects);
 	fatal_error("execve");
 }
@@ -80,7 +80,7 @@ pid_t	exec_pipeline(t_node *node)
 	pid = fork();
 	if (pid < 0)
 		fatal_error("fork");
-	if (pid == 0)
+	else if (pid == 0)
 		setup_child_process(node);
 	prepare_pipe_parent(node);
 	if (node->next)
