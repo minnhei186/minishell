@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/23 19:30:15 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/23 20:06:17 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ struct						s_node
 	t_node					*cmd;
 };
 
+typedef struct s_map		t_map;
+
 # define ERROR_PARSE 258
 
 // Environment
@@ -104,10 +106,12 @@ extern bool						g_readline_interrupted;
 extern volatile sig_atomic_t	g_sig;
 
 /* Read Pipe */
-int		exec(t_node *node);
+// int		exec(t_node *node);
+int		exec(t_node *node, t_map *envmap);
 int		wait_pipeline(pid_t last_pid);
-pid_t	exec_pipeline(t_node *node);
-void	interpreter(char *line, int *state_loca);
+// pid_t	exec_pipeline(t_node *node);
+pid_t	exec_pipeline(t_node *node, t_map *envmap);
+void	interpreter(char *line, int *state_loca, t_map *envmap);
 
 /* Quotes */
 # define SINGLE_QUOTE_CHAR '\''

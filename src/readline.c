@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/12 15:46:03 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/23 20:05:35 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,11 @@
 #include	<sys/wait.h>
 #include	<errno.h>
 
-pid_t	exec_pipeline(t_node *node);
+void	initenv(t_map **envmap);
+pid_t	exec_pipeline(t_node *node, t_map *envmap);
 int		wait_pipeline(pid_t last_pid);
-int		exec(t_node *node);
-void	interpreter(char *line, int *state_loca);
+int		exec(t_node *node, t_map *envmap);
+void	interpreter(char *line, int *state_loca, t_map *envmap);
 int		g_last_status;
 // __attribute__((destructor))
 // static void destructor() {
@@ -168,6 +169,8 @@ void	validate_access(const char *path, const char *file_name)
 int	main(void)
 {
 	char	*line;
+	t_map	*map;
+	initenv(&map);
 
 	g_last_status = 0;
 	rl_outstream = stderr;
@@ -179,7 +182,7 @@ int	main(void)
 			break ;
 		if (*line)
 			add_history(line);
-		interpreter(line, &g_last_status);
+		interpreter(line, &g_last_status, map);
 		free(line);
 	}
 	exit(g_last_status);

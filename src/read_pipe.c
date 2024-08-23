@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/22 16:01:33 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/23 20:04:19 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	validate_access(const char *path, const char *file_name);
 // 	return (pid);
 // }
 
-void	setup_child_process(t_node *node)
+void	setup_child_process(t_node *node, t_map *envmap)
 {
 	extern char	**environ;
 	char		*path;
@@ -64,13 +64,13 @@ void	setup_child_process(t_node *node)
 	if (ft_strchr(path, '/') == NULL)
 		path = find_path(path);
 	validate_access(path, argv[0]);
-	execve(path, argv, environ);
+	execve(path, argv, get_environ(envmap));
 	free_argv(argv);
 	reset_redirect(node->cmd->redirects);
 	fatal_error("execve");
 }
 
-pid_t	exec_pipeline(t_node *node)
+pid_t	exec_pipeline(t_node *node, t_map *envmap)
 {
 	pid_t	pid;
 
@@ -81,10 +81,10 @@ pid_t	exec_pipeline(t_node *node)
 	if (pid < 0)
 		fatal_error("fork");
 	else if (pid == 0)
-		setup_child_process(node);
+		setup_child_process(node, envmap);
 	prepare_pipe_parent(node);
 	if (node->next)
-		return (exec_pipeline(node->next));
+		return (exec_pipeline(node->next, envmap));
 	return (pid);
 }
 
@@ -143,7 +143,7 @@ int	wait_pipeline(pid_t last_pid)
 	return (status);
 }
 
-int	exec(t_node *node)
+int	exec(t_node *node, t_map *envmap)
 {
 	pid_t	last_pid;
 	int		status;
@@ -154,14 +154,14 @@ int	exec(t_node *node)
 		status = exec_builtin(node);
 	else
 	{
-		last_pid = exec_pipeline(node);
+		last_pid = exec_pipeline(node, envmap);
 		status = wait_pipeline(last_pid);
 	}
 	return (status);
 }
 
 // (!node) -> Error handling for failed parsing
-void	interpreter(char *line, int *state_loca)
+void	interpreter(char *line, int *state_loca, t_map *envmap)
 {
 	t_token	*token;
 	t_node	*node;
@@ -181,7 +181,7 @@ void	interpreter(char *line, int *state_loca)
 		else
 		{
 			expand(node);
-			*state_loca = exec(node);
+			*state_loca = exec(node, envmap);
 		}
 		free_node(node);
 	}
