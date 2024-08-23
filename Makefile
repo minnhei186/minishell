@@ -56,8 +56,8 @@ SOURCES = 	./src/error_utils.c \
 			./src/signal_utils.c \
 			./src/builtin.c \
 			./src/builtin_exit.c \
-			# ./src/map.c \
-			# ./src/env.c
+			./src/map.c \
+			./src/env.c
 
 OBJECTS = $(SOURCES:.c=.o)
 
