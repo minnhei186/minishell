@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/22 23:04:01 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 18:04:23 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:40:13 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,26 @@
 #include	"../include/error.h"
 #include	"../libft/libft.h"
 
-void	skip_single_quote(char **line)
+void	skip_single_quote(char **line, t_status *status)
 {
 	(*line)++;
 	while (**line && **line != SINGLE_QUOTE_CHAR)
 		(*line)++;
 	if (**line == '\0')
-		tokenize_error("Unclosed single quote", line, *line);
+		tokenize_error("Unclosed single quote", line, *line, \
+		status);
 	else
 		(*line)++;
 }
 
-void	skip_double_quote(char **line)
+void	skip_double_quote(char **line, t_status *status)
 {
 	(*line)++;
 	while (**line && **line != DOUBLE_QUOTE_CHAR)
 		(*line)++;
 	if (**line == '\0')
-		tokenize_error("Unclosed double quote", line, *line);
+		tokenize_error("Unclosed double quote", line, *line, \
+		status);
 	else
 		(*line)++;
 }

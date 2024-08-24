@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 21:47:29 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:42:53 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -169,7 +169,7 @@ void	interpreter(char *line, int *state_loca, \
 	bool	syntax_error;
 
 	syntax_error = false;
-	token = tokenizer(line);
+	token = tokenizer(line, status);
 	if (at_eof(token))
 		;
 	else if (syntax_error)

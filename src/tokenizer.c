@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:35:53 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/07/30 20:06:41 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 22:42:29 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_token	*operator(char **rest, char *line)
 	while ((**input_p) && !is_metacharacter(**input_p))
 	(*input_p)++;
 */
-t_token	*word(char **rest, char *line)
+t_token	*word(char **rest, char *line, t_status *status)
 {
 	char	*word;
 	char	*input_head;
@@ -68,9 +68,9 @@ t_token	*word(char **rest, char *line)
 	while (*line && !is_metacharacter(*line))
 	{
 		if (*line == SINGLE_QUOTE_CHAR)
-			skip_single_quote(&line);
+			skip_single_quote(&line, status);
 		else if (*line == DOUBLE_QUOTE_CHAR)
-			skip_double_quote(&line);
+			skip_double_quote(&line, status);
 		else
 			line++;
 	}
@@ -113,7 +113,7 @@ static void	add_token(t_token **current, t_token *new_token)
 	current->next = new_current;
 	current = new_current;
 */
-t_token	*tokenizer(char *input_p)
+t_token	*tokenizer(char *input_p, t_status *status)
 {
 	t_token	*current;
 	t_token	*new_current;
@@ -129,9 +129,9 @@ t_token	*tokenizer(char *input_p)
 		else if (is_metacharacter(*input_p))
 			new_current = operator(&input_p, input_p);
 		else if (is_word(input_p))
-			new_current = word(&input_p, input_p);
+			new_current = word(&input_p, input_p, status);
 		else
-			tokenize_error("Unexpected Token", &input_p, input_p);
+			tokenize_error("Unexpected Token", &input_p, input_p, status);
 		if (new_current)
 			add_token(&current, new_current);
 	}

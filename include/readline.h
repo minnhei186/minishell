@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 21:51:47 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 02:16:45 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ struct						s_status
 // Environment
 // extern int						g_last_status;
 // extern char						**environ;
-extern bool						g_syntax_error;
+// extern bool						g_syntax_error;
 extern bool						g_readline_interrupted;
 // Able to use this only
 extern volatile sig_atomic_t	g_sig;
@@ -132,8 +132,8 @@ void	interpreter(char *line, int *state_loca, t_map *envmap, \
 # define DOUBLE_QUOTE_CHAR '"'
 
 /* Tokenizer Quotes */
-void	skip_single_quote(char **line);
-void	skip_double_quote(char **line);
+void	skip_single_quote(char **line, t_status *status);
+void	skip_double_quote(char **line, t_status *status);
 
 /* Tokenizer Utils */
 bool	is_blank(char c);
@@ -156,8 +156,8 @@ t_token	*new_token(char *word, t_token_kind kind);
 // t_token	*operator(t_token *current, char **input_p);
 t_token	*operator(char **rest, char *line);
 // t_token	*word(t_token *current, char **input_p);
-t_token	*word(char **rest, char *line);
-t_token	*tokenizer(char *input_p);
+t_token	*word(char **rest, char *line, t_status *status);
+t_token	*tokenizer(char *input_p, t_status *status);
 
 /* destructor.c */
 void	free_node(t_node *node);
