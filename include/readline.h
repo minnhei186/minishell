@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/23 20:09:59 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:36:54 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,19 @@ struct						s_node
 
 typedef struct s_map		t_map;
 
+/* 
+	Struct for Status
+	Last Status
+	- 
+ */
+typedef struct s_status		t_status;
+struct						s_status
+{
+	int						last_status;
+	bool					syntax_error;
+};
+
+
 # define ERROR_PARSE 258
 
 // Environment
@@ -103,15 +116,16 @@ extern int						g_last_status;
 // extern char						**environ;
 extern bool						g_syntax_error;
 extern bool						g_readline_interrupted;
+// Able to use this only
 extern volatile sig_atomic_t	g_sig;
 
 /* Read Pipe */
 // int		exec(t_node *node);
-int		exec(t_node *node, t_map *envmap);
+int		exec(t_node *node, t_map *envmap, t_status *last_status);
 int		wait_pipeline(pid_t last_pid);
 // pid_t	exec_pipeline(t_node *node);
 pid_t	exec_pipeline(t_node *node, t_map *envmap);
-void	interpreter(char *line, int *state_loca, t_map *envmap);
+void	interpreter(char *line, int *state_loca, t_map *envmap, t_status *status);
 
 /* Quotes */
 # define SINGLE_QUOTE_CHAR '\''

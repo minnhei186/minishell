@@ -6,13 +6,13 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:37:38 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/19 15:59:21 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:37:27 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../include/readline.h"
 
-int	exec_builtin(t_node *node)
+int	exec_builtin(t_node *node, t_status *last_status)
 {
 	int		status;
 	char	**argv;
@@ -21,7 +21,7 @@ int	exec_builtin(t_node *node)
 	argv = token_to_argv(node->cmd->args);
 	if (strcmp(argv[0], "exit") == 0)
 	{
-		status = builtin_exit(argv);
+		status = builtin_exit(argv, last_status);
 	}
 	else
 		todo("exec_builtin");

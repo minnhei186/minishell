@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:39:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/19 16:00:00 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:29:10 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool	is_numeric(char *s)
 	return (true);
 }
 
-int	builtin_exit(char **argv)
+int	builtin_exit(char **argv, t_status *status)
 {
 	long	res;
 	char	*arg;
@@ -34,7 +34,7 @@ int	builtin_exit(char **argv)
 
 	ft_putendl_fd("exit", 1);
 	if (argv[1] == NULL)
-		exit(g_last_status);
+		exit(status->last_status);
 	if (argv[2])
 	{
 		xperror("exit: too many arguments");

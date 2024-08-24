@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/23 20:05:35 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:37:09 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@
 void	initenv(t_map **envmap);
 pid_t	exec_pipeline(t_node *node, t_map *envmap);
 int		wait_pipeline(pid_t last_pid);
-int		exec(t_node *node, t_map *envmap);
-void	interpreter(char *line, int *state_loca, t_map *envmap);
+int		exec(t_node *node, t_map *envmap, t_status *last_status);
+void	interpreter(char *line, int *state_loca, t_map *envmap, t_status *status);
 int		g_last_status;
 // __attribute__((destructor))
 // static void destructor() {
@@ -168,11 +168,13 @@ void	validate_access(const char *path, const char *file_name)
 // int		status;
 int	main(void)
 {
-	char	*line;
-	t_map	*map;
-	initenv(&map);
+	char		*line;
+	t_map		*map;
+	t_status	status;
 
-	g_last_status = 0;
+	initenv(&map);
+	status.last_status = 0;
+	status.syntax_error = false;
 	rl_outstream = stderr;
 	setup_signal();
 	while (1)
@@ -182,8 +184,8 @@ int	main(void)
 			break ;
 		if (*line)
 			add_history(line);
-		interpreter(line, &g_last_status, map);
+		interpreter(line, &status.last_status, map, &status);
 		free(line);
 	}
-	exit(g_last_status);
+	exit(status.last_status);
 }

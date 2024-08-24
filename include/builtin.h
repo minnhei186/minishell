@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 19:31:14 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/18 20:06:20 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 16:37:47 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@
 # include	<stdbool.h>
 
 typedef struct s_node		t_node;
+typedef struct s_status		t_status;
 
 /* builtin.c */
-int		exec_builtin(t_node *node);
+int		exec_builtin(t_node *node, t_status *last_status);
 bool	is_builtin(t_node *node);
 
 /* builtin_exit.c */
 bool	is_numeric(char *s);
-int		builtin_exit(char **argv);
+int		builtin_exit(char **argv, t_status *status);
 
 #endif
