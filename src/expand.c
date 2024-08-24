@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:28:03 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/03 18:48:08 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:50:28 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,15 +92,15 @@ void	expand_quote_removal(t_node *node)
 	- 4. The delimiter should not be expanded for several important reasons:
 	
 */
-void	expand_variable(t_node *node)
+void	expand_variable(t_node *node, t_status *status)
 {
 	if (node == NULL)
 		return ;
-	expand_variable_token(node->args);
-	expand_variable_token(node->file_name);
-	expand_variable(node->redirects);
-	expand_variable(node->cmd);
-	expand_variable(node->next);
+	expand_variable_token(node->args, status);
+	expand_variable_token(node->file_name, status);
+	expand_variable(node->redirects, status);
+	expand_variable(node->cmd, status);
+	expand_variable(node->next, status);
 }
 
 // Expand from expand_quote_removal
@@ -108,8 +108,8 @@ void	expand_variable(t_node *node)
   @Param: t_node *node
   
 */
-void	expand(t_node *node)
+void	expand(t_node *node, t_status *status)
 {
-	expand_variable(node);
+	expand_variable(node, status);
 	expand_quote_removal(node);
 }

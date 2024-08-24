@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 16:36:54 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:52:21 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,28 +179,28 @@ char	**token_to_argv(t_token *tok);
 void	append_char(char **s, char c);
 void	remove_quote(t_token *token);
 void	expand_quote_removal(t_node *node);
-void	expand(t_node *token);
+void	expand(t_node *token, t_status *status);
 
 /* expand_utils.c */
 bool	is_alpha_under(char c);
 bool	is_alpha_num_under(char c);
 bool	is_variable(char *s);
 void	expand_variable_str(char **dest, char **rest, char *p);
-void	expand_variable_token(t_token *token);
+void	expand_variable_token(t_token *token, t_status *status);
 
 /* expand_quote.c */
 void	remove_single_quote(char **dest, char **rest, char *p);
 void	remove_double_quote(char **dest, char **rest, char *p);
 void	append_single_quote(char **dest, char **rest, char *p);
-void	append_double_quote(char **dest, char **rest, char *p);
+void	append_double_quote(char **dest, char **rest, char *p, t_status *status);
 
 /* expand_special_parameter.c */
 bool	is_special_parameter(char *s);
 void	append_num(char **dest, unsigned int num);
 // void	expand_special_parameter_str(
 // 	char **dest, char **rest, char *p, unsigned int *last_status);
-void	expand_special_parameter_str(char **dest, char **rest, char *p);
-char	*expand_heredoc_line(char *line);
+void	expand_special_parameter_str(char **dest, char **rest, char *p, t_status *status);
+char	*expand_heredoc_line(char *line, t_status *status);
 
 /* parse.c */
 t_node	*parse(t_token *token);
@@ -227,13 +227,13 @@ t_node	*simple_command(t_token **rest, t_token *token);
 
 /* redirect.c */
 int		stashfd(int fd);
-int		read_heredoc(const char *delimiter, bool is_deli_unquoted);
+int		read_heredoc(const char *delimiter, bool is_deli_unquoted, t_status *status);
 void	do_redirect(t_node *redir);
 void	reset_redirect(t_node *redir);
 
 /* redirect_utils.c */
 bool	is_redirect(t_node *node);
-int		open_redir_file(t_node *node);
+int		open_redir_file(t_node *node, t_status *status);
 
 /* pipe.c */
 void	prepare_pipe(t_node *node);

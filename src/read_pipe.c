@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 16:36:42 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:50:56 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,7 +148,7 @@ int	exec(t_node *node, t_map *envmap, t_status *last_status)
 	pid_t	last_pid;
 	int		status;
 
-	if (open_redir_file(node) < 0)
+	if (open_redir_file(node, last_status) < 0)
 		return (ERROR_OPEN_REDIR);
 	if (node->next == NULL && is_builtin(node))
 		status = exec_builtin(node, last_status);
@@ -180,7 +180,7 @@ void	interpreter(char *line, int *state_loca, t_map *envmap, t_status *status)
 			*state_loca = ERROR_PARSE;
 		else
 		{
-			expand(node);
+			expand(node, status);
 			*state_loca = exec(node, envmap, status);
 		}
 		free_node(node);

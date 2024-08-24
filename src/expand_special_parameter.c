@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:08:49 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/10 17:43:01 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:44:05 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,16 @@ void	append_num(char **dest, unsigned int num)
 // 	*rest = p;
 // }
 
-void	expand_special_parameter_str(char **dest, char **rest, char *p)
+void	expand_special_parameter_str(char **dest, char **rest, char *p, t_status *status)
 {
 	if (!is_special_parameter(p))
 		assert_error("Expected special parameter");
 	p += 2;
-	append_num(dest, g_last_status);
+	append_num(dest, status->last_status);
 	*rest = p;
 }
 
-char	*expand_heredoc_line(char *line)
+char	*expand_heredoc_line(char *line, t_status *status)
 {
 	char	*new_word;
 	char	*p;
@@ -63,7 +63,7 @@ char	*expand_heredoc_line(char *line)
 		if (is_variable(p))
 			expand_variable_str(&new_word, &p, p);
 		else if (is_special_parameter(p))
-			expand_special_parameter_str(&new_word, &p, p);
+			expand_special_parameter_str(&new_word, &p, p, status);
 		else
 			append_char(&new_word, *p++);
 	}

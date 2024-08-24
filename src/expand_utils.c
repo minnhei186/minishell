@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:40:26 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/03 23:44:24 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:52:40 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	expand_variable_str(char **dest, char **rest, char *p)
 	*rest = p;
 }
 
-void	expand_variable_token(t_token *token)
+void	expand_variable_token(t_token *token, t_status *status)
 {
 	char	*new_word;
 	char	*p;
@@ -97,15 +97,15 @@ void	expand_variable_token(t_token *token)
 		if (*p == SINGLE_QUOTE_CHAR)
 			append_single_quote(&new_word, &p, p);
 		else if (*p == DOUBLE_QUOTE_CHAR)
-			append_double_quote(&new_word, &p, p);
+			append_double_quote(&new_word, &p, p, status);
 		else if (is_variable(p))
 			expand_variable_str(&new_word, &p, p);
 		else if (is_special_parameter(p))
-			expand_special_parameter_str(&new_word, &p, p);
+			expand_special_parameter_str(&new_word, &p, p, status);
 		else
 			append_char(&new_word, *p++);
 	}
 	free(token->word);
 	token->word = new_word;
-	expand_variable_token(token->next);
+	expand_variable_token(token->next, status);
 }

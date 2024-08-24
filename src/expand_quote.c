@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:35:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/03 23:45:44 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 20:52:10 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	append_single_quote(char **dest, char **rest, char *p)
 }
 
 // append_char -> skip_quote
-void	append_double_quote(char **dest, char **rest, char *p)
+void	append_double_quote(char **dest, char **rest, char *p, t_status *status)
 {
 	if (*p == DOUBLE_QUOTE_CHAR)
 	{
@@ -83,7 +83,7 @@ void	append_double_quote(char **dest, char **rest, char *p)
 			else if (is_variable(p))
 				expand_variable_str(dest, &p, p);
 			else if (is_special_parameter(p))
-				expand_special_parameter_str(dest, &p, p);
+				expand_special_parameter_str(dest, &p, p, status);
 			else
 				append_char(dest, *p++);
 		}
