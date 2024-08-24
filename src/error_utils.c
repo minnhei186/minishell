@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:10:32 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 17:49:42 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 04:41:02 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,16 @@ void	xperror(const char *l)
 	perror_prefix();
 	perror(l);
 }
+
+void	builtin_error(const char *func, const char *name, const char *err)
+{
+	perror_prefix();
+	dprintf(STDERR_FILENO, "%s: ", func);
+	if (name)
+		dprintf(STDERR_FILENO, "`%s': ", name);
+	dprintf(STDERR_FILENO, "%s\n", err);
+}
+
 
 /* 
 	To avoid using Global variable, 

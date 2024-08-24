@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 22:11:34 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 04:47:33 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 #include	<errno.h>
 
 void	initenv(t_map **envmap);
-pid_t	exec_pipeline(t_node *node, t_map *envmap);
+pid_t	exec_pipeline(t_node *node, t_map *envmap, t_status *status);
 int		wait_pipeline(pid_t last_pid);
 int		exec(t_node *node, t_map *envmap, t_status *last_status);
 void	interpreter(char *line, int *state_loca, \

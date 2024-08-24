@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 22:42:53 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 04:58:46 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	validate_access(const char *path, const char *file_name);
 // 	return (pid);
 // }
 
-void	setup_child_process(t_node *node, t_map *envmap)
+void	setup_child_process(t_node *node, t_map *envmap, t_status *status)
 {
 	extern char	**environ;
 	char		*path;
@@ -58,19 +58,24 @@ void	setup_child_process(t_node *node, t_map *envmap)
 
 	reset_signal();
 	prepare_pipe_child(node);
-	do_redirect(node->cmd->redirects);
-	argv = token_to_argv(node->cmd->args);
-	path = argv[0];
-	if (ft_strchr(path, '/') == NULL)
-		path = find_path(path);
-	validate_access(path, argv[0]);
-	execve(path, argv, get_environ(envmap));
-	free_argv(argv);
-	reset_redirect(node->cmd->redirects);
-	fatal_error("execve");
+	if (is_builtin(node))
+		exit(exec_builtin(node, status, envmap));
+	else
+	{
+		do_redirect(node->cmd->redirects);
+		argv = token_to_argv(node->cmd->args);
+		path = argv[0];
+		if (ft_strchr(path, '/') == NULL)
+			path = find_path(path);
+		validate_access(path, argv[0]);
+		execve(path, argv, get_environ(envmap));
+		free_argv(argv);
+		reset_redirect(node->cmd->redirects);
+		fatal_error("execve");
+	}
 }
 
-pid_t	exec_pipeline(t_node *node, t_map *envmap)
+pid_t	exec_pipeline(t_node *node, t_map *envmap, t_status *status)
 {
 	pid_t	pid;
 
@@ -81,10 +86,10 @@ pid_t	exec_pipeline(t_node *node, t_map *envmap)
 	if (pid < 0)
 		fatal_error("fork");
 	else if (pid == 0)
-		setup_child_process(node, envmap);
+		setup_child_process(node, envmap, status);
 	prepare_pipe_parent(node);
 	if (node->next)
-		return (exec_pipeline(node->next, envmap));
+		return (exec_pipeline(node->next, envmap, status));
 	return (pid);
 }
 
@@ -151,10 +156,10 @@ int	exec(t_node *node, t_map *envmap, t_status *last_status)
 	if (open_redir_file(node, last_status) < 0)
 		return (ERROR_OPEN_REDIR);
 	if (node->next == NULL && is_builtin(node))
-		status = exec_builtin(node, last_status);
+		status = exec_builtin(node, last_status, envmap);
 	else
 	{
-		last_pid = exec_pipeline(node, envmap);
+		last_pid = exec_pipeline(node, envmap, last_status);
 		status = wait_pipeline(last_pid);
 	}
 	return (status);

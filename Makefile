@@ -56,6 +56,7 @@ SOURCES = 	./src/error_utils.c \
 			./src/signal_utils.c \
 			./src/builtin.c \
 			./src/builtin_exit.c \
+			./src/builtin_export.c \
 			./src/map.c \
 			./src/env.c
 

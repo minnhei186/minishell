@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 02:16:45 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 04:45:46 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ extern volatile sig_atomic_t	g_sig;
 int		exec(t_node *node, t_map *envmap, t_status *last_status);
 int		wait_pipeline(pid_t last_pid);
 // pid_t	exec_pipeline(t_node *node);
-pid_t	exec_pipeline(t_node *node, t_map *envmap);
+pid_t	exec_pipeline(t_node *node, t_map *envmap, t_status *status);
 void	interpreter(char *line, int *state_loca, t_map *envmap, \
 	t_status *status);
 
