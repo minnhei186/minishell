@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 23:46:11 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 20:47:13 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:44:57 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static int	open_redir_file_helper(t_node *node, t_status *status)
 		fd = open(node->file_name->word, \
 				O_CREAT | O_WRONLY | O_APPEND, 0644);
 	else if (node->kind == ND_REDIR_HEREDOC)
-		fd = read_heredoc(node->delimiter->word, node->is_deli_unquoted, status);
+		fd = read_heredoc(node->delimiter->word, \
+				node->is_deli_unquoted, status);
 	else
 		assert_error("open_redir_file");
 	return (fd);

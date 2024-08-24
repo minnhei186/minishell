@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 20:50:56 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:47:29 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,8 @@ int	exec(t_node *node, t_map *envmap, t_status *last_status)
 }
 
 // (!node) -> Error handling for failed parsing
-void	interpreter(char *line, int *state_loca, t_map *envmap, t_status *status)
+void	interpreter(char *line, int *state_loca, \
+	t_map *envmap, t_status *status)
 {
 	t_token	*token;
 	t_node	*node;

@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 20:35:43 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:44:32 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	initenv(t_map **envmap);
 pid_t	exec_pipeline(t_node *node, t_map *envmap);
 int		wait_pipeline(pid_t last_pid);
 int		exec(t_node *node, t_map *envmap, t_status *last_status);
-void	interpreter(char *line, int *state_loca, t_map *envmap, t_status *status);
+void	interpreter(char *line, int *state_loca, \
+	t_map *envmap, t_status *status);
 int		g_last_status;
 // __attribute__((destructor))
 // static void destructor() {

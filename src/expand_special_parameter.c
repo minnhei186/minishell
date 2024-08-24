@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:08:49 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 20:44:05 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:44:08 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ void	append_num(char **dest, unsigned int num)
 // 	*rest = p;
 // }
 
-void	expand_special_parameter_str(char **dest, char **rest, char *p, t_status *status)
+void	expand_special_parameter_str(char **dest, char **rest, \
+	char *p, t_status *status)
 {
 	if (!is_special_parameter(p))
 		assert_error("Expected special parameter");

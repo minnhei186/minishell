@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 20:04:04 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/23 19:43:34 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:06:50 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_item	*item_new(char *name, char *value)
 {
 	t_item	*item;
 
-	item = calloc(1, sizeof(*item));
+	item = ft_calloc(1, sizeof(*item));
 	if (item == NULL)
 		fatal_error("calloc");
 	item->name = name;

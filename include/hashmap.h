@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 19:28:48 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/23 19:33:19 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:53:35 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ struct						s_map
 	t_item					item_head;
 };
 
-extern t_map					*envmap;
+extern t_map				*envmap;
 
 /* Hashmap.c */
 t_item	*item_new(char *name, char *value);

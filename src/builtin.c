@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:37:38 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 16:37:27 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:57:22 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,20 +30,22 @@ int	exec_builtin(t_node *node, t_status *last_status)
 	return (status);
 }
 
+// char *builtin_commands[] = {"exit"};
 bool	is_builtin(t_node *node)
 {
 	const char		*cmd_name;
-	char			*builtin_commands[] = {"exit"};
+	char			*builtin_commands[1];
 	unsigned int	i;
 
+	builtin_commands[0] = "exit";
 	if (node == NULL || node->cmd == NULL || node->cmd->args == NULL ||\
-			node->cmd->args->word == NULL)
+		node->cmd->args->word == NULL)
 		return (false);
 	cmd_name = node->cmd->args->word;
 	i = 0;
 	while (i < sizeof(builtin_commands) / sizeof(*builtin_commands))
 	{
-		if (strcmp(cmd_name, builtin_commands[i]) == 0)
+		if (ft_strcmp(cmd_name, builtin_commands[i]) == 0)
 			return (true);
 		i++;
 	}

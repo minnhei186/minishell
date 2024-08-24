@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 20:52:21 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/24 21:51:47 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,10 @@ struct						s_status
 	bool					syntax_error;
 };
 
-
 # define ERROR_PARSE 258
 
 // Environment
-extern int						g_last_status;
+// extern int						g_last_status;
 // extern char						**environ;
 extern bool						g_syntax_error;
 extern bool						g_readline_interrupted;
@@ -125,7 +124,8 @@ int		exec(t_node *node, t_map *envmap, t_status *last_status);
 int		wait_pipeline(pid_t last_pid);
 // pid_t	exec_pipeline(t_node *node);
 pid_t	exec_pipeline(t_node *node, t_map *envmap);
-void	interpreter(char *line, int *state_loca, t_map *envmap, t_status *status);
+void	interpreter(char *line, int *state_loca, t_map *envmap, \
+	t_status *status);
 
 /* Quotes */
 # define SINGLE_QUOTE_CHAR '\''
@@ -192,14 +192,16 @@ void	expand_variable_token(t_token *token, t_status *status);
 void	remove_single_quote(char **dest, char **rest, char *p);
 void	remove_double_quote(char **dest, char **rest, char *p);
 void	append_single_quote(char **dest, char **rest, char *p);
-void	append_double_quote(char **dest, char **rest, char *p, t_status *status);
+void	append_double_quote(char **dest, char **rest, char *p, \
+	t_status *status);
 
 /* expand_special_parameter.c */
 bool	is_special_parameter(char *s);
 void	append_num(char **dest, unsigned int num);
 // void	expand_special_parameter_str(
 // 	char **dest, char **rest, char *p, unsigned int *last_status);
-void	expand_special_parameter_str(char **dest, char **rest, char *p, t_status *status);
+void	expand_special_parameter_str(char **dest, char **rest, char *p, \
+	t_status *status);
 char	*expand_heredoc_line(char *line, t_status *status);
 
 /* parse.c */
@@ -227,7 +229,8 @@ t_node	*simple_command(t_token **rest, t_token *token);
 
 /* redirect.c */
 int		stashfd(int fd);
-int		read_heredoc(const char *delimiter, bool is_deli_unquoted, t_status *status);
+int		read_heredoc(const char *delimiter, bool is_deli_unquoted, \
+	t_status *status);
 void	do_redirect(t_node *redir);
 void	reset_redirect(t_node *redir);
 
@@ -242,6 +245,7 @@ void	prepare_pipe_parent(t_node *node);
 
 /* signal_utils.c */
 # define SIG 0
+
 void	handler(int signum);
 
 /* signal.c */
