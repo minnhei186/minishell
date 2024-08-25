@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 19:31:14 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 18:09:12 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 22:17:44 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ enum	e_cmd
 {
 	B_EXIT,
 	B_EXPORT,
+	B_UNSET,
 	B_UNKNOWN
 };
 typedef enum e_cmd		t_cmd;
@@ -47,5 +48,8 @@ int		builtin_exit(char **argv, t_status *status);
 /* builtin_export.c */
 void	print_allenv(t_map *envmap);
 int		builtin_export(char **argv, t_map *envmap);
+
+/* builtin_unset.c */
+int		builtin_unset(char **argv, t_map *envmap);
 
 #endif

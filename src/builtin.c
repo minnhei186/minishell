@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:37:38 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 22:18:15 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ int	exec_builtin(t_node *node, t_status *last_status, t_map *envmap)
 		status = builtin_exit(argv, last_status);
 	else if (ft_strcmp(argv[0], "export") == 0)
 		status = builtin_export(argv, envmap);
+	else if (ft_strcmp(argv[0], "unset") == 0)
+		status = builtin_unset(argv, envmap);
 	else
 		todo("exec_builtin");
 	free_argv(argv);
@@ -36,6 +38,8 @@ t_cmd	get_builtin_enum(const char *cmd_name)
 		return (B_EXIT);
 	if (ft_strcmp(cmd_name, "export") == 0)
 		return (B_EXPORT);
+	if (ft_strcmp(cmd_name, "unset") == 0)
+		return (B_UNSET);
 	return (B_UNKNOWN);
 }
 
