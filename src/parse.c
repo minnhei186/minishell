@@ -6,11 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:05:42 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 14:49:53 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../include/readline.h"
+#include	"../include/minishell.h"
 
 bool	equal_op(t_token *tok, char *op);
 void	append_token(t_token **token, t_token *element);

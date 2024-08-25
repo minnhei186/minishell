@@ -6,11 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:28:03 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 14:49:50 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../include/readline.h"
+#include	"../include/minishell.h"
 
 void	append_char(char **s, char c)
 {

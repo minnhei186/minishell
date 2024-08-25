@@ -6,14 +6,14 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:17:16 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/18 19:43:53 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:09:28 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LAST_STATUS_H
 # define LAST_STATUS_H
 
-# include	"readline.h"
+# include	"minishell.h"
 # include	"error.h"
 # include	"../libft/libft.h"
 

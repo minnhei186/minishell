@@ -6,11 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:08:49 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 14:49:42 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../include/readline.h"
+#include	"../include/minishell.h"
 
 bool	is_special_parameter(char *s)
 {

@@ -6,11 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:40:26 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 14:49:47 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../include/readline.h"
+#include	"../include/minishell.h"
 
 /*
 	PARAMETERS

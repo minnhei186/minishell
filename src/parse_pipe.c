@@ -6,11 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:59:51 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/18 01:23:13 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../include/readline.h"
+#include	"../include/minishell.h"
 #include	"../libft/libft.h"
 
 /*

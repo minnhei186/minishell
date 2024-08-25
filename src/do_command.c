@@ -6,11 +6,11 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:00:18 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 14:52:01 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/readline.h"
+#include "../include/minishell.h"
 
 char	*abs_path_get(void)
 {

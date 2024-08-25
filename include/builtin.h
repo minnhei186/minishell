@@ -6,14 +6,14 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 19:31:14 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 04:59:33 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:09:12 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef BUILTIN_H
 # define BUILTIN_H
 
-# include	"readline.h"
+# include	"minishell.h"
 # include	"error.h"
 # include	"last_status.h"
 

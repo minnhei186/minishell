@@ -6,13 +6,13 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/09 22:35:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/18 00:52:13 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:09:57 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <unistd.h>
 #include <signal.h>
-#include "readline.h"
+#include "../include/minishell.h"
 
 volatile sig_atomic_t	g_sig = 0;
 

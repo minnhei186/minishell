@@ -6,14 +6,14 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 23:15:48 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 04:09:11 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:09:18 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef ERROR_H
 # define ERROR_H
 
-# include	"readline.h"
+# include	"minishell.h"
 # include	"last_status.h"
 # include	"../libft/libft.h"
 # define ERROR_TOKENIZE 258

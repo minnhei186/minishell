@@ -6,13 +6,13 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 23:46:11 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 21:44:57 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
 #include <unistd.h>
-#include "../include/readline.h"
+#include "../include/minishell.h"
 
 bool	is_redirect(t_node *node)
 {

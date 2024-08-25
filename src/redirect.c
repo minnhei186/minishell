@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:54:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 17:24:45 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 #include <errno.h>
 #include <unistd.h>
 #include <sys/stat.h>
-#include "../include/readline.h"
+#include "../include/minishell.h"
 
 bool	g_readline_interrupted;
 // void	redirect(int targetfd, char *filename)
