@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:28:03 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 20:50:28 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 14:49:50 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	remove_quote(t_token *token)
 	if (token == NULL || token->kind != TK_WORD || token->word == NULL)
 		return ;
 	p = token->word;
-	new_word = calloc(1, sizeof(char));
+	new_word = ft_calloc(1, sizeof(char));
 	if (new_word == NULL)
 		fatal_error("calloc");
 	while (*p && !is_metacharacter(*p))

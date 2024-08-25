@@ -6,12 +6,14 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:54:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 20:45:12 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 15:49:40 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <fcntl.h>
+#include <errno.h>
 #include <unistd.h>
+#include <sys/stat.h>
 #include "../include/readline.h"
 
 bool	g_readline_interrupted;
@@ -34,15 +36,43 @@ bool	g_readline_interrupted;
 // 	dup2(stashed_targetfd, targetfd);
 // }
 
+// int	stashfd(int fd)
+// {
+// 	int	stashfd;
+
+// 	stashfd = fcntl(fd, F_DUPFD, 10);
+// 	if (stashfd < 0)
+// 		fatal_error("fcntl");
+// 	if (close(fd) < 0)
+// 		fatal_error("close");
+// 	return (stashfd);
+// }
+static bool	is_valid_fd(int fd)
+{
+	struct stat	st;
+
+	if (fd < 0)
+		return (false);
+	errno = 0;
+	if (fstat(fd, &st) < 0 && errno == EBADF)
+		return (false);
+	return (true);
+}
+
 int	stashfd(int fd)
 {
 	int	stashfd;
 
-	stashfd = fcntl(fd, F_DUPFD, 10);
-	if (stashfd < 0)
-		fatal_error("fcntl");
-	if (close(fd) < 0)
-		fatal_error("close");
+	if (!is_valid_fd(fd))
+	{
+		errno = EBADF;
+		return (-1);
+	}
+	stashfd = 10;
+	while (is_valid_fd(stashfd))
+		stashfd++;
+	stashfd = dup2(fd, stashfd);
+	close(fd);
 	return (stashfd);
 }
 

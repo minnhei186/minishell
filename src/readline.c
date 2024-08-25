@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 04:47:33 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 14:52:13 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,14 @@ void	interpreter(char *line, int *state_loca, \
 // 	value = getenv("PATH");
 // 	while (*value)
 // 	{
-// 		bzero(path, PATH_MAX);
+// 		ft_bzero(path, PATH_MAX);
 // 		end = ft_strchr(value, ':');
 // 		if (end)
 // 			strncpy(path, value, end - value);
 // 		else
-// 			strlcpy(path, value, PATH_MAX);
-// 		strlcat(path, "/", PATH_MAX);
-// 		strlcat(path, file_name, PATH_MAX);
+// 			ft_strlcpy(path, value, PATH_MAX);
+// 		ft_strlcat(path, "/", PATH_MAX);
+// 		ft_strlcat(path, file_name, PATH_MAX);
 // 		if (access(path, X_OK) == 0)
 // 		{
 // 			dup = strdup(path);

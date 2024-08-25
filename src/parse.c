@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:05:42 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/01 17:49:53 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 14:49:53 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ t_node	*new_node(t_node_kind kind)
 {
 	t_node	*node;
 
-	node = calloc(1, sizeof(*node));
+	node = ft_calloc(1, sizeof(*node));
 	if (node == NULL)
 		fatal_error("calloc");
 	node->kind = kind;

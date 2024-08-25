@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:00:18 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 17:44:29 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 14:52:01 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,13 +85,13 @@ char	*find_path(const char *line)
 
 // 	abs_path = abs_path_get();
 // 	tmp_free = abs_path;
-// 	path_tail = strchr(abs_path, ':');
+// 	path_tail = ft_strchr(abs_path, ':');
 // 	while (path_tail)
 // 	{
-// 		bzero(f_path, PATH_MAX);
+// 		ft_bzero(f_path, PATH_MAX);
 // 		strncpy(f_path, abs_path, path_tail - abs_path);
-// 		strlcat(f_path, "/", sizeof(f_path));
-// 		strlcat(f_path, line, sizeof(f_path));
+// 		ft_strlcat(f_path, "/", sizeof(f_path));
+// 		ft_strlcat(f_path, line, sizeof(f_path));
 // 		if (access(f_path, 0) == 0)
 // 		{
 // 			free(tmp_free);
@@ -100,12 +100,12 @@ char	*find_path(const char *line)
 // 		}
 // 		abs_path = path_tail;
 // 		abs_path++;
-// 		path_tail = strchr(abs_path, ':');
+// 		path_tail = ft_strchr(abs_path, ':');
 // 	}
-// 	bzero(f_path, PATH_MAX);
+// 	ft_bzero(f_path, PATH_MAX);
 // 	strncpy(f_path, abs_path, sizeof(f_path) - 1);
-// 	strlcat(f_path, "/", sizeof(f_path));
-// 	strlcat(f_path, line, sizeof(f_path));
+// 	ft_strlcat(f_path, "/", sizeof(f_path));
+// 	ft_strlcat(f_path, line, sizeof(f_path));
 // 	if (access(f_path, 0) == 0)
 // 	{
 // 		free(tmp_free);
@@ -135,7 +135,7 @@ char	**token_to_argv(t_token *tok)
 {
 	char	**argv;
 
-	argv = (char **)calloc(1, sizeof(char *));
+	argv = (char **)ft_calloc(1, sizeof(char *));
 	if (argv == NULL)
 		fatal_error("calloc");
 	return (subsequent_argv_recursive(tok, 0, argv));

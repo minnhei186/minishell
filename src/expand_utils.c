@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:40:26 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 20:52:40 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 14:49:47 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	expand_variable_str(char **dest, char **rest, char *p)
 	char	*name;
 	char	*value;
 
-	name = calloc(1, sizeof(char));
+	name = ft_calloc(1, sizeof(char));
 	if (name == NULL)
 		fatal_error("calloc");
 	if (*p != '$')
@@ -89,7 +89,7 @@ void	expand_variable_token(t_token *token, t_status *status)
 	if (token == NULL || token->kind != TK_WORD || token->word == NULL)
 		return ;
 	p = token->word;
-	new_word = calloc(1, sizeof(char));
+	new_word = ft_calloc(1, sizeof(char));
 	if (new_word == NULL)
 		fatal_error("calloc");
 	while (*p && !is_metacharacter(*p))

@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 19:50:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/23 19:42:53 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 14:49:39 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ char	**get_environ(t_map *map)
 	char	**environ;
 
 	size = map_len(map, false) + 1;
-	environ = calloc(size, sizeof(char *));
+	environ = ft_calloc(size, sizeof(char *));
 	i = 0;
 	item = map->item_head.next;
 	while (item)

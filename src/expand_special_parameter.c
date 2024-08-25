@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:08:49 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 21:44:08 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 14:49:42 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	*expand_heredoc_line(char *line, t_status *status)
 	char	*p;
 
 	p = line;
-	new_word = calloc(1, sizeof(char));
+	new_word = ft_calloc(1, sizeof(char));
 	if (new_word == NULL)
 		fatal_error("calloc");
 	while (*p)

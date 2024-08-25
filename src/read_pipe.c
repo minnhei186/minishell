@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 04:58:46 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 15:52:11 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ pid_t	exec_pipeline(t_node *node, t_map *envmap, t_status *status)
 	pid_t	pid;
 
 	if (node == NULL)
+	{
+		free(node);
 		return (-1);
+	}
 	prepare_pipe(node);
 	pid = fork();
 	if (pid < 0)
