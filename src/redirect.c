@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 15:54:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 15:49:40 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 17:24:45 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ int	read_heredoc(const char *delimiter, bool is_deli_unquoted, t_status *status)
 	if (pipe(pfd) < 0)
 		fatal_error("pipe");
 	g_readline_interrupted = false;
-	line = readline("> ");
 	while (1)
 	{
 		line = readline("> ");
