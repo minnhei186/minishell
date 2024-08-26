@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:37:29 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/26 21:45:26 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:48:03 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 // ensuring that all of `src` can be concatenated to `dest`
 char	*ft_strcat(char *dest, const char *src)
 {
+	if (!dest || !src)
+		return (NULL);
 	ft_strlcat(dest, src, ft_strlen(dest) + ft_strlen(src) + 1);
 	return (dest);
 }
