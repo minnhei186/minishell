@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 20:04:04 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/24 21:06:50 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/26 22:26:20 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,4 +211,24 @@ size_t	map_len(t_map *map, bool count_null_value)
 		item = item->next;
 	}
 	return (len);
+}
+
+void	map_printall(t_map *map)
+{
+	t_item	*cur;
+	char	*value;
+
+	if (!map)
+		return ;
+	cur = map->item_head.next;
+	while (cur)
+	{
+		value = item_get_string(cur);
+		if (value)
+		{
+			printf("%s\n", value);
+			free(value);
+		}
+		cur = cur->next;
+	}
 }

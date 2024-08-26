@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/26 23:37:00 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ void	setup_child_process(t_node *node, t_map *envmap, t_status *status)
 			path = find_path(path);
 		validate_access(path, argv[0]);
 		execve(path, argv, get_environ(envmap));
+		map_printall(envmap);
 		free_argv(argv);
 		reset_redirect(node->cmd->redirects);
 		fatal_error("execve");

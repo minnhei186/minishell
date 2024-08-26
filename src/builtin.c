@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:37:38 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 23:32:13 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/26 21:56:08 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ t_cmd	get_builtin_enum(const char *cmd_name)
 		return (B_EXPORT);
 	if (ft_strcmp(cmd_name, "unset") == 0)
 		return (B_UNSET);
+	if (ft_strcmp(cmd_name, "env") == 0)
+		return (B_ENV);
 	return (B_UNKNOWN);
 }
 
