@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/26 23:36:36 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/27 00:26:46 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,12 +121,18 @@ extern volatile sig_atomic_t	g_sig;
 
 /* Read Pipe */
 // int		exec(t_node *node);
-int		exec(t_node *node, t_map *envmap, t_status *last_status);
+// original exec
+// int		exec(t_node *node, t_map *envmap, t_status *last_status);
+int		exec(t_node *node, t_status *last_status);
 int		wait_pipeline(pid_t last_pid);
 // pid_t	exec_pipeline(t_node *node);
-pid_t	exec_pipeline(t_node *node, t_map *envmap, t_status *status);
-void	interpreter(char *line, int *state_loca, t_map *envmap, \
-	t_status *status);
+// original exec_pipeline
+// pid_t	exec_pipeline(t_node *node, t_map *envmap, t_status *status);
+pid_t	exec_pipeline(t_node *node, t_status *status);
+// original interpreter
+// void	interpreter(char *line, int *state_loca, t_map *envmap, \
+// 	t_status *status);
+void	interpreter(char *line, int *state_loca, t_status *status);
 
 /* Quotes */
 # define SINGLE_QUOTE_CHAR '\''

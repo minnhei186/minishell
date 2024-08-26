@@ -6,14 +6,14 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:37:38 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/26 21:56:08 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/26 23:59:55 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/builtin.h"
 
-int	exec_builtin(t_node *node, t_status *last_status, t_map *envmap)
+int	exec_builtin(t_node *node, t_status *last_status)
 {
 	int		status;
 	char	**argv;
@@ -23,11 +23,11 @@ int	exec_builtin(t_node *node, t_status *last_status, t_map *envmap)
 	if (ft_strcmp(argv[0], "exit") == 0)
 		status = builtin_exit(argv, last_status);
 	else if (ft_strcmp(argv[0], "export") == 0)
-		status = builtin_export(argv, envmap);
+		status = builtin_export(argv, last_status->env_map);
 	else if (ft_strcmp(argv[0], "unset") == 0)
-		status = builtin_unset(argv, envmap);
+		status = builtin_unset(argv, last_status->env_map);
 	else if (ft_strcmp(argv[0], "env") == 0)
-		status = builtin_env(argv, envmap);
+		status = builtin_env(argv, last_status->env_map);
 	else
 		todo("exec_builtin");
 	free_argv(argv);

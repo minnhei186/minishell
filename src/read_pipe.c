@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/26 23:37:00 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/27 00:24:16 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,16 +50,15 @@ void	validate_access(const char *path, const char *file_name);
 // 	return (pid);
 // }
 
-void	setup_child_process(t_node *node, t_map *envmap, t_status *status)
+void	setup_child_process(t_node *node, t_status *status)
 {
-	extern char	**environ;
 	char		*path;
 	char		**argv;
 
 	reset_signal();
 	prepare_pipe_child(node);
 	if (is_builtin(node))
-		exit(exec_builtin(node, status, envmap));
+		exit(exec_builtin(node, status));
 	else
 	{
 		do_redirect(node->cmd->redirects);
@@ -68,15 +67,15 @@ void	setup_child_process(t_node *node, t_map *envmap, t_status *status)
 		if (ft_strchr(path, '/') == NULL)
 			path = find_path(path);
 		validate_access(path, argv[0]);
-		execve(path, argv, get_environ(envmap));
-		map_printall(envmap);
+		execve(path, argv, get_environ(status->env_map));
+		// map_printall(status->env_map);
 		free_argv(argv);
 		reset_redirect(node->cmd->redirects);
 		fatal_error("execve");
 	}
 }
 
-pid_t	exec_pipeline(t_node *node, t_map *envmap, t_status *status)
+pid_t	exec_pipeline(t_node *node, t_status *status)
 {
 	pid_t	pid;
 
@@ -90,10 +89,10 @@ pid_t	exec_pipeline(t_node *node, t_map *envmap, t_status *status)
 	if (pid < 0)
 		fatal_error("fork");
 	else if (pid == 0)
-		setup_child_process(node, envmap, status);
+		setup_child_process(node, status);
 	prepare_pipe_parent(node);
 	if (node->next)
-		return (exec_pipeline(node->next, envmap, status));
+		return (exec_pipeline(node->next, status));
 	return (pid);
 }
 
@@ -152,26 +151,26 @@ int	wait_pipeline(pid_t last_pid)
 	return (status);
 }
 
-int	exec(t_node *node, t_map *envmap, t_status *last_status)
+int	exec(t_node *node, t_status *last_status)
 {
 	pid_t	last_pid;
 	int		status;
 
 	if (open_redir_file(node, last_status) < 0)
 		return (ERROR_OPEN_REDIR);
+	print_allenv(last_status->env_map);
 	if (node->next == NULL && is_builtin(node))
-		status = exec_builtin(node, last_status, envmap);
+		status = exec_builtin(node, last_status);
 	else
 	{
-		last_pid = exec_pipeline(node, envmap, last_status);
+		last_pid = exec_pipeline(node, last_status);
 		status = wait_pipeline(last_pid);
 	}
 	return (status);
 }
 
 // (!node) -> Error handling for failed parsing
-void	interpreter(char *line, int *state_loca, \
-	t_map *envmap, t_status *status)
+void	interpreter(char *line, int *state_loca, t_status *status)
 {
 	t_token	*token;
 	t_node	*node;
@@ -191,7 +190,7 @@ void	interpreter(char *line, int *state_loca, \
 		else
 		{
 			expand(node, status);
-			*state_loca = exec(node, envmap, status);
+			*state_loca = exec(node, status);
 		}
 		free_node(node);
 	}

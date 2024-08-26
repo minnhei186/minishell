@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 15:31:37 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/26 17:22:09 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/27 00:38:24 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,11 @@
 #include	<sys/wait.h>
 #include	<errno.h>
 
-void	initenv(t_map **envmap);
-pid_t	exec_pipeline(t_node *node, t_map *envmap, t_status *status);
+void	initenv(t_map **map);
+pid_t	exec_pipeline(t_node *node, t_status *status);
 int		wait_pipeline(pid_t last_pid);
-int		exec(t_node *node, t_map *envmap, t_status *last_status);
-void	interpreter(char *line, int *state_loca, \
-	t_map *envmap, t_status *status);
+int		exec(t_node *node, t_status *last_status);
+void	interpreter(char *line, int *state_loca, t_status *status);
 // __attribute__((destructor))
 // static void destructor() {
 //     system("leaks -q a.out");
@@ -169,10 +168,9 @@ void	validate_access(const char *path, const char *file_name)
 int	main(void)
 {
 	char		*line;
-	t_map		*map;
 	t_status	status;
 
-	initenv(&map);
+	initenv(&status.env_map);
 	status.last_status = 0;
 	status.syntax_error = false;
 	rl_outstream = stderr;
@@ -184,7 +182,7 @@ int	main(void)
 			break ;
 		if (*line)
 			add_history(line);
-		interpreter(line, &status.last_status, map, &status);
+		interpreter(line, &status.last_status, &status);
 		free(line);
 	}
 	exit(status.last_status);
