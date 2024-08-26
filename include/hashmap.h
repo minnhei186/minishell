@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 19:28:48 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 18:09:24 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/26 17:17:37 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 # include "last_status.h"
 # include "error.h"
 # include "../libft/libft.h"
+
+# include <stdbool.h>
 
 /*
 	Struct for Environment & Hashmap
@@ -53,8 +55,8 @@ size_t	map_len(t_map *map, bool count_null_value);
 void	map_printall(t_map *map);
 
 /* env.c */
-char	*xgetenv(t_map *envmap, const char *name);
-void	initenv(t_map **envmap);
+char	*xgetenv(t_map *map, const char *name);
+void	initenv(t_map **map);
 char	**get_environ(t_map *map);
 
 #endif

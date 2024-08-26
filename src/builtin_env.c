@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtin_unset.c                                    :+:      :+:    :+:   */
+/*   builtin_env.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/08/25 22:14:24 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/26 17:16:55 by geonwkim         ###   ########.fr       */
+/*   Created: 2024/08/25 23:30:02 by geonwkim          #+#    #+#             */
+/*   Updated: 2024/08/25 23:31:23 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/builtin.h"
+#include <stdio.h>
 
-int	builtin_unset(char **argv, t_map *envmap)
+int	builtin_env(char **argv, t_map *envmap)
 {
-	int		status;
-	size_t	i;
+	t_item	*cur;
 
-	status = 0;
-	i = 1;
-	while (argv[i])
+	(void)argv;
+	cur = envmap->item_head.next;
+	while (cur)
 	{
-		if (map_unset(envmap, argv[i]) < 0)
-		{
-			builtin_error("unset", argv[i], "not a valid identifier");
-			status = 1;
-		}
-		else
-			status = 0;
-		i++;
+		if (cur->value)
+			printf("%s=%s\n", cur->name, cur->value);
+		cur = cur->next;
 	}
-	return (status);
+	printf("_=/usr/bin/env\n");
+	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 19:31:14 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 22:17:44 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 23:36:52 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,8 @@ int		builtin_export(char **argv, t_map *envmap);
 
 /* builtin_unset.c */
 int		builtin_unset(char **argv, t_map *envmap);
+
+/* builtin_env.c */
+int		builtin_env(char **argv, t_map *envmap);
 
 #endif

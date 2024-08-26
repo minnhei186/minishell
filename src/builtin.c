@@ -6,11 +6,12 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:37:38 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 22:18:15 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/25 23:32:13 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include	"../include/minishell.h"
+#include "../include/minishell.h"
+#include "../include/builtin.h"
 
 int	exec_builtin(t_node *node, t_status *last_status, t_map *envmap)
 {
@@ -25,6 +26,8 @@ int	exec_builtin(t_node *node, t_status *last_status, t_map *envmap)
 		status = builtin_export(argv, envmap);
 	else if (ft_strcmp(argv[0], "unset") == 0)
 		status = builtin_unset(argv, envmap);
+	else if (ft_strcmp(argv[0], "env") == 0)
+		status = builtin_env(argv, envmap);
 	else
 		todo("exec_builtin");
 	free_argv(argv);
