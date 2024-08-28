@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 16:10:32 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 04:41:02 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 23:58:44 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ void	builtin_error(const char *func, const char *name, const char *err)
 		dprintf(STDERR_FILENO, "`%s': ", name);
 	dprintf(STDERR_FILENO, "%s\n", err);
 }
-
 
 /* 
 	To avoid using Global variable, 

@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:00:18 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/28 22:18:28 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 23:59:24 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,30 @@
 
 char	*xgetenv(t_map *map, const char *name);
 
+// char	*abs_path_get(t_status *p_status)
+// {
+// 	char		*path;
+// 	const char	*temp;
+
+// 	path = NULL;
+// 	temp = map_get(p_status->env_map, "PATH");
+// 	// temp = getenv("PATH");
+// 	// temp = xgetenv(p_status->env_map, "PATH");
+// 	if (temp)
+// 	{
+// 		path = (char *)malloc(ft_strlen(temp) + 1);
+// 		if (!path)
+// 		{
+// 			perror("malloc error");
+// 			exit(1);
+// 		}
+// 		strcpy(path, temp);
+// 	}
+// 	else
+// 		return (NULL);
+// 	return (path);
+// }
+
 char	*abs_path_get(t_status *p_status)
 {
 	char		*path;
@@ -22,9 +46,6 @@ char	*abs_path_get(t_status *p_status)
 
 	path = NULL;
 	temp = map_get(p_status->env_map, "PATH");
-	// temp = getenv("PATH");
-	// temp = xgetenv(p_status->env_map, "PATH");
-	printf("%s\n", temp);
 	if (temp)
 	{
 		path = (char *)malloc(ft_strlen(temp) + 1);

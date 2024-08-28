@@ -6,13 +6,13 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:39:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 23:31:37 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 23:59:47 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include 	"../include/minishell.h"
-#include 	"../include/builtin.h"
-#include	<errno.h>
+#include "../include/minishell.h"
+#include "../include/builtin.h"
+#include <errno.h>
 
 bool	is_numeric(char *s)
 {
