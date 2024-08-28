@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 19:31:14 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/27 00:15:23 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 20:10:44 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ typedef enum e_cmd		t_cmd;
 /* builtin.c */
 // original
 // int		exec_builtin(t_node *node, t_status *last_status, t_map *envmap);
-int		exec_builtin(t_node *node, t_status *last_status);
+int		exec_builtin(t_node *node, t_status *p_status);
 bool	is_builtin(t_node *node);
 
 /* builtin_exit.c */

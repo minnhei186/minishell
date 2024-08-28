@@ -6,30 +6,47 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:37:38 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/26 23:59:55 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:32:23 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 #include "../include/builtin.h"
+#include <sys/wait.h>
 
-int	exec_builtin(t_node *node, t_status *last_status)
+int	exec_builtin(t_node *node, t_status *p_status)
 {
 	int		status;
 	char	**argv;
+	// char	*path;
 
 	do_redirect(node->cmd->redirects);
 	argv = token_to_argv(node->cmd->args);
 	if (ft_strcmp(argv[0], "exit") == 0)
-		status = builtin_exit(argv, last_status);
+		status = builtin_exit(argv, p_status);
 	else if (ft_strcmp(argv[0], "export") == 0)
-		status = builtin_export(argv, last_status->env_map);
+		status = builtin_export(argv, p_status->env_map);
 	else if (ft_strcmp(argv[0], "unset") == 0)
-		status = builtin_unset(argv, last_status->env_map);
+		status = builtin_unset(argv, p_status->env_map);
 	else if (ft_strcmp(argv[0], "env") == 0)
-		status = builtin_env(argv, last_status->env_map);
+		status = builtin_env(argv, p_status->env_map);
+	// else
+	// {
+	// 	path = map_get(p_status->env_map, "PATH");
+    //    // If PATH is unset, avoid executing external commands
+    //     if (path == NULL || *path == '\0')
+    //     {
+    //         fprintf(stderr, "%s: command not found\n", argv[0]);
+    //         free_argv(argv);
+    //         reset_redirect(node->cmd->redirects);
+    //         return (127); // Command not found
+    //     }
+    //     // Otherwise, handle non-builtin commands (not implemented here)
+    //     // status = exec_external_command(argv, p_status);
+	// }
 	else
 		todo("exec_builtin");
+	printf("status -> %d\n", status);
 	free_argv(argv);
 	reset_redirect(node->cmd->redirects);
 	return (status);

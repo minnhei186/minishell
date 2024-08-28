@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/27 00:24:16 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:44:41 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ void	setup_child_process(t_node *node, t_status *status)
 		argv = token_to_argv(node->cmd->args);
 		path = argv[0];
 		if (ft_strchr(path, '/') == NULL)
-			path = find_path(path);
+			path = find_path(path, status);
 		validate_access(path, argv[0]);
 		execve(path, argv, get_environ(status->env_map));
 		// map_printall(status->env_map);
@@ -158,7 +158,7 @@ int	exec(t_node *node, t_status *last_status)
 
 	if (open_redir_file(node, last_status) < 0)
 		return (ERROR_OPEN_REDIR);
-	print_allenv(last_status->env_map);
+	// print_allenv(last_status->env_map);
 	if (node->next == NULL && is_builtin(node))
 		status = exec_builtin(node, last_status);
 	else
@@ -174,13 +174,11 @@ void	interpreter(char *line, int *state_loca, t_status *status)
 {
 	t_token	*token;
 	t_node	*node;
-	bool	syntax_error;
 
-	syntax_error = false;
 	token = tokenizer(line, status);
 	if (at_eof(token))
 		;
-	else if (syntax_error)
+	else if (status->syntax_error)
 		*state_loca = ERROR_TOKENIZE;
 	else
 	{

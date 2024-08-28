@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 11:40:26 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:18:36 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ bool	is_variable(char *s)
 	return (s[0] == '$' && is_alpha_under(s[1]));
 }
 
-void	expand_variable_str(char **dest, char **rest, char *p)
+void	expand_variable_str(char **dest, char **rest, char *p, t_status *p_status)
 {
 	char	*name;
 	char	*value;
@@ -73,7 +73,8 @@ void	expand_variable_str(char **dest, char **rest, char *p)
 	append_char(&name, *p++);
 	while (is_alpha_num_under(*p))
 		append_char(&name, *p++);
-	value = getenv(name);
+	// value = getenv(name);
+	value = map_get(p_status->env_map, name);
 	free(name);
 	if (value)
 		while (*value)
@@ -99,7 +100,7 @@ void	expand_variable_token(t_token *token, t_status *status)
 		else if (*p == DOUBLE_QUOTE_CHAR)
 			append_double_quote(&new_word, &p, p, status);
 		else if (is_variable(p))
-			expand_variable_str(&new_word, &p, p);
+			expand_variable_str(&new_word, &p, p, status);
 		else if (is_special_parameter(p))
 			expand_special_parameter_str(&new_word, &p, p, status);
 		else

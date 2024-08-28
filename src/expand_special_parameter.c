@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/03 19:08:49 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:18:30 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ char	*expand_heredoc_line(char *line, t_status *status)
 	while (*p)
 	{
 		if (is_variable(p))
-			expand_variable_str(&new_word, &p, p);
+			expand_variable_str(&new_word, &p, p, status);
 		else if (is_special_parameter(p))
 			expand_special_parameter_str(&new_word, &p, p, status);
 		else

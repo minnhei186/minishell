@@ -6,19 +6,21 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:00:18 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:44:37 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
 
-char	*abs_path_get(void)
+char	*abs_path_get(t_status *p_status)
 {
 	char		*path;
 	const char	*temp;
 
 	path = NULL;
-	temp = getenv("PATH");
+	// temp = map_get(p_status->env_map, "PATH");
+	temp = xgetenv(p_status->env_map, "PATH");
+	printf("%s\n", temp);
 	if (temp)
 	{
 		path = (char *)malloc(ft_strlen(temp) + 1);
@@ -31,7 +33,7 @@ char	*abs_path_get(void)
 	}
 	else
 	{
-		perror("environmental variables not found");
+		// perror("environmental variables not found");
 		exit(1);
 	}
 	return (path);
@@ -49,14 +51,14 @@ char	*check_path(char *abs_path, const char *line)
 	return (NULL);
 }
 
-char	*find_path(const char *line)
+char	*find_path(const char *line, t_status *p_status)
 {
 	char	*abs_path;
 	char	*path_tail;
 	char	*tmp_free;
 	char	*found_path;
 
-	abs_path = abs_path_get();
+	abs_path = abs_path_get(p_status);
 	tmp_free = abs_path;
 	path_tail = ft_strchr(abs_path, ':');
 	while (path_tail)

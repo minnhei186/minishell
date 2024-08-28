@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 20:04:04 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/26 23:59:13 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:11:38 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,13 @@ char	*map_get(t_map *map, const char *name)
 	return (NULL);
 }
 
+#include <stdlib.h>
+
 int	map_unset(t_map *map, const char *name)
 {
+    unsetenv(name);
+	return 0;
+
 	t_item	*cur;
 	t_item	*prev;
 
@@ -106,6 +111,8 @@ int	map_unset(t_map *map, const char *name)
 		if (ft_strcmp(cur->name, name) == 0)
 		{
 			prev->next = cur->next;
+			// printf("Name -> %s\n", cur->name);
+			// printf("value -> %s\n", cur->value);	
 			free(cur->name);
 			free(cur->value);
 			free(cur);
@@ -226,7 +233,7 @@ void	map_printall(t_map *map)
 		value = item_get_string(cur);
 		if (value)
 		{
-			printf("%s\n", value);
+			// printf("%s\n", value);
 			free(value);
 		}
 		cur = cur->next;

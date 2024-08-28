@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/27 00:26:46 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:44:36 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,9 +172,9 @@ void	free_token(t_token *token);
 void	free_argv(char **argv);
 
 /* do_command.c */
-char	*abs_path_get(void);
+char	*abs_path_get(t_status *p_status);
 char	*check_path(char *abs_path, const char *line);
-char	*find_path(const char *line);
+char	*find_path(const char *line, t_status *p_status);
 char	**subsequent_argv_recursive(t_token *token, int nargs, char **argv);
 char	**token_to_argv(t_token *tok);
 
@@ -192,7 +192,8 @@ void	expand(t_node *token, t_status *status);
 bool	is_alpha_under(char c);
 bool	is_alpha_num_under(char c);
 bool	is_variable(char *s);
-void	expand_variable_str(char **dest, char **rest, char *p);
+void	expand_variable_str(char **dest, char **rest, char *p, \
+	t_status *p_status);
 void	expand_variable_token(t_token *token, t_status *status);
 
 /* expand_quote.c */

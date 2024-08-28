@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 19:35:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 21:18:25 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void	append_double_quote(char **dest, char **rest, char *p, t_status *status)
 			if (*p == '\0')
 				assert_error("Unclosed double quote");
 			else if (is_variable(p))
-				expand_variable_str(dest, &p, p);
+				expand_variable_str(dest, &p, p, status);
 			else if (is_special_parameter(p))
 				expand_special_parameter_str(dest, &p, p, status);
 			else
