@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/28 23:57:15 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/29 00:04:21 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ void	validate_access(const char *path, const char *file_name);
 // 	}
 // }
 
+// if (ft_strchr(path, '/') == NULL)
+// Check if that PATH is UNSET
 void	setup_child_process(t_node *node, t_status *status)
 {
 	char		*path;

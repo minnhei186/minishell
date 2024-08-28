@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 20:04:04 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/28 22:05:33 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/29 00:15:54 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,52 +19,6 @@
 bool	is_identifier(const char *s);
 bool	is_alpha_under(char c);
 bool	is_alpha_num_under(char c);
-
-bool	is_identifier(const char *s)
-{
-	if (!is_alpha_under(*s))
-		return (false);
-	s++;
-	while (*s)
-	{
-		if (!is_alpha_num_under(*s))
-			return (false);
-		s++;
-	}
-	return (true);
-}
-
-t_item	*item_new(char *name, char *value)
-{
-	t_item	*item;
-
-	item = ft_calloc(1, sizeof(*item));
-	if (item == NULL)
-		fatal_error("calloc");
-	item->name = name;
-	item->value = value;
-	return (item);
-}
-
-char	*item_get_string(t_item *item)
-{
-	size_t	strsize;
-	char	*string;
-
-	strsize = ft_strlen(item->name) + 2;
-	if (item->value)
-		strsize += ft_strlen(item->value);
-	string = malloc(strsize);
-	if (string == NULL)
-		fatal_error("malloc");
-	ft_strlcpy(string, item->name, strsize);
-	if (item->value)
-	{
-		ft_strlcat(string, "=", strsize);
-		ft_strlcat(string, item->value, strsize);
-	}
-	return (string);
-}
 
 t_map	*map_new(void)
 {
@@ -106,8 +60,6 @@ int	map_unset(t_map *map, const char *name)
 		if (ft_strcmp(cur->name, name) == 0)
 		{
 			prev->next = cur->next;
-			// printf("Name -> %s\n", cur->name);
-			// printf("value -> %s\n", cur->value);	
 			free(cur->name);
 			free(cur->value);
 			free(cur);
@@ -120,117 +72,104 @@ int	map_unset(t_map *map, const char *name)
 }
 
 // name, value 
-int	map_set(t_map *map, const char *name, const char *value)
-{
-	t_item	*cur;
+// int	map_set(t_map *map, const char *name, const char *value)
+// {
+// 	t_item	*cur;
 
-	if (name == NULL || !is_identifier(name))
-		return (-1);
-	cur = map->item_head.next;
-	while (cur)
-	{
-		if (ft_strcmp(cur->name, name) == 0)
-			break ;
-		cur = cur->next;
-	}
-	// found
-	if (cur)
-	{
-		free(cur->value);
-		if (value == NULL)
-			cur->value = NULL;
-		else
-		{
-			cur->value = ft_strdup(value);
-			if (cur->value == NULL)
-				fatal_error("map_set strdup");
-		}
-	}
-	// not found
-	else
-	{
-		if (value == NULL)
-		{
-			cur = item_new(ft_strdup(name), NULL);
-			if (cur->name == NULL)
-				fatal_error("strdup");
-		}
-		else
-		{
-			cur = item_new(ft_strdup(name), ft_strdup(value));
-			if (cur->name == NULL || cur->value == NULL)
-				fatal_error("strdup");
-		}
-		cur->next = map->item_head.next;
-		map->item_head.next = cur;
-	}
-	return (0);
-}
+// 	if (name == NULL || !is_identifier(name))
+// 		return (-1);
+// 	cur = map->item_head.next;
+// 	while (cur)
+// 	{
+// 		if (ft_strcmp(cur->name, name) == 0)
+// 			break ;
+// 		cur = cur->next;
+// 	}
+// 	if (cur)
+// 	{
+// 		free(cur->value);
+// 		if (value == NULL)
+// 			cur->value = NULL;
+// 		else
+// 		{
+// 			cur->value = ft_strdup(value);
+// 			if (cur->value == NULL)
+// 				fatal_error("map_set strdup");
+// 		}
+// 	}
+// 	else
+// 	{
+// 		if (value == NULL)
+// 		{
+// 			cur = item_new(ft_strdup(name), NULL);
+// 			if (cur->name == NULL)
+// 				fatal_error("strdup");
+// 		}
+// 		else
+// 		{
+// 			cur = item_new(ft_strdup(name), ft_strdup(value));
+// 			if (cur->name == NULL || cur->value == NULL)
+// 				fatal_error("strdup");
+// 		}
+// 		cur->next = map->item_head.next;
+// 		map->item_head.next = cur;
+// 	}
+// 	return (0);
+// }
 
-int	map_put(t_map *map, const char *string, bool allow_empty_value)
-{
-	int		result;
-	char	*name_end;
-	char	*name;
-	char	*value;
+// int	map_set(t_map *map, const char *name, const char *value)
+// {
+// 	t_item	*cur;
 
-	name_end = ft_strchr(string, '=');
-	// value is null
-	if (name_end == NULL)
-	{
-		if (!allow_empty_value)
-			return (-1);
-		name = ft_strdup(string);
-		value = NULL;
-		if (name == NULL)
-			fatal_error("strdup");
-	}
-	// value is non null
-	else
-	{
-		name = ft_strndup(string, name_end - string);
-		value = ft_strdup(name_end + 1);
-		if (name == NULL || value == NULL)
-			fatal_error("strdup");
-	}
-	result = map_set(map, name, value);
-	free(name);
-	free(value);
-	return (result);
-}
+// 	if (!name || !is_identifier(name))
+// 		return (-1);
+// 	cur = map->item_head.next;
+// 	while (cur && ft_strcmp(cur->name, name) != 0)
+// 		cur = cur->next;
+// 	if (cur)
+// 	{
+// 		free(cur->value);
+// 		cur->value = value ? ft_strdup(value) : NULL;
+// 		if (value && !cur->value)
+// 			fatal_error("map_set strdup");
+// 	}
+// 	else
+// 	{
+// 		cur = item_new(ft_strdup(name), value ? ft_strdup(value) : NULL);
+// 		if (!cur->name || (value && !cur->value))
+// 			fatal_error("strdup");
+// 		cur->next = map->item_head.next;
+// 		map->item_head.next = cur;
+// 	}
+// 	return (0);
+// }
 
-size_t	map_len(t_map *map, bool count_null_value)
-{
-	size_t	len;
-	t_item	*item;
+// int	map_put(t_map *map, const char *string, bool allow_empty_value)
+// {
+// 	int		result;
+// 	char	*name_end;
+// 	char	*name;
+// 	char	*value;
 
-	len = 0;
-	item = map->item_head.next;
-	while (item)
-	{
-		if (item->value || count_null_value)
-			len++;
-		item = item->next;
-	}
-	return (len);
-}
-
-void	map_printall(t_map *map)
-{
-	t_item	*cur;
-	char	*value;
-
-	if (!map)
-		return ;
-	cur = map->item_head.next;
-	while (cur)
-	{
-		value = item_get_string(cur);
-		if (value)
-		{
-			// printf("%s\n", value);
-			free(value);
-		}
-		cur = cur->next;
-	}
-}
+// 	name_end = ft_strchr(string, '=');
+// 	if (name_end == NULL)
+// 	{
+// 		if (!allow_empty_value)
+// 			return (-1);
+// 		name = ft_strdup(string);
+// 		value = NULL;
+// 		if (name == NULL)
+// 			fatal_error("strdup");
+// 	}
+// 	else
+// 	{
+// 		name = ft_strndup(string, name_end - string);
+// 		value = ft_strdup(name_end + 1);
+// 		if (name == NULL || value == NULL)
+// 			fatal_error("strdup");
+// 	}
+// 	result = map_set(map, name, value);
+// 	free(name);
+// 	free(value);
+// 	return (result);
+// }

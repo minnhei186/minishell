@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 19:28:48 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/28 21:55:47 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/29 00:19:01 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,23 @@ struct						s_map
 
 // extern t_map				*envmap;
 
-/* Hashmap.c */
+/* map.c */
+t_map	*map_new(void);
+char	*map_get(t_map *map, const char *name);
+int		map_unset(t_map *map, const char *name);
+
+/* map_utils.c  */
+size_t	map_len(t_map *map, bool count_null_value);
+void	map_printall(t_map *map);
+bool	is_identifier(const char *s);
 t_item	*item_new(char *name, char *value);
 char	*item_get_string(t_item *item);
 
-t_map	*map_new(void);
-char	*map_get(t_map *map, const char *name);
-int		map_put(t_map *map, const char *string, bool allow_empty_value);
+/* map_setter.c */
 int		map_set(t_map *map, const char *name, const char *value);
-int		map_unset(t_map *map, const char *name);
 
-size_t	map_len(t_map *map, bool count_null_value);
-void	map_printall(t_map *map);
+/* map_putter.c */
+int		map_put(t_map *map, const char *string, bool allow_empty_value);
 
 /* env.c */
 char	*xgetenv(t_map *map, const char *name);
