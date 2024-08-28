@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:29:02 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 22:06:44 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 // 		perror("command not found");
 // 		exit(1);
 // 	}
-// 	if (execve(command_path, argv, environ) < 0)
+// 	if (ve(command_path, argv, environ) < 0)
 // 	{
 // 		perror("execve");
 // 		exit(1);

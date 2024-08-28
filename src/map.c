@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 20:04:04 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/28 21:11:38 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 22:05:33 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,13 +92,8 @@ char	*map_get(t_map *map, const char *name)
 	return (NULL);
 }
 
-#include <stdlib.h>
-
 int	map_unset(t_map *map, const char *name)
 {
-    unsetenv(name);
-	return 0;
-
 	t_item	*cur;
 	t_item	*prev;
 

@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/28 21:44:41 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 22:30:44 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,12 +66,20 @@ void	setup_child_process(t_node *node, t_status *status)
 		path = argv[0];
 		if (ft_strchr(path, '/') == NULL)
 			path = find_path(path, status);
-		validate_access(path, argv[0]);
+		// validate_access(path, argv[0]);
 		execve(path, argv, get_environ(status->env_map));
+		if (ft_strchr(argv[0], '/'))
+		{
+			ft_putstr_fd("minishell: ", 2);
+			perror(argv[0]);
+		}
+		else
+			error_exit(argv[0], "command not found", 127);
 		// map_printall(status->env_map);
 		free_argv(argv);
-		reset_redirect(node->cmd->redirects);
-		fatal_error("execve");
+		exit(1);
+		// reset_redirect(node->cmd->redirects);
+		// fatal_error("execve");
 	}
 }
 

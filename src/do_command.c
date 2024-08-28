@@ -6,11 +6,14 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 16:00:18 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/28 21:44:37 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/28 22:18:28 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/minishell.h"
+#include "../include/hashmap.h"
+
+char	*xgetenv(t_map *map, const char *name);
 
 char	*abs_path_get(t_status *p_status)
 {
@@ -18,8 +21,9 @@ char	*abs_path_get(t_status *p_status)
 	const char	*temp;
 
 	path = NULL;
-	// temp = map_get(p_status->env_map, "PATH");
-	temp = xgetenv(p_status->env_map, "PATH");
+	temp = map_get(p_status->env_map, "PATH");
+	// temp = getenv("PATH");
+	// temp = xgetenv(p_status->env_map, "PATH");
 	printf("%s\n", temp);
 	if (temp)
 	{
@@ -32,10 +36,7 @@ char	*abs_path_get(t_status *p_status)
 		strcpy(path, temp);
 	}
 	else
-	{
-		// perror("environmental variables not found");
-		exit(1);
-	}
+		return (NULL);
 	return (path);
 }
 
@@ -59,6 +60,8 @@ char	*find_path(const char *line, t_status *p_status)
 	char	*found_path;
 
 	abs_path = abs_path_get(p_status);
+	if (!abs_path)
+		return (ft_strdup(line));
 	tmp_free = abs_path;
 	path_tail = ft_strchr(abs_path, ':');
 	while (path_tail)
