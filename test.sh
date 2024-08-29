@@ -295,6 +295,16 @@ assert 'export [invalid]'
 	assert 'unset hoge fuga'
 	assert 'unset hoge nosuch fuga'
 )
+# export hoge fuga=fuga
+# assert 'unset'
+# assert 'unset hoge'
+# assert 'unset fuga'
+# assert 'unset nosuch'
+# assert 'unset [invalid]'
+# assert 'unset hoge fuga'
+# assert 'unset hoge nosuch fuga'
+# assert 'unset fuga \n export | echo $fuga'
+# assert 'unset [invalid] fuga \n echo $fuga'
 
 ## env
 print_desc "Output of 'env' differs, but it's ok."
@@ -311,6 +321,18 @@ assert 'cd /tmp/'
 assert 'cd /tmp///'
 assert 'cd /../../../././.././'
 assert 'cd src'
+
+# assert 'cd \n echo $PWD'
+# unset HOME
+# assert 'cd \n echo $PWD'
+# assert 'cd .\n echo $PWD'
+# assert 'cd ..\n echo $PWD'
+# assert 'cd ///\n echo $PWD'
+# assert 'cd /tmp\n echo $PWD'
+# assert 'cd /tmp/\n echo $PWD'
+# assert 'cd /tmp///\n echo $PWD'
+# assert 'cd /../../../././.././\n echo $PWD'
+# assert 'cd src\n echo $PWD'
 
 ## echo
 assert 'echo'
