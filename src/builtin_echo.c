@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/30 00:43:59 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/30 00:44:40 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 00:57:21 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	builtin_echo(char **argv)
 		if (!is_first_arg)
 			write(STDOUT_FILENO, " ", 1);
 		is_first_arg = false;
-		write(STDOUT_FILENO, argv[i], strlen(argv[i]));
+		write(STDOUT_FILENO, argv[i], ft_strlen(argv[i]));
 		i++;
 	}
 	if (echo_newline)
