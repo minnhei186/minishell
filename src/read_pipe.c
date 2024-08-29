@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/30 01:07:48 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:56:38 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ void	validate_access(const char *path, const char *file_name);
 
 // if (ft_strchr(path, '/') == NULL)
 // Check if that PATH is UNSET
+// argv[0] == NULL - exit(1)
+// -> If >>>> (Redirection) is coming, should return without any Memory leaks
 void	setup_child_process(t_node *node, t_status *status)
 {
 	char		*path;
@@ -93,24 +95,23 @@ void	setup_child_process(t_node *node, t_status *status)
 	prepare_pipe_child(node);
 	if (is_builtin(node))
 		exit(exec_builtin(node, status));
-	else
-	{
-		do_redirect(node->cmd->redirects);
-		argv = token_to_argv(node->cmd->args);
-		path = argv[0];
-		if (ft_strchr(path, '/') == NULL)
-			path = find_path(path, status);
-		execve(path, argv, get_environ(status->env_map));
-		if (ft_strchr(argv[0], '/'))
-		{
-			ft_putstr_fd("minishell: ", 2);
-			perror(argv[0]);
-		}
-		else
-			error_exit(argv[0], "command not found", 127);
-		free_argv(argv);
+	do_redirect(node->cmd->redirects);
+	argv = token_to_argv(node->cmd->args);
+	if (argv[0] == NULL)
 		exit(1);
+	path = argv[0];
+	if (ft_strchr(path, '/') == NULL)
+		path = find_path(path, status);
+	execve(path, argv, get_environ(status->env_map));
+	if (ft_strchr(argv[0], '/'))
+	{
+		ft_putstr_fd("minishell: ", 2);
+		perror(argv[0]);
 	}
+	else
+		error_exit(argv[0], "command not found", 127);
+	free_argv(argv);
+	exit(1);
 }
 
 pid_t	exec_pipeline(t_node *node, t_status *status)
