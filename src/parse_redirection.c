@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 18:25:12 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 00:23:37 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 
 bool	equal_op(t_token *tok, char *op)
 {
+	if (!tok || !op)
+		return (false);
 	if (tok->kind != TK_OP)
 		return (false);
 	return (ft_strcmp(tok->word, op) == 0);

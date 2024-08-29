@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 23:15:48 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 18:09:18 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:04:03 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,8 @@ void	error_exit(const char *l, \
 		const char *msg, int status) __attribute__((noreturn));
 void	tokenize_error(const char *l, char **rest, char *line, \
 	t_status *status);
-void	parse_error(const char *l, t_token **rest, t_token *token,
-	t_status *status);
+void	parse_error(t_token **rest, t_token *token);
+// void	parse_error(const char *l, t_token **rest, t_token *token,
+// 	t_status *status);
 
 #endif

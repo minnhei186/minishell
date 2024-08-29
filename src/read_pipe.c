@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/29 00:04:21 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:07:48 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -220,7 +220,7 @@ void	interpreter(char *line, int *state_loca, t_status *status)
 	else
 	{
 		node = parse(token);
-		if (!node)
+		if (status->syntax_error)
 			*state_loca = ERROR_PARSE;
 		else
 		{

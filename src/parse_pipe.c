@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:59:51 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 18:08:31 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 01:06:13 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,14 @@ t_node	*pipe_line(t_token **rest, t_token *token)
 	node->in_pipe[1] = -1;
 	node->out_pipe[0] = -1;
 	node->out_pipe[1] = STDOUT_FILENO;
+	printf("pass\n");
 	node->cmd = simple_command(&token, token);
-	if (node->cmd == NULL)
-	{
-		free_node(node);
-		*rest = NULL;
-		return (NULL);
-	}
+	// if (node->cmd == NULL)
+	// {
+	// 	free_node(node);
+	// 	*rest = NULL;
+	// 	return (NULL);
+	// }
 	if (equal_op(token, "|"))
 		node->next = pipe_line(&token, token->next);
 	*rest = token;
@@ -97,22 +98,28 @@ bool	is_control_operator(t_token *token)
 	The return value of a simple command is its exit status, or 128+n if the
 	command is terminated by signal n.
 */
+
 t_node	*simple_command(t_token **rest, t_token *token)
 {
 	t_node	*node;
 
 	node = new_node(ND_SIMPLE_CMD);
 	append_command_element(node, &token, token);
+	//debug
+	// printf("pass2\n");
+	//end
 	while (token && !at_eof(token) && !is_control_operator(token))
 	{
+		// printf("pass3\n");
 		append_command_element(node, &token, token);
-		if (token == NULL)
-		{
-			fprintf(stderr, "minishell: syntax error\n");
-			free_node(node);
-			*rest = NULL;
-			return (NULL);
-		}
+		// if (token == NULL)
+		// {
+		// 	ft_putstr_fd("minishell: syntax error\n", 2);
+		// 	// fprintf(stderr, "minishell: syntax error\n");
+		// 	free_node(node);
+		// 	*rest = NULL;
+		// 	return (NULL);
+		// }
 	}
 	*rest = token;
 	return (node);
