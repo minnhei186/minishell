@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:37:38 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/29 22:56:43 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 02:01:43 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ int	exec_builtin(t_node *node, t_status *p_status)
 		status = builtin_env(argv, p_status->env_map);
 	else if (ft_strcmp(argv[0], "cd") == 0)
 		status = builtin_cd(argv, p_status->env_map);
+	else if (ft_strcmp(argv[0], "echo") == 0)
+		status = builtin_echo(argv);
 	else
 		todo("exec_builtin");
 	free_argv(argv);
@@ -50,6 +52,8 @@ t_cmd	get_builtin_enum(const char *cmd_name)
 		return (B_ENV);
 	if (ft_strcmp(cmd_name, "cd") == 0)
 		return (B_CD);
+	if (ft_strcmp(cmd_name, "echo") == 0)
+		return (B_ECHO);
 	return (B_UNKNOWN);
 }
 

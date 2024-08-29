@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 19:31:14 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/30 00:43:50 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 02:01:35 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ enum	e_cmd
 	B_UNSET,
 	B_ENV,
 	B_CD,
+	B_ECHO,
 	B_UNKNOWN
 };
 typedef enum e_cmd		t_cmd;
@@ -68,5 +69,8 @@ int		builtin_cd(char **argv, t_map *envmap);
 
 /* builtin_echo.c */
 int		builtin_echo(char **argv);
+
+/* builtin_pwd.c */
+int		builtin_pwd(char **argv);
 
 #endif
