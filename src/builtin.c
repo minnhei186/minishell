@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:37:38 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/30 02:01:43 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 02:04:20 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ int	exec_builtin(t_node *node, t_status *p_status)
 		status = builtin_cd(argv, p_status->env_map);
 	else if (ft_strcmp(argv[0], "echo") == 0)
 		status = builtin_echo(argv);
+	else if (ft_strcmp(argv[0], "pwd") == 0)
+		status = builtin_pwd(argv);
 	else
 		todo("exec_builtin");
 	free_argv(argv);

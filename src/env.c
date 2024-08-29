@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 19:50:31 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/29 17:02:58 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 03:06:06 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,16 @@ char	*xgetenv(t_map *map, const char *name)
 {
 	return (map_get(map, name));
 }
+
+// char	*xgetenv(t_map *map, const char *name)
+// {
+// 	t_item	*item;
+
+// 	item = map_get(map, name);
+// 	if (item == NULL)
+// 		return (NULL);
+// 	return (item->value);
+// }
 
 void	initenv(t_map **map)
 {

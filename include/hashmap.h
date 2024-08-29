@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 19:28:48 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/29 00:19:01 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 03:05:49 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int		map_put(t_map *map, const char *string, bool allow_empty_value);
 
 /* env.c */
 char	*xgetenv(t_map *map, const char *name);
+// char	*xgetenv(const char *name);
 void	initenv(t_map **map);
 char	**get_environ(t_map *map);
 

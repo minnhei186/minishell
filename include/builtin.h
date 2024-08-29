@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 19:31:14 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/30 02:01:35 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 02:06:57 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,12 @@
 # include	<error.h>
 // To recognize bool type when it use C99 In VSCode
 # include	<stdbool.h>
+
+# include	<limits.h>
+# include	<sys/stat.h>
+
+# include	<stdio.h>
+# include	<string.h>
 
 typedef struct s_node		t_node;
 typedef struct s_status		t_status;
