@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 20:04:04 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/29 00:15:54 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:18:36 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ int	map_unset(t_map *map, const char *name)
 		prev = prev->next;
 		cur = cur->next;
 	}
+	cur->name = NULL;
 	return (0);
 }
 

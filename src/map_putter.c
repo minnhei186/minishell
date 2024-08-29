@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 00:14:55 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/29 00:15:43 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/29 16:49:33 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ static void	get_name_value(const char *string, bool allow_empty_value, \
 		fatal_error("strdup");
 }
 
+// name -> ２次元配列
 int	map_put(t_map *map, const char *string, bool allow_empty_value)
 {
 	char	*name;
