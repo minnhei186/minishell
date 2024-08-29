@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 19:31:14 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/29 22:56:56 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 00:43:50 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,5 +65,8 @@ void	delete_last_element(char *path);
 void	append_path_element(char *dst, char **rest, char *src);
 char	*resolve_pwd(char *oldpwd, char *path);
 int		builtin_cd(char **argv, t_map *envmap);
+
+/* builtin_echo.c */
+int		builtin_echo(char **argv);
 
 #endif

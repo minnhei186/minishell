@@ -60,6 +60,7 @@ SOURCES = 	./src/error_utils.c \
 			./src/builtin_unset.c \
 			./src/builtin_env.c \
 			./src/builtin_cd.c \
+			./src/builtin_echo.c \
 			./src/map_putter.c \
 			./src/map_setter.c \
 			./src/map_utils.c \
