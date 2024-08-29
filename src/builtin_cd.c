@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/26 21:30:51 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/29 22:55:04 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 00:54:02 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	consume_path(char **rest, char *path, char *element)
 		if (path[element_len] == '\0' || path[element_len] == '/')
 		{
 			*rest = path + element_len;
-			return (true);	
+			return (true);
 		}
 	}
 	return (false);
@@ -53,7 +53,6 @@ void	append_path_element(char *dst, char **rest, char *src)
 	elm_len = 0;
 	while (src[elm_len] && src[elm_len] != '/')
 		elm_len++;
-	// TODO: strcat, strncat is unsafe
 	if (dst[ft_strlen(dst) - 1] != '/')
 		ft_strcat(dst, "/");
 	ft_strncat(dst, src, elm_len);
@@ -88,34 +87,59 @@ char	*resolve_pwd(char *oldpwd, char *path)
 	return (dup);
 }
 
+// if (home == NULL), builtin_error("cd", NULL, "HOME not set");
 int	builtin_cd(char **argv, t_map *envmap)
 {
-	char	*home;
-	char	*oldpwd;
 	char	path[PATH_MAX];
 	char	*newpwd;
+	char	*oldpwd;
 
 	oldpwd = map_get(envmap, "PWD");
 	map_set(envmap, "OLDPWD", oldpwd);
-	if (argv[1] == NULL)
+	if (!argv[1])
 	{
-		home = map_get(envmap, "HOME");
-		if (home == NULL)
-		{
-			builtin_error("cd", NULL, "HOME not set");
-			return (1);
-		}
-		ft_strlcpy(path, home, PATH_MAX);
+		if (!(map_get(envmap, "HOME")))
+			return (builtin_error("cd", NULL, "HOME not set"), 1);
+		ft_strlcpy(path, map_get(envmap, "HOME"), PATH_MAX);
 	}
 	else
 		ft_strlcpy(path, argv[1], PATH_MAX);
 	if (chdir(path) < 0)
-	{
-		builtin_error("cd", NULL, "chdir");
-		return (1);
-	}
+		return (builtin_error("cd", NULL, "No such file or directory"), 1);
 	newpwd = resolve_pwd(oldpwd, path);
 	map_set(envmap, "PWD", newpwd);
 	free(newpwd);
 	return (0);
 }
+
+// int	builtin_cd(char **argv, t_map *envmap)
+// {
+// 	char	*home;
+// 	char	*oldpwd;
+// 	char	path[PATH_MAX];
+// 	char	*newpwd;
+
+// 	oldpwd = map_get(envmap, "PWD");
+// 	map_set(envmap, "OLDPWD", oldpwd);
+// 	if (argv[1] == NULL)
+// 	{
+// 		home = map_get(envmap, "HOME");
+// 		if (home == NULL)
+// 		{
+// 			builtin_error("cd", NULL, "HOME not set");
+// 			return (1);
+// 		}
+// 		ft_strlcpy(path, home, PATH_MAX);
+// 	}
+// 	else
+// 		ft_strlcpy(path, argv[1], PATH_MAX);
+// 	if (chdir(path) < 0)
+// 	{
+// 		builtin_error("cd", NULL, "chdir");
+// 		return (1);
+// 	}
+// 	newpwd = resolve_pwd(oldpwd, path);
+// 	map_set(envmap, "PWD", newpwd);
+// 	free(newpwd);
+// 	return (0);
+// }
