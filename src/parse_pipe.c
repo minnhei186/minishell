@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 16:59:51 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/30 01:06:13 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 03:19:11 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ t_node	*pipe_line(t_token **rest, t_token *token)
 	node->in_pipe[1] = -1;
 	node->out_pipe[0] = -1;
 	node->out_pipe[1] = STDOUT_FILENO;
-	printf("pass\n");
 	node->cmd = simple_command(&token, token);
 	// if (node->cmd == NULL)
 	// {

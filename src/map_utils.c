@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 00:05:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/29 00:07:31 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/04 21:33:01 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,18 @@
 void	map_printall(t_map *map)
 {
 	t_item	*cur;
-	char	*value;
 
 	if (!map)
 		return ;
 	cur = map->item_head.next;
 	while (cur)
 	{
-		value = item_get_string(cur);
-		if (value)
-		{
-			free(value);
-		}
+		printf("%s=%s ()\n", cur->name, cur->value);
+		// value = item_get_string(cur);
+		// if (value)
+		// {
+		// 	free(value);
+		// }
 		cur = cur->next;
 	}
 }

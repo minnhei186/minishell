@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:37:38 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/30 02:04:20 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:13:48 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,16 @@ int	exec_builtin(t_node *node, t_status *p_status)
 
 	do_redirect(node->cmd->redirects);
 	argv = token_to_argv(node->cmd->args);
+	printf("Now_unset (ar) -> \n");
 	if (ft_strcmp(argv[0], "exit") == 0)
 		status = builtin_exit(argv, p_status);
 	else if (ft_strcmp(argv[0], "export") == 0)
 		status = builtin_export(argv, p_status->env_map);
 	else if (ft_strcmp(argv[0], "unset") == 0)
+	{
+		printf("Now_unset -> \n");
 		status = builtin_unset(argv, p_status->env_map);
+	}
 	else if (ft_strcmp(argv[0], "env") == 0)
 		status = builtin_env(argv, p_status->env_map);
 	else if (ft_strcmp(argv[0], "cd") == 0)
@@ -50,12 +54,14 @@ t_cmd	get_builtin_enum(const char *cmd_name)
 		return (B_EXPORT);
 	if (ft_strcmp(cmd_name, "unset") == 0)
 		return (B_UNSET);
-	if (ft_strcmp(cmd_name, "env") == 0)
-		return (B_ENV);
+	// if (ft_strcmp(cmd_name, "env") == 0)
+	// 	return (B_ENV);
 	if (ft_strcmp(cmd_name, "cd") == 0)
 		return (B_CD);
 	if (ft_strcmp(cmd_name, "echo") == 0)
 		return (B_ECHO);
+	if (ft_strcmp(cmd_name, "pwd") == 0)
+		return (B_PWD);
 	return (B_UNKNOWN);
 }
 

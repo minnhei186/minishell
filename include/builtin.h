@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 19:31:14 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/30 02:06:57 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/31 18:13:39 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ enum	e_cmd
 	B_EXIT,
 	B_EXPORT,
 	B_UNSET,
-	B_ENV,
 	B_CD,
 	B_ECHO,
+	B_PWD,
 	B_UNKNOWN
 };
 typedef enum e_cmd		t_cmd;

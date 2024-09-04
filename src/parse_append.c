@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/30 23:15:49 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/30 01:04:13 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/30 03:19:27 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,6 @@
 */
 void	append_command_element(t_node *command, t_token **rest, t_token *token)
 {
-	//debug
-	printf("token->word = [ %s ]\n", token->word);
-	//end
 	if (token->kind == TK_WORD)
 	{
 		append_token(&command->args, token_dup(token));

@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 22:14:24 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/27 00:02:03 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/08/31 14:47:14 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	builtin_unset(char **argv, t_map *envmap)
 
 	status = 0;
 	i = 1;
+	printf("Now unset \n");
 	while (argv[i])
 	{
 		if (map_unset(envmap, argv[i]) < 0)
@@ -31,5 +32,7 @@ int	builtin_unset(char **argv, t_map *envmap)
 			status = 0;
 		i++;
 	}
+	printf("Now (printall) -> ");
+	map_printall(envmap);
 	return (status);
 }
