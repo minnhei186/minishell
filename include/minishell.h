@@ -130,7 +130,7 @@ int		wait_pipeline(pid_t last_pid);
 // pid_t	exec_pipeline(t_node *node, t_map *envmap, t_status *status);
 pid_t	exec_pipeline(t_node *node, t_status *status);
 // original interpreter
-// void	interpreter(char *line, int *state_loca, t_map *envmap, \
+//  void	interpreter(char *line, int *state_loca, t_map *envmap,
 // 	t_status *status);
 void	interpreter(char *line, int *state_loca, t_status *status);
 

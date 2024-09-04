@@ -45,7 +45,7 @@ void	append_command_element(t_node *command, t_token **rest, t_token *token)
 		append_node(&command->redirects, redirect_heredoc(&token, token));
 	// else
 	// {
-	// 	fprintf(stderr, \
+	// 	fprintf(stderr,
 	// 	"minishell: syntax error near unexpected token `%s'\n", token->word);
 	// 	// *rest = token->next;
 	// 	*rest = NULL;

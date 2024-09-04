@@ -40,6 +40,10 @@ struct						s_map
 	char					**environ;
 };
 
+// ./pp/pp/ a*b / *a
+// ./pp/pp/a*b *a
+// ./pp/pp/a*b
+
 // extern t_map				*envmap;
 
 /* map.c */
