@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 04:11:17 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/25 23:31:19 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/05 17:46:33 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,19 +17,110 @@
 
 typedef struct s_map		t_map;
 
-void	print_allenv(t_map *envmap)
+char	*map_get(t_map *map, const char *name);
+
+// Function to count the number of environment variables
+size_t	count_env(t_map *envmap)
 {
 	t_item	*cur;
+	size_t	count;
 
+	count = 0;
 	cur = envmap->item_head.next;
 	while (cur)
 	{
-		if (cur->value)
-			printf("declare -x %s=\"%s\"\n", cur->name, cur->value);
-		else
-			printf("declare -x %s\n", cur->name);
+		count++;
 		cur = cur->next;
 	}
+	return (count);
+}
+
+// Function to copy the environment variable names into an array
+char	**get_env_names(t_map *envmap)
+{
+	size_t	count;
+	char	**env_names;
+	t_item	*cur;
+	size_t	i;
+
+	count = count_env(envmap);
+	env_names = malloc(sizeof(char *) * (count + 1));
+	if (!env_names)
+		return (NULL);
+	cur = envmap->item_head.next;
+	i = 0;
+	while (cur)
+	{
+		env_names[i] = ft_strdup(cur->name);
+		cur = cur->next;
+		i++;
+	}
+	env_names[i] = NULL;
+	return (env_names);
+}
+
+// Custom bubble sort function with while loops
+void bubble_sort_env_names(char **env_names, size_t count)
+{
+	size_t i;
+	size_t j;
+	char *temp;
+	int swapped;
+
+	i = 0;
+	while (i < count - 1)
+	{
+		j = 0;
+		swapped = 0;
+		while (j < count - i - 1)
+		{
+			if (strcmp(env_names[j], env_names[j + 1]) > 0)
+			{
+				temp = env_names[j];
+				env_names[j] = env_names[j + 1];
+				env_names[j + 1] = temp;
+				swapped = 1;
+			}
+			j++;
+		}
+		if (swapped == 0)
+			break;  // No swaps means the array is already sorted
+		i++;
+	}
+}
+
+void	print_allenv(t_map *envmap)
+{
+	char	**env_names;
+	t_item	*cur;
+	size_t	count;
+	size_t	i;
+
+	env_names = get_env_names(envmap);
+	if (!env_names)
+		return ;
+	count = count_env(envmap);
+	bubble_sort_env_names(env_names, count);
+	i = 0;
+	while (i < count)
+	{
+		cur = envmap->item_head.next;
+		while (cur)
+		{
+			if (ft_strcmp(cur->name, env_names[i]) == 0)
+			{
+				if (cur->value)
+					printf("declare -x %s=\"%s\"\n", cur->name, cur->value);
+				else
+					printf("declare -x %s\n", cur->name);
+				break ;
+			}
+			cur = cur->next;
+		}
+		free(env_names[i]);
+		i++;
+	}
+	free(env_names);
 }
 
 int	builtin_export(char **argv, t_map *envmap)
