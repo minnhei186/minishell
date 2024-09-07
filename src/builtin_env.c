@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 23:30:02 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/31 15:12:50 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/07 21:51:11 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@ int	builtin_env(char **argv, t_map *envmap)
 	cur = envmap->item_head.next;
 	while (cur)
 	{
+		// if (cur->value)
+			// map_get(envmap, cur->name);
 		if (cur->value)
 			printf("%s=%s\n", cur->name, cur->value);
 		cur = cur->next;

@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:37:38 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/31 18:13:48 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/07 21:29:34 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,12 @@ int	exec_builtin(t_node *node, t_status *p_status)
 
 	do_redirect(node->cmd->redirects);
 	argv = token_to_argv(node->cmd->args);
-	printf("Now_unset (ar) -> \n");
 	if (ft_strcmp(argv[0], "exit") == 0)
 		status = builtin_exit(argv, p_status);
 	else if (ft_strcmp(argv[0], "export") == 0)
 		status = builtin_export(argv, p_status->env_map);
 	else if (ft_strcmp(argv[0], "unset") == 0)
-	{
-		printf("Now_unset -> \n");
 		status = builtin_unset(argv, p_status->env_map);
-	}
 	else if (ft_strcmp(argv[0], "env") == 0)
 		status = builtin_env(argv, p_status->env_map);
 	else if (ft_strcmp(argv[0], "cd") == 0)
