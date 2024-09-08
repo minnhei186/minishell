@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/09/08 21:57:51 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/09 00:21:32 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,11 +36,11 @@ void	setup_child_process(t_node *node, t_status *status)
 	argv = token_to_argv(node->cmd->args);
 	if (!argv[0])
 		exit(1);
-	if (ft_strchr(argv[0], '/'))
-		path = argv[0];
-	else
-		path = find_path(argv[0], status);
-	execve(path, argv, get_environ(status->env_map));
+	path = argv[0];
+	if (ft_strchr(path, '/') == NULL)
+		path = find_path(path, status);
+	if (path != NULL)
+		execve(path, argv, get_environ(status->env_map));
 	handle_exec_error(argv[0], path);
 	free_argv(argv);
 	exit(1);

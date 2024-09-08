@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 22:14:24 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/09/08 21:57:13 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/09 00:23:25 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int	builtin_unset(char **argv, t_map *envmap)
 			"not found in environment", &status);
 		else if (map_unset(envmap, argv[i]) < 0)
 			ps_unset_error("unset", argv[i], "failed to remove", &status);
+		else
+			status = 0;
 		i++;
 	}
 	return (status);

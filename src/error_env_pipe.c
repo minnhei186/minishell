@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/08 21:42:00 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/09/08 21:54:41 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/09 00:22:30 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@
 
 void	handle_exec_error(char *cmd, char *path)
 {
+	if (cmd == NULL)
+		return ;
 	if (ft_strchr(cmd, '/'))
 		perror(cmd);
 	else if (path != NULL)
