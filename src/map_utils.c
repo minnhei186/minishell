@@ -6,12 +6,17 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 00:05:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/09/04 21:33:01 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/08 19:20:27 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"../include/hashmap.h"
 
+// value = item_get_string(cur);
+// if (value)
+// {
+// 	free(value);
+// }
 void	map_printall(t_map *map)
 {
 	t_item	*cur;
@@ -22,11 +27,6 @@ void	map_printall(t_map *map)
 	while (cur)
 	{
 		printf("%s=%s ()\n", cur->name, cur->value);
-		// value = item_get_string(cur);
-		// if (value)
-		// {
-		// 	free(value);
-		// }
 		cur = cur->next;
 	}
 }

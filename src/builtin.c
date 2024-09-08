@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:37:38 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/09/07 21:29:34 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/08 20:25:21 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	exec_builtin(t_node *node, t_status *p_status)
 	return (status);
 }
 
+// if (ft_strcmp(cmd_name, "env") == 0)
+// 	return (B_ENV);
 t_cmd	get_builtin_enum(const char *cmd_name)
 {
 	if (ft_strcmp(cmd_name, "exit") == 0)
@@ -50,8 +52,6 @@ t_cmd	get_builtin_enum(const char *cmd_name)
 		return (B_EXPORT);
 	if (ft_strcmp(cmd_name, "unset") == 0)
 		return (B_UNSET);
-	// if (ft_strcmp(cmd_name, "env") == 0)
-	// 	return (B_ENV);
 	if (ft_strcmp(cmd_name, "cd") == 0)
 		return (B_CD);
 	if (ft_strcmp(cmd_name, "echo") == 0)

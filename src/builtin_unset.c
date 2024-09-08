@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 22:14:24 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/09/07 21:46:24 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/08 21:57:13 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,14 @@ static int	map_contains_key(t_map *envmap, const char *key)
 	return (0);
 }
 
+// process unset error
+static int	ps_unset_error(char *cmd, char *arg, char *msg, int *status)
+{
+	builtin_error(cmd, arg, msg);
+	*status = 1;
+	return (0);
+}
+
 int	builtin_unset(char **argv, t_map *envmap)
 {
 	int		status;
@@ -56,30 +64,16 @@ int	builtin_unset(char **argv, t_map *envmap)
 		return (1);
 	status = 0;
 	i = 1;
-	printf("Now unset \n");
 	while (argv[i])
 	{
 		if (argv[i][0] == '\0' || !is_valid_identifier(argv[i]))
-		{
-			builtin_error("unset", argv[i], "not a valid identifier");
-			status = 1;
-		}
-		else
-		{
-			if (!map_contains_key(envmap, argv[i]))
-			{
-				builtin_error("unset", argv[i], "not found in environment");
-				status = 1;
-			}
-			else if (map_unset(envmap, argv[i]) < 0)
-			{
-				builtin_error("unset", argv[i], "failed to remove");
-				status = 1;
-			}
-		}
+			ps_unset_error("unset", argv[i], "not a valid identifier", &status);
+		else if (!map_contains_key(envmap, argv[i]))
+			ps_unset_error("unset", argv[i], \
+			"not found in environment", &status);
+		else if (map_unset(envmap, argv[i]) < 0)
+			ps_unset_error("unset", argv[i], "failed to remove", &status);
 		i++;
 	}
-	printf("Now (printall) -> ");
-	map_printall(envmap);
 	return (status);
 }

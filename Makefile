@@ -31,7 +31,8 @@ LIBRARY =	-lreadline -L libft -lft
 # 			./src/redirect_utils.c \
 # 			./src/redirect.c \
 # 			./src/pipe.c
-SOURCES = 	./src/error_utils.c \
+SOURCES = 	./src/error_env_pipe.c \
+			./src/error_utils.c \
 			./src/error.c \
 			./src/read_pipe.c \
 			./src/readline.c \

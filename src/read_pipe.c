@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/01 19:49:06 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/30 01:56:38 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/08 21:57:51 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,70 +17,7 @@
 #include	<errno.h>
 
 void	validate_access(const char *path, const char *file_name);
-
-// pid_t	exec_pipeline(t_node *node)
-// {
-// 	extern char		**environ;
-// 	char			*path;
-// 	pid_t			pid;
-// 	char			**argv;
-
-// 	if (node == NULL)
-// 		return (-1);
-// 	prepare_pipe(node);
-// 	pid = fork();
-// 	if (pid < 0)
-// 		fatal_error("fork");
-// 	else if (pid == 0)
-// 	{
-// 		prepare_pipe_child(node);
-// 		do_redirect(node->cmd->redirects);
-// 		argv = token_to_argv(node->cmd->args);
-// 		path = argv[0];
-// 		if (ft_strchr(path, '/') == NULL)
-// 			path = find_path(path);
-// 		validate_access(path, argv[0]);
-// 		execve(path, argv, environ);
-// 		reset_redirect(node->cmd->redirects);
-// 		fatal_error("execve");
-// 	}
-// 	prepare_pipe_parent(node);
-// 	if (node->next)
-// 		return (exec_pipeline(node->next));
-// 	return (pid);
-// }
-
-// void	setup_child_process(t_node *node, t_status *status)
-// {
-// 	char		*path;
-// 	char		**argv;
-
-// 	reset_signal();
-// 	prepare_pipe_child(node);
-// 	if (is_builtin(node))
-// 		exit(exec_builtin(node, status));
-// 	else
-// 	{
-// 		do_redirect(node->cmd->redirects);
-// 		argv = token_to_argv(node->cmd->args);
-// 		path = argv[0];
-// 		if (ft_strchr(path, '/') == NULL)
-// 			path = find_path(path, status);
-// 		execve(path, argv, get_environ(status->env_map));
-// 		// validate_access(path, argv[0]);
-// 		if (ft_strchr(argv[0], '/'))
-// 		{
-// 			ft_putstr_fd("minishell: ", 2);
-// 			perror(argv[0]);
-// 		}
-// 		else
-// 			error_exit(argv[0], "command not found", 127);
-// 		free_argv(argv);
-// 		exit(1);
-// 		// reset_redirect(node->cmd->redirects);
-// 		// fatal_error("execve");
-// 	}
-// }
+void	handle_exec_error(char *cmd, char *path);
 
 // if (ft_strchr(path, '/') == NULL)
 // Check if that PATH is UNSET
@@ -88,8 +25,8 @@ void	validate_access(const char *path, const char *file_name);
 // -> If >>>> (Redirection) is coming, should return without any Memory leaks
 void	setup_child_process(t_node *node, t_status *status)
 {
-	char		*path;
-	char		**argv;
+	char	*path;
+	char	**argv;
 
 	reset_signal();
 	prepare_pipe_child(node);
@@ -97,19 +34,14 @@ void	setup_child_process(t_node *node, t_status *status)
 		exit(exec_builtin(node, status));
 	do_redirect(node->cmd->redirects);
 	argv = token_to_argv(node->cmd->args);
-	if (argv[0] == NULL)
+	if (!argv[0])
 		exit(1);
-	path = argv[0];
-	if (ft_strchr(path, '/') == NULL)
-		path = find_path(path, status);
-	execve(path, argv, get_environ(status->env_map));
 	if (ft_strchr(argv[0], '/'))
-	{
-		ft_putstr_fd("minishell: ", 2);
-		perror(argv[0]);
-	}
+		path = argv[0];
 	else
-		error_exit(argv[0], "command not found", 127);
+		path = find_path(argv[0], status);
+	execve(path, argv, get_environ(status->env_map));
+	handle_exec_error(argv[0], path);
 	free_argv(argv);
 	exit(1);
 }

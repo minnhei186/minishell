@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 19:31:14 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/31 18:13:39 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/08 21:55:09 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ bool	is_numeric(char *s);
 int		builtin_exit(char **argv, t_status *status);
 
 /* builtin_export.c */
+void	print_env_for_name(t_map *envmap, char *env_name);
 void	print_allenv(t_map *envmap);
 int		builtin_export(char **argv, t_map *envmap);
 

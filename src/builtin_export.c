@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 04:11:17 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/09/05 17:46:33 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/08 21:55:25 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 #include "../include/builtin.h"
 #include "../include/hashmap.h"
 #include <stdio.h>
-
-typedef struct s_map		t_map;
 
 char	*map_get(t_map *map, const char *name);
 
@@ -60,12 +58,12 @@ char	**get_env_names(t_map *envmap)
 }
 
 // Custom bubble sort function with while loops
-void bubble_sort_env_names(char **env_names, size_t count)
+void	bubble_sort_env_names(char **env_names, size_t count)
 {
-	size_t i;
-	size_t j;
-	char *temp;
-	int swapped;
+	size_t	i;
+	size_t	j;
+	char	*temp;
+	int		swapped;
 
 	i = 0;
 	while (i < count - 1)
@@ -84,7 +82,7 @@ void bubble_sort_env_names(char **env_names, size_t count)
 			j++;
 		}
 		if (swapped == 0)
-			break;  // No swaps means the array is already sorted
+			break ;
 		i++;
 	}
 }
@@ -92,7 +90,6 @@ void bubble_sort_env_names(char **env_names, size_t count)
 void	print_allenv(t_map *envmap)
 {
 	char	**env_names;
-	t_item	*cur;
 	size_t	count;
 	size_t	i;
 
@@ -104,19 +101,7 @@ void	print_allenv(t_map *envmap)
 	i = 0;
 	while (i < count)
 	{
-		cur = envmap->item_head.next;
-		while (cur)
-		{
-			if (ft_strcmp(cur->name, env_names[i]) == 0)
-			{
-				if (cur->value)
-					printf("declare -x %s=\"%s\"\n", cur->name, cur->value);
-				else
-					printf("declare -x %s\n", cur->name);
-				break ;
-			}
-			cur = cur->next;
-		}
+		print_env_for_name(envmap, env_names[i]);
 		free(env_names[i]);
 		i++;
 	}

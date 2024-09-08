@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 23:15:48 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/30 01:04:03 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/08 21:51:16 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include	"minishell.h"
 # include	"last_status.h"
+# include	"hashmap.h"
 # include	"../libft/libft.h"
 # define ERROR_TOKENIZE 258
 # define ERROR_PARSE 258
@@ -25,6 +26,14 @@
 
 typedef struct s_status		t_status;
 typedef struct s_token		t_token;
+typedef struct s_item		t_item;
+
+/* 
+	error_env_pipe.c
+	-> Handle with the pipe error that related to ENV, UNSET and PATH
+*/
+void	handle_exec_error(char *cmd, char *path);
+void	print_env_item(t_item *cur);
 
 /* error_utils.c */
 void	perror_prefix(void);
