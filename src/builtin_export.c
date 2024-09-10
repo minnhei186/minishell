@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 04:11:17 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/09/08 21:55:25 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/10 22:50:32 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ void	bubble_sort_env_names(char **env_names, size_t count)
 		swapped = 0;
 		while (j < count - i - 1)
 		{
-			if (strcmp(env_names[j], env_names[j + 1]) > 0)
+			if (ft_strcmp(env_names[j], env_names[j + 1]) > 0)
 			{
 				temp = env_names[j];
 				env_names[j] = env_names[j + 1];
