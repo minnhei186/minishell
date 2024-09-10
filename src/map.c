@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 20:04:04 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/09/09 01:18:25 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/09 18:48:58 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,14 +53,20 @@ char	*map_get(t_map *map, const char *name)
 
 // 	if (name == NULL || !is_identifier(name))
 // 		return (-1);
+// 	// printf("Map -> %p\n", map->item_head);
+// 	printf("Map Next -> %p\n", map->item_head.next);
 // 	cur = map->item_head.next;
+// 	printf("Map (Ampersand) -> %p\n", &map->item_head);
+// 	printf("Map (Ampersand) Next -> %p\n", &map->item_head.next);
+// 	printf("CUR address : %p\n", cur);
 // 	while (cur)
 // 	{
 // 		if (ft_strcmp(cur->name, name) == 0)
 // 		{
+// 			cur = cur->next;
 // 			free(cur->name);
 // 			free(cur->value);
-// 			free(map->environ);
+// 			free(cur);
 // 			return (0);
 // 		}
 // 		cur = cur->next;
@@ -69,32 +75,78 @@ char	*map_get(t_map *map, const char *name)
 // 	return (0);
 // }
 
-
-// free(map->environ)するとValgrindからエラーが発生します
 int	map_unset(t_map *map, const char *name)
 {
 	t_item	*cur;
-	t_item	*prev;
+	t_item	**link;
 
 	if (name == NULL || !is_identifier(name))
 		return (-1);
-	prev = &map->item_head;
-	printf("prev %p - %s\n", prev->next, prev->next->value);
+	link = &map->item_head.next;
 	cur = map->item_head.next;
-	printf("cur %p - %s\n", cur->next, cur->next->value);
 	while (cur)
 	{
 		if (ft_strcmp(cur->name, name) == 0)
 		{
-			prev->next = cur->next;
+			*link = cur->next;
 			free(cur->name);
 			free(cur->value);
 			free(cur);
 			return (0);
 		}
-		prev = prev->next;
+		link = &cur->next;
 		cur = cur->next;
 	}
-	cur->name = NULL;
 	return (0);
 }
+
+// int	map_unset(t_map *map, const char *name)
+// {
+// 	t_item	*cur;
+
+// 	if (name == NULL || !is_identifier(name))
+// 		return (-1);
+// 	cur = map->item_head.next;
+// 	while (cur)
+// 	{
+// 		if (ft_strcmp(cur->name, name) == 0)
+// 		{
+// 			map->item_head->next = cur->next;
+// 			free(cur->name);
+// 			free(cur->value);
+// 			free(cur);
+// 			return (0);
+// 		}
+// 		cur = &cur->next;
+// 	}
+// 	return (0);
+// }
+
+// free(map->environ)するとValgrindからエラーが発生します
+// int	map_unset(t_map *map, const char *name)
+// {
+// 	t_item	*cur;
+// 	t_item	*prev;
+
+// 	if (name == NULL || !is_identifier(name))
+// 		return (-1);
+// 	prev = &map->item_head;
+// 	printf("prev %p - %s\n", prev->next, prev->next->value);
+// 	cur = map->item_head.next;
+// 	printf("cur %p - %s\n", cur->next, cur->next->value);
+// 	while (cur)
+// 	{
+// 		if (ft_strcmp(cur->name, name) == 0)
+// 		{
+// 			prev->next = cur->next;
+// 			free(cur->name);
+// 			free(cur->value);
+// 			free(cur);
+// 			return (0);
+// 		}
+// 		prev = prev->next;
+// 		cur = cur->next;
+// 	}
+// 	cur->name = NULL;
+// 	return (0);
+// }

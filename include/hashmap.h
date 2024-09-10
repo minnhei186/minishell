@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/23 19:28:48 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/30 03:05:49 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/09 16:41:44 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ struct						s_item
 {
 	char					*name;
 	char					*value;
-	t_item					*next;	
+	t_item					*next;
 };
 
 struct						s_map
