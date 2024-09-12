@@ -57,6 +57,8 @@ SOURCES = 	./src/error_env_pipe.c \
 			./src/signal_utils.c \
 			./src/builtin.c \
 			./src/builtin_exit.c \
+			./src/export_handler.c \
+			./src/export_get_variable.c \
 			./src/builtin_export.c \
 			./src/builtin_unset.c \
 			./src/builtin_env.c \
