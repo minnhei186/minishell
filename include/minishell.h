@@ -6,12 +6,12 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 21:04:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/28 21:55:17 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/13 00:21:32 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef READLINE_H
-# define READLINE_H
+#ifndef MINISHELL_H
+# define MINISHELL_H
 
 # include "hashmap.h"
 # include "builtin.h"
@@ -30,6 +30,7 @@
 
 /* Tokenizer Enumeration */
 typedef struct s_token		t_token;
+
 enum	e_token_kind
 {
 	TK_WORD,
@@ -37,6 +38,7 @@ enum	e_token_kind
 	TK_OP,
 	TK_EOF,
 };
+
 typedef enum e_token_kind	t_token_kind;
 
 /* Struct for Tokenizer */
@@ -130,7 +132,7 @@ int		wait_pipeline(pid_t last_pid);
 // pid_t	exec_pipeline(t_node *node, t_map *envmap, t_status *status);
 pid_t	exec_pipeline(t_node *node, t_status *status);
 // original interpreter
-// void	interpreter(char *line, int *state_loca, t_map *envmap, \
+// void	interpreter(char *line, int *state_loca, t_map *envmap,
 // 	t_status *status);
 void	interpreter(char *line, int *state_loca, t_status *status);
 

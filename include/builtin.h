@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 19:31:14 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/09/12 23:16:40 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/13 00:19:24 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,8 @@ enum	e_cmd
 	B_PWD,
 	B_UNKNOWN
 };
-typedef enum e_cmd		t_cmd;
+
+typedef enum e_cmd			t_cmd;
 
 /* builtin.c */
 // original
