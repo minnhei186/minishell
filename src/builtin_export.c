@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/25 04:11:17 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/09/12 22:56:09 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/12 23:05:41 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,57 +293,104 @@ int	handle_append(t_map *envmap, const char *arg)
 // 	}
 // 	return (status);
 // }
+
+// Helper function to handle export with append ("+=")
+int	handle_export_append(t_map *envmap, char *arg)
+{
+	if (handle_append(envmap, arg) != 0) 
+	{
+		builtin_error("export", arg, "not a valid identifier");
+		return (1);
+	}
+	return (0);
+}
+
+// Helper function to handle export without '='
+int	handle_export_no_equals(char *arg, t_map *envmap)
+{
+	if (!map_get(envmap, arg))
+	{
+		printf("declare -x %s\n", arg);
+	}
+	else
+	{
+		print_allenv(envmap);
+	}
+	return (0);
+}
+
+// Main builtin_export function
 int	builtin_export(char **argv, t_map *envmap)
 {
 	size_t	i;
-	// char	*value;
 	int		status;
 
 	status = 0;
-	i = 1;
 	if (!argv[1])
 	{
 		print_allenv(envmap);
 		return (0);
 	}
+	i = 1;
 	while (argv[i])
 	{
-		if (ft_strchr(argv[i], '+') && ft_strstr(argv[i], "+=")) 
-		{
-			// Handle the case where '+=` is used
-			if (handle_append(envmap, argv[i]) != 0) 
-			{
-				builtin_error("export", argv[i], "not a valid identifier");
-				status = 1;
-			}
-		}
+		if (ft_strchr(argv[i], '+') && ft_strstr(argv[i], "+="))
+			status |= handle_export_append(envmap, argv[i]);
 		else if (!ft_strchr(argv[i], '='))
-		{
-			// No '=' means just print the variable
-			print_allenv(envmap);
-			// value = map_get(envmap, argv[i]);
-			// if (value)
-				// printf("declare -x %s=\"%s\"\n", argv[i], value);
-			// else
-				// printf("declare -x %s\n", argv[i]);
-			
-		}
+			status |= handle_export_no_equals(argv[i], envmap);
 		else if (!is_identifier(argv[i])) 
 		{
-			// If identifier is invalid
 			builtin_error("export", argv[i], "not a valid identifier");
 			status = 1;
 		}
-		else 
+		else if (map_put(envmap, argv[i], true) < 0)
 		{
-			// Normal export case, with '=' in the string
-			if (map_put(envmap, argv[i], true) < 0)
-			{
-				builtin_error("export", argv[i], "not a valid identifier");
-				status = 1;
-			}
+			builtin_error("export", argv[i], "not a valid identifier");
+			status = 1;
 		}
 		i++;
 	}
 	return (status);
 }
+
+// int	builtin_export(char **argv, t_map *envmap)
+// {
+// 	size_t	i;
+// 	int		status;
+
+// 	status = 0;
+// 	i = 1;
+// 	if (!argv[1])
+// 	{
+// 		print_allenv(envmap);
+// 		return (0);
+// 	}
+// 	while (argv[i])
+// 	{
+// 		if (ft_strchr(argv[i], '+') && ft_strstr(argv[i], "+=")) 
+// 		{
+// 			if (handle_append(envmap, argv[i]) != 0) 
+// 			{
+// 				builtin_error("export", argv[i], "not a valid identifier");
+// 				status = 1;
+// 			}
+// 		}
+// 		else if (!ft_strchr(argv[i], '='))
+// 			print_allenv(envmap);
+// 		else if (!is_identifier(argv[i])) 
+// 		{
+// 			builtin_error("export", argv[i], "not a valid identifier");
+// 			status = 1;
+// 		}
+// 		else 
+// 		{
+// 			if (map_put(envmap, argv[i], true) < 0)
+// 			{
+// 				builtin_error("export", argv[i], "not a valid identifier");
+// 				status = 1;
+// 			}
+// 		}
+// 		i++;
+// 	}
+// 	return (status);
+// }
