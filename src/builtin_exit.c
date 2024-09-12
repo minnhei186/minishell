@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:39:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/09/12 23:48:25 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/13 01:01:24 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,6 +75,8 @@ static long	convert_to_long(char *arg)
 	return (res);
 }
 
+// exit aa | exitした時に必ず１３０が出ないと行けないが、
+// 何故かBashとMinishellどっちても０が現れる。。
 int	builtin_exit(char **argv, t_status *status)
 {
 	long	res;
@@ -85,7 +87,10 @@ int	builtin_exit(char **argv, t_status *status)
 	if (!is_numeric(argv[1]))
 	{
 		print_numeric_error(argv[1]);
-		exit(2);
+		if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
+			exit(130);
+		else
+			exit(2);
 	}
 	res = convert_to_long(argv[1]);
 	if (argv[2])
