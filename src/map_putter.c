@@ -6,11 +6,26 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/29 00:14:55 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/08/29 16:49:33 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/12 18:42:15 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../include/hashmap.h"
+
+//flag 0:write 1:read 
+// #define WRITE 0
+// #define READ 1
+
+// int exit_status(int flag, int value)
+// {
+// 	static int stk;
+
+// 	if (flag == WRITE) 
+// 		stk = value;
+// 	else if (flag == READ)
+// 		return stk;
+// 	return 0;
+// }
 
 static void	get_name_value(const char *string, bool allow_empty_value, \
 	char **name, char **value)
