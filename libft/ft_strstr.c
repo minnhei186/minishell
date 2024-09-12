@@ -6,56 +6,70 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/09/12 16:28:51 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/09/12 16:38:04 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/12 16:42:30 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include	"libft.h"
 
-char	*ft_strchr(const char *s, int c)
+char	*ft_strstr(const char *haystack, const char *needle)
 {
-	return (ft_strnchr(s, c, ft_strlen(s) + 1));
+	size_t	i;
+	size_t	n;
+
+	i = 0;
+	n = 0;
+	if (needle[0] == '\0')
+		return ((char *)haystack);
+	while (haystack[i] != '\0')
+	{
+		if (haystack[i] == needle[n])
+		{
+			while (haystack[i + n] == needle[n])
+			{
+				if (needle[n + 1] == '\0')
+					return ((char *)(haystack + i));
+				n++;
+			}
+			n = 0;
+		}
+		i++;
+	}
+	return (NULL);
 }
 
 // int	main(void)
 // {
-// 	const char	*str = "Hello, World!";
+// 	const char	*haystack = "Hello, World!";
+// 	const char	*needle;
 // 	char		*result;
-// 	// Test 1: Use ft_strchr to find 'o'
-// 	result = ft_strchr(str, 'o');
+// 	// Test 1: Find "World" in "Hello, World!"
+// 	needle = "World";
+// 	result = ft_strstr(haystack, needle);
 // 	if (result)
-// 		printf("Found 'o' using ft_strchr: %s\n", result);
+// 		printf("Found '%s' in '%s': %s\n", needle, haystack, result);
 // 	else
-// 		printf("'o' not found using ft_strchr.\n");
-// 	// Test 2: Use ft_strnchr to find 'o' within first 5 characters
-// 	result = ft_strnchr(str, 'o', 5);
+// 		printf("'%s' not found in '%s'.\n", needle, haystack);
+// 	// Test 2: Find "Hello" in "Hello, World!"
+// 	needle = "Hello";
+// 	result = ft_strstr(haystack, needle);
 // 	if (result)
-// 		printf("Found 'o' using ft_strnchr (within 5 chars): %s\n", result);
+// 		printf("Found '%s' in '%s': %s\n", needle, haystack, result);
 // 	else
-// 		printf("'o' not found within 5 characters using ft_strnchr.\n");
-// 	// Test 3: Use ft_strnchr to find 'o' within first 10 characters
-// 	result = ft_strnchr(str, 'o', 10);
+// 		printf("'%s' not found in '%s'.\n", needle, haystack);
+// 	// Test 3: Find an empty string (should return the whole string)
+// 	needle = "";
+// 	result = ft_strstr(haystack, needle);
 // 	if (result)
-// 		printf("Found 'o' using ft_strnchr (within 10 chars): %s\n", result);
+// 		printf("Found empty string in '%s': %s\n", haystack, result);
 // 	else
-// 		printf("'o' not found within 10 characters using ft_strnchr.\n");
-// 	// Test 4: Try to find 'z', which is not in the string using ft_strchr
-// 	result = ft_strchr(str, 'z');
+// 		printf("Empty string not found in '%s'.\n", haystack);
+// 	// Test 4: Try to find a string that is not present
+// 	needle = "42";
+// 	result = ft_strstr(haystack, needle);
 // 	if (result)
-// 		printf("Found 'z' using ft_strchr: %s\n", result);
+// 		printf("Found '%s' in '%s': %s\n", needle, haystack, result);
 // 	else
-// 		printf("'z' not found using ft_strchr.\n");
-// 	// Test 5: Use ft_strchr to find the null terminator '\0'
-// 	result = ft_strchr(str, '\0');
-// 	if (result)
-// 		printf("Found null terminator using ft_strchr.\n");
-// 	else
-// 		printf("Null terminator not found using ft_strchr.\n");
-// 	// Test 6: Compare with the standard library strchr function for 'o'
-// 	result = strchr(str, 'o');
-// 	if (result)
-// 		printf("Found 'o' using standard strchr: %s\n", result);
-// 	else
-// 		printf("'o' not found using standard strchr.\n");
+// 		printf("'%s' not found in '%s'.\n", needle, haystack);
 // 	return (0);
 // }
