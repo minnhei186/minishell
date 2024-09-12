@@ -6,7 +6,7 @@
 /*   By: geonwkim <geonwkim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/18 18:39:25 by geonwkim          #+#    #+#             */
-/*   Updated: 2024/09/13 01:01:24 by geonwkim         ###   ########.fr       */
+/*   Updated: 2024/09/13 01:19:54 by geonwkim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 
 bool	is_numeric(char *s)
 {
-	if (!ft_isdigit(*s))
+	if (!(*s))
 		return (false);
 	while (*s)
 	{
@@ -81,22 +81,28 @@ int	builtin_exit(char **argv, t_status *status)
 {
 	long	res;
 
-	ft_putendl_fd("exit", 1);
 	if (argv[1] == NULL)
+	{
+		ft_putendl_fd("exit", 1);
 		exit(status->last_status);
+	}
 	if (!is_numeric(argv[1]))
 	{
 		print_numeric_error(argv[1]);
 		if (!isatty(STDIN_FILENO) || !isatty(STDOUT_FILENO))
 			exit(130);
 		else
+		{
+			ft_putendl_fd("exit", 1);
 			exit(2);
+		}
 	}
-	res = convert_to_long(argv[1]);
 	if (argv[2])
 	{
 		xperror("exit: too many arguments");
 		return (1);
 	}
+	res = convert_to_long(argv[1]);
+	ft_putendl_fd("exit", 1);
 	exit((int)res);
 }
